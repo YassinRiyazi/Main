@@ -4,6 +4,7 @@
 > 1. organize 
 > 2. document 
 > 3. store 
+> 
 > all my effort during my __journey__. 
 
 > [!TIP]
@@ -22,7 +23,7 @@
 
 ## Rules:
 1. All functions must be prototyped in python. 
-1. 1. If performance is necessary, after trying with python go for other better implementation.
+    1. If performance is necessary, after trying with python go for other better implementation.
 
 2. Source file with appropriate comments must be implemented in ./src appropriate folder.
 
