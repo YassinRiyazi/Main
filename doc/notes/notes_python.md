@@ -1,3 +1,2 @@
 # Notes on Python
-- List comprehensions are concise but can reduce readability if overused.
-- Use `virtualenv` for project-specific dependencies.
+- Using \__init__.py will fail in docs. 

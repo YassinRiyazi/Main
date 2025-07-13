@@ -11,7 +11,7 @@ source_dirs = {
     'CUDA': 'src/CUDA'
 }
 notes_dir = 'doc/notes'
-output_base_dir = 'Web'
+output_base_dir = 'docs'
 
 def generate_python_function_html(func):
     """Generate HTML for a Python function."""
@@ -208,6 +208,6 @@ def main():
 
 if __name__ == "__main__":
     import shutil
-    shutil.rmtree(r"Web")
+    shutil.rmtree(r"docs")
 
     main()
