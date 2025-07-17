@@ -1,59 +1,21 @@
-import  time
-import  tracemalloc
-from    functools   import      wraps
+import sys
+import os
 
-def measure_performance(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        # Start memory tracking
-        tracemalloc.start()
-        start_time = time.perf_counter()
-        
-        result = func(*args, **kwargs)
-        
-        end_time = time.perf_counter()
-        current, peak = tracemalloc.get_traced_memory()
-        tracemalloc.stop()
-        
-        print(f"[{func.__name__}] Execution time: {end_time - start_time:.6f} seconds")
-        print(f"[{func.__name__}] Current memory usage: {current / 1024:.2f} KiB")
-        print(f"[{func.__name__}] Peak memory usage: {peak / 1024:.2f} KiB")
-        
-        return result
-    return wrapper
+# Add the absolute path to the ./src folder
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../', 'src')))
 
-def average_performance(runs=1000):
-    def decorator(func):
-        @wraps(func)
-        def wrapper(*args, **kwargs):
-            total_time = 0.0
-            total_peak_memory = 0.0
+# Now you can import normally
+from PyThon.Performance import average_performance,measure_performance
 
-            for i in range(runs):
-                tracemalloc.start()
-                start_time = time.perf_counter()
-
-                result = func(*args, **kwargs)
-
-                end_time = time.perf_counter()
-                _, peak = tracemalloc.get_traced_memory()
-                tracemalloc.stop()
-
-                total_time += (end_time - start_time)
-                total_peak_memory += peak
-                
-
-            avg_time = total_time / runs
-            avg_peak_memory = total_peak_memory / runs / 1024  # in KiB
-
-            print(f"[{func.__name__}] Ran {runs} times")
-            print(f"[{func.__name__}] Avg execution time: {avg_time:.6f} seconds")
-            print(f"[{func.__name__}] Avg peak memory usage: {avg_peak_memory:.2f} KiB")
-
-            return result
-        return wrapper
-    return decorator
 #######################################################################################3
+
+"""
+    Caution:
+        Code will fail if there are more than one drop in the image.
+        Images should have exactly 5 rows of black pixels at the bottom of the image.
+        It works with tilted setup drop imaeges, on other drop shape it is untested
+
+"""
 
 import cv2
 import numpy                as np
@@ -104,6 +66,7 @@ def detect_drop(image,dims,show = False,scaleDownFactorx = 5, scaleDownFactory =
     Caution:
         Code will fail if there are more than one drop in the image.
         Images should have exactly 5 rows of black pixels at the bottom of the image.
+        It works with tilted setup drop imaeges, on other drop shape it is untested
 
     """
     resized_image = image
@@ -160,7 +123,6 @@ if __name__ == "__main__":
     draw_bounds(image, beginning, endpoint,scaleDownFactor)
 
 """
-    TODO:
         To make code versitile, normalize based on the nimber of height pixels with maximum brighness./ otherwise overflow may occur.
             I failed, I don't know how does it generate 130000 from summing pixels.
             And it is really costly to cast float to int.
@@ -189,5 +151,8 @@ if __name__ == "__main__":
                     [detection] Avg peak memory usage: 158.18 KiB
                 !!! If is more damaging than transpose, because it is not optimized for numpy arrays.
                 !!! And probably inside numy transpose happends for calculating the sum.
+    Code execution is 480 microseconds.
 
+    TODO:
+        Going to test with C.
 """
