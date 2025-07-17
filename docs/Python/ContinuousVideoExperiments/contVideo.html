@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C Notes Documentation</title>
+    <title>contVideo Documentation</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -85,36 +85,69 @@
 <li class="language">Python
 <ul>
 <li>ContinuousVideoExperiments<ul>
-<li><a href="../Python/ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+<li><a href="contVideo.html">contVideo.py</a></li>
 </ul></li>
 <li>FFMpeg<ul>
-<li><a href="../Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+<li><a href="../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 </ul></li>
 <li>Test<ul>
-<li><a href="../Python/Test/test.html">test.py</a></li>
+<li><a href="../Test/test.html">test.py</a></li>
 </ul></li>
-<li><a href="../Python/notes.html">python_notes.md</a></li>
+<li><a href="../notes.html">python_notes.md</a></li>
 </ul>
 </li>
 <li class="language">C
 <ul>
 <li>Test<ul>
-<li><a href="Test/temp.html">temp.c</a></li>
+<li><a href="../../C/Test/temp.html">temp.c</a></li>
 </ul></li>
-<li><a href="notes.html">c_notes.md</a></li>
+<li><a href="../../C/notes.html">c_notes.md</a></li>
 </ul>
 </li>
 </ul>
 </nav>
     
     <div class="content">
-        <h1>C Notes Documentation</h1>
+        <h1>contVideo Documentation</h1>
         
-        <h1>Notes on C</h1>
-<ul>
-<li>Use <code>stdio.h</code> for basic I/O operations.</li>
-<li>Pointers can be tricky; always double-check dereferencing.</li>
+        <div class="function">
+<div class="function-name">safe_delete()</div>
+<div class="description">Safely deletes a file if it exists.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>file</code> (str): Path to the file to delete.</li>
 </ul>
+<div class="section-title">Returns:</div>
+<div><code>None</code>: None</div>
+</div>
+<div class="function">
+<div class="function-name">delInRange()</div>
+<div class="description">Deletes a range of files from a list using multithreading.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>_start</code> (int): Start index of the file range to delete.</li>
+<li><code>_end</code> (int): End index (exclusive) of the file range to delete.</li>
+<li><code>_listadress</code> (list): List of file paths.</li>
+<li><code>max_threads</code> (int, optional): Maximum number of threads to use. Defaults to 8.</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>None</code>: None</div>
+</div>
+<div class="function">
+<div class="function-name">detect_and_filter_batch()</div>
+<div class="description">Worker function for a process that detects drops in a batch of frames using YOLO. Deletes all frames in the range if no drops are detected in the first and last frames.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>index_range</code> (tuple): Contains (start_idx, end_idx, frame_list, skip, yolo_conf)</li>
+</ul>
+</div>
+<div class="function">
+<div class="function-name">Walker()</div>
+<div class="description">Walk through all images in a folder in steps of `skip` frames. Uses multiprocessing to detect drops with YOLO and deletes frame ranges without drops.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>image_folder</code> (str): Path to the folder containing image frames.</li>
+<li><code>skip</code> (int, optional): Frame step size. Defaults to 90.</li>
+<li><code>yolo_conf</code> (float, optional): YOLO confidence threshold. Defaults to 0.6.</li>
+<li><code>num_workers</code> (int, optional): Number of parallel processes. Defaults to half of CPU cores.</li>
+</ul>
+</div>
         
         <footer>
             <p>Documentation generated on <span>2025-07-15 14:46:01</span></p>

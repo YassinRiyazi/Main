@@ -54,7 +54,7 @@ def generate_c_function_html(func):
 
 def generate_content_html(file_path):
     """Generate HTML content for functions in the given source file."""
-    if file_path.endswith('.py'):
+    if file_path.endswith('.py') and not file_path.endswith("__init__.py"):
         functions = maker.extract_python_functions(file_path)
         content = [generate_python_function_html(func) for func in functions]
         lang = 'Python'

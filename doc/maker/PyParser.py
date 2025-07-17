@@ -67,24 +67,48 @@ def parse_python_docstring(docstring):
     return sections
 
 
-def extract_python_functions(file_path):
-    """Extract functions and their docstrings from a Python file."""
-    with open(file_path, 'r') as f:
-        content = f.read()
+# def extract_python_functions(file_path):
+#     """Extract functions and their docstrings from a Python file."""
+#     with open(file_path, 'r') as f:
+#         content = f.read()
     
-    pattern = re.compile(
-        r'def\s+(\w+)\s*\([^)]*\)\s*:\s*\n\s*"""(.*?)"""',
-        re.DOTALL
-    )
+#     pattern = re.compile(
+#         r'def\s+(\w+)\s*\([^)]*\)\s*:\s*\n\s*"""(.*?)"""',
+#         re.DOTALL
+#     )
+    
+#     functions = []
+#     for match in pattern.finditer(content):
+#         func_name = match.group(1)
+#         docstring = match.group(2).strip()
+#         doc_sections = parse_python_docstring(docstring)
+#         functions.append({
+#             'name': func_name,
+#             'doc': doc_sections
+#         })
+    
+#     return functions
+
+
+import ast
+
+def extract_python_functions(file_path):
+    """Extract functions and their docstrings from a Python file using AST."""
+    with open(file_path, 'r', encoding='utf-8') as f:
+        tree = ast.parse(f.read(), filename=file_path)
     
     functions = []
-    for match in pattern.finditer(content):
-        func_name = match.group(1)
-        docstring = match.group(2).strip()
-        doc_sections = parse_python_docstring(docstring)
-        functions.append({
-            'name': func_name,
-            'doc': doc_sections
-        })
+    for node in ast.walk(tree):
+        if isinstance(node, ast.FunctionDef):
+            docstring = ast.get_docstring(node)
+            if docstring:
+                doc_sections = parse_python_docstring(docstring)
+                functions.append({
+                    'name': node.name,
+                    'doc': doc_sections
+                })
     
     return functions
+
+if __name__ == "__main__":
+    print(extract_python_functions("src/PyThon/Test/test.py"))
