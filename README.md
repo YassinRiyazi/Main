@@ -14,12 +14,14 @@
 > Vanilla HTML which was automatically generated from [Source](./src)
 >
 > > - [ ] Adding tags to automatically connect relevant functions from different implementations.
+> > - [ ] Add unified method to add TODO
+> > - [ ] Add functionality to import read me description for each src file and folder, and including it in web doc
 
 ## Target:
 0. Doing a hell of a Ph.D.
 1. Learning to connect/ bind C, C++, CUDA and, Python.
-2. Learning to properly debug.
-3. Efficiency, developing solutions for real-time/real-world applications.
+2. Learning to properly debugging.
+3. Efficiency; developing solutions for real-time/real-world applications.
 
 
 
