@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Documentation</title>
+    <title>DropDetection_Sum Documentation</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -126,59 +126,57 @@
 <li class="language">Python
 <ul>
 <li>ContinuousVideoExperiments<ul>
-<li><a href="Python/ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+<li><a href="../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
 </ul></li>
 <li>DropDetection<ul>
-<li><a href="Python/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
-<li><a href="Python/DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-<li><a href="Python/DropDetection/utils.html">utils.py</a></li>
+<li><a href="DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+<li><a href="DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+<li><a href="utils.html">utils.py</a></li>
 </ul></li>
 <li>DynamicLoader<ul>
-<li><a href="Python/DynamicLoader/DLoader.html">DLoader.py</a></li>
+<li><a href="../DynamicLoader/DLoader.html">DLoader.py</a></li>
 </ul></li>
 <li>FFMpeg<ul>
-<li><a href="Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+<li><a href="../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 </ul></li>
 <li>Performance<ul>
-<li><a href="Python/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+<li><a href="../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
 </ul></li>
 <li>Test<ul>
-<li><a href="Python/Test/test.html">test.py</a></li>
+<li><a href="../Test/test.html">test.py</a></li>
 </ul></li>
-<li><a href="Python/notes.html">python_notes.md</a></li>
+<li><a href="../notes.html">python_notes.md</a></li>
 </ul>
 </li>
 <li class="language">C
 <ul>
 <li>Test<ul>
-<li><a href="C/Test/temp.html">temp.c</a></li>
+<li><a href="../../C/Test/temp.html">temp.c</a></li>
 </ul></li>
-<li><a href="C/notes.html">c_notes.md</a></li>
+<li><a href="../../C/notes.html">c_notes.md</a></li>
 </ul>
 </li>
 </ul>
 </nav>
     
     <div class="content">
-        <h1>Project Documentation</h1>
+        <h1>DropDetection_Sum Documentation</h1>
         
-        <h1>Project Documentation</h1>
-<div class="overview">
-<h2>Python Files</h2><ul>
-<li><a href="Python/Test/test.html">test</a></li>
-<li><a href="Python/DynamicLoader/DLoader.html">DLoader</a></li>
-<li><a href="Python/Performance/Performance_mesurements.html">Performance_mesurements</a></li>
-<li><a href="Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg</a></li>
-<li><a href="Python/ContinuousVideoExperiments/contVideo.html">contVideo</a></li>
-<li><a href="Python/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference</a></li>
-<li><a href="Python/DropDetection/utils.html">utils</a></li>
-<li><a href="Python/DropDetection/DropDetection_Sum.html">DropDetection_Sum</a></li>
-<li><a href="Python/notes.html">Python Notes</a></li>
-</ul>
-<h2>C Files</h2><ul>
-<li><a href="C/Test/temp.html">temp</a></li>
-<li><a href="C/notes.html">C Notes</a></li>
-</ul>
+        <div class="function">
+<div class="function-name">walk_forward()</div>
+<div class="description">Walk forward from the start index until we find a value greater than 0. Steep: a parameter that defines the steepness of the slope to detect the drop.</div>
+</div>
+<div class="function">
+<div class="function-name">backward()</div>
+<div class="description">Walk forward from the start index until we find a value greater than 0. Steep: a parameter that defines the steepness of the slope to detect the drop. if want to include wider dropes with low slope decrese the sensitivity of the slope. For example, if you want to detect drops with low surface tention, surfactant, slope shold be less than 0.0025</div>
+</div>
+<div class="function">
+<div class="function-name">detect_drop()</div>
+<div class="description">Trying to detect images with less than 2ms delay. [V] 0. Convert image to grayscale, [V] 1. Resizing image, [V] 2. Applyng gussina blur (morphologyEx worked better than Gaussian blur), [-] 3. Transpoing image (Optimization puposes) [Didn't improve any thing and because of if damaged was more than benefits], [V] 4. Summation over rows [-] 5. Normalize images based on height and maximum brightness, [V] 6. Finding beggining of the drop and ending of the drop, and finally drawing a rectangle around the drop. Caution: Code will fail if there are more than one drop in the image. Images should have exactly 5 rows of black pixels at the bottom of the image. It works with tilted setup drop imaeges, on other drop shape it is untested</div>
+</div>
+<div class="function">
+<div class="function-name">draw_bounds()</div>
+<div class="description">Draw a rectangle on the image from start to end.</div>
 </div>
         
         <footer>

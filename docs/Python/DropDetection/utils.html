@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Documentation</title>
+    <title>utils Documentation</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -126,58 +126,52 @@
 <li class="language">Python
 <ul>
 <li>ContinuousVideoExperiments<ul>
-<li><a href="Python/ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+<li><a href="../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
 </ul></li>
 <li>DropDetection<ul>
-<li><a href="Python/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
-<li><a href="Python/DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-<li><a href="Python/DropDetection/utils.html">utils.py</a></li>
+<li><a href="DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+<li><a href="DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+<li><a href="utils.html">utils.py</a></li>
 </ul></li>
 <li>DynamicLoader<ul>
-<li><a href="Python/DynamicLoader/DLoader.html">DLoader.py</a></li>
+<li><a href="../DynamicLoader/DLoader.html">DLoader.py</a></li>
 </ul></li>
 <li>FFMpeg<ul>
-<li><a href="Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+<li><a href="../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 </ul></li>
 <li>Performance<ul>
-<li><a href="Python/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+<li><a href="../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
 </ul></li>
 <li>Test<ul>
-<li><a href="Python/Test/test.html">test.py</a></li>
+<li><a href="../Test/test.html">test.py</a></li>
 </ul></li>
-<li><a href="Python/notes.html">python_notes.md</a></li>
+<li><a href="../notes.html">python_notes.md</a></li>
 </ul>
 </li>
 <li class="language">C
 <ul>
 <li>Test<ul>
-<li><a href="C/Test/temp.html">temp.c</a></li>
+<li><a href="../../C/Test/temp.html">temp.c</a></li>
 </ul></li>
-<li><a href="C/notes.html">c_notes.md</a></li>
+<li><a href="../../C/notes.html">c_notes.md</a></li>
 </ul>
 </li>
 </ul>
 </nav>
     
     <div class="content">
-        <h1>Project Documentation</h1>
+        <h1>utils Documentation</h1>
         
-        <h1>Project Documentation</h1>
-<div class="overview">
-<h2>Python Files</h2><ul>
-<li><a href="Python/Test/test.html">test</a></li>
-<li><a href="Python/DynamicLoader/DLoader.html">DLoader</a></li>
-<li><a href="Python/Performance/Performance_mesurements.html">Performance_mesurements</a></li>
-<li><a href="Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg</a></li>
-<li><a href="Python/ContinuousVideoExperiments/contVideo.html">contVideo</a></li>
-<li><a href="Python/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference</a></li>
-<li><a href="Python/DropDetection/utils.html">utils</a></li>
-<li><a href="Python/DropDetection/DropDetection_Sum.html">DropDetection_Sum</a></li>
-<li><a href="Python/notes.html">Python Notes</a></li>
-</ul>
-<h2>C Files</h2><ul>
-<li><a href="C/Test/temp.html">temp</a></li>
-<li><a href="C/notes.html">C Notes</a></li>
+        <div class="function">
+<div class="function-name">crop_and_save_image()</div>
+<div class="description">Crops a region from the input image and saves it to the output path.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>input_path</code> (str): Path to the input image.</li>
+<li><code>output_path</code> (str): Path to save the cropped image.</li>
+<li><code>x1</code> (int): Top-left x-coordinate.</li>
+<li><code>y1</code> (int): Top-left y-coordinate.</li>
+<li><code>x2</code> (int): Bottom-right x-coordinate.</li>
+<li><code>y2</code> (int): Bottom-right y-coordinate.</li>
 </ul>
 </div>
         

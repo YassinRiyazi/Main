@@ -13,7 +13,9 @@ from PyThon.Performance import average_performance,measure_performance
     Caution:
         Code will fail if there are more than one drop in the image.
         Images should have exactly 5 rows of black pixels at the bottom of the image.
-        It works with tilted setup drop imaeges, on other drop shape it is untested
+        It works with tilted setup drop imaeges, on other drop shape it is untested.
+        It intended for leveled images, and not tested on normal images.
+        If a smudge hit a drop, result are untested. 
 
 """
 
@@ -106,8 +108,14 @@ def draw_bounds(image, start, end,scaleDownFactor, thickness=2)-> None:
 
     plt.show()
 
-@average_performance(runs=1_000)
 def detection(image,scaleDownFactor):
+    vv              = detect_drop(image,image.shape, show=False, scaleDownFactorx=scaleDownFactor)
+    endpoint        = walk_forward(vv)
+    beginning       = backward(vv)
+    return beginning, endpoint
+
+@average_performance(runs=1_000)
+def detection_perf(image,scaleDownFactor):
     vv              = detect_drop(image,image.shape, show=False, scaleDownFactorx=scaleDownFactor)
     endpoint        = walk_forward(vv)
     beginning       = backward(vv)
@@ -116,9 +124,9 @@ def detection(image,scaleDownFactor):
 if __name__ == "__main__":
     # Load the image
     scaleDownFactor = 5
-    image_path      = "Projects/Viscosity/DropDetection/SampleImages/Long Drop.jpg"
+    image_path      = "Projects/Viscosity/DropDetection/SampleImages/002667.jpg"
     image           = cv2.imread(image_path)
-    beginning, endpoint = detection(image, scaleDownFactor)
+    beginning, endpoint = detection_perf(image, scaleDownFactor)
 
     draw_bounds(image, beginning, endpoint,scaleDownFactor)
 

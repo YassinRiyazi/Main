@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Documentation</title>
+    <title>DLoader Documentation</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -126,59 +126,52 @@
 <li class="language">Python
 <ul>
 <li>ContinuousVideoExperiments<ul>
-<li><a href="Python/ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+<li><a href="../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
 </ul></li>
 <li>DropDetection<ul>
-<li><a href="Python/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
-<li><a href="Python/DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-<li><a href="Python/DropDetection/utils.html">utils.py</a></li>
+<li><a href="../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+<li><a href="../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+<li><a href="../DropDetection/utils.html">utils.py</a></li>
 </ul></li>
 <li>DynamicLoader<ul>
-<li><a href="Python/DynamicLoader/DLoader.html">DLoader.py</a></li>
+<li><a href="DLoader.html">DLoader.py</a></li>
 </ul></li>
 <li>FFMpeg<ul>
-<li><a href="Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+<li><a href="../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 </ul></li>
 <li>Performance<ul>
-<li><a href="Python/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+<li><a href="../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
 </ul></li>
 <li>Test<ul>
-<li><a href="Python/Test/test.html">test.py</a></li>
+<li><a href="../Test/test.html">test.py</a></li>
 </ul></li>
-<li><a href="Python/notes.html">python_notes.md</a></li>
+<li><a href="../notes.html">python_notes.md</a></li>
 </ul>
 </li>
 <li class="language">C
 <ul>
 <li>Test<ul>
-<li><a href="C/Test/temp.html">temp.c</a></li>
+<li><a href="../../C/Test/temp.html">temp.c</a></li>
 </ul></li>
-<li><a href="C/notes.html">c_notes.md</a></li>
+<li><a href="../../C/notes.html">c_notes.md</a></li>
 </ul>
 </li>
 </ul>
 </nav>
     
     <div class="content">
-        <h1>Project Documentation</h1>
+        <h1>DLoader Documentation</h1>
         
-        <h1>Project Documentation</h1>
-<div class="overview">
-<h2>Python Files</h2><ul>
-<li><a href="Python/Test/test.html">test</a></li>
-<li><a href="Python/DynamicLoader/DLoader.html">DLoader</a></li>
-<li><a href="Python/Performance/Performance_mesurements.html">Performance_mesurements</a></li>
-<li><a href="Python/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg</a></li>
-<li><a href="Python/ContinuousVideoExperiments/contVideo.html">contVideo</a></li>
-<li><a href="Python/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference</a></li>
-<li><a href="Python/DropDetection/utils.html">utils</a></li>
-<li><a href="Python/DropDetection/DropDetection_Sum.html">DropDetection_Sum</a></li>
-<li><a href="Python/notes.html">Python Notes</a></li>
+        <div class="function">
+<div class="function-name">load_remote_module_to_temp()</div>
+<div class="description">Downloads a Python module from GitHub into a temp folder relative to this script, and imports it. <h3>Install Python Package</h3> <pre><code class="language-bash">pip install load-remote-module</code></pre></div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>url</code> (str): Raw GitHub URL of the Python module.</li>
+<li><code>module_name</code> (str): Name to use when importing the module.</li>
+<li><code>timeout</code> (int): Timeout in seconds for the internet connectivity check.</li>
 </ul>
-<h2>C Files</h2><ul>
-<li><a href="C/Test/temp.html">temp</a></li>
-<li><a href="C/notes.html">C Notes</a></li>
-</ul>
+<div class="section-title">Returns:</div>
+<div><code>module</code>: The dynamically imported module.</div>
 </div>
         
         <footer>
