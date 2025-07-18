@@ -1,11 +1,16 @@
 Metadata-Version: 2.4
 Name: load-remote-module
-Version: 0.1
+Version: 0.3.0
 Summary: Dynamically download and import remote Python modules from GitHub.
 Author-email: Yassin Riyazi <yassinriyazi@gmail.com>
 License: MIT
-Project-URL: Homepage, https://github.com/yourusername/load-remote-module
+Project-URL: Homepage, https://github.com/YassinRiyazi/Main/tree/main/src/PyThon/DynamicLoader
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
 
 To Dynamically laod the src modules. 
 

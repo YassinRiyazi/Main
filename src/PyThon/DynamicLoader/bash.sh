@@ -1,3 +1,5 @@
+pip install --upgrade pip setuptools wheel build twine
+
 python -m build
 
 twine upload dist/*
