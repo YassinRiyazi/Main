@@ -1,13 +1,3 @@
-import sys
-import os
-
-# Add the absolute path to the ./src folder
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../', 'src')))
-
-# Now you can import normally
-from PyThon.Performance import average_performance,measure_performance
-
-#######################################################################################3
 
 """
     Caution:
@@ -78,6 +68,11 @@ def detect_drop(image,dims,show = False,scaleDownFactorx = 5, scaleDownFactory =
     
     ## Close operation fills small dark holes # Kernel size depends on spot size
     resized_image = cv2.morphologyEx(resized_image, cv2.MORPH_CLOSE, kernel)
+    """
+    Opening is just another name of erosion followed by dilation. 
+    It is useful in removing noise, as we explained above. Here we use the function,
+    https://docs.opencv.org/4.x/d9/d61/tutorial_py_morphological_ops.html
+    """
 
     vv = resized_image.sum(axis=0)
     # vv = vv/(dims[0]-15)/scaleDownFactory  # Normalize the sum of rows
@@ -114,14 +109,26 @@ def detection(image,scaleDownFactor):
     beginning       = backward(vv)
     return beginning, endpoint
 
-@average_performance(runs=1_000)
-def detection_perf(image,scaleDownFactor):
-    vv              = detect_drop(image,image.shape, show=False, scaleDownFactorx=scaleDownFactor)
-    endpoint        = walk_forward(vv)
-    beginning       = backward(vv)
-    return beginning, endpoint
+
 
 if __name__ == "__main__":
+    import sys
+    import os
+
+    # Add the absolute path to the ./src folder
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../', 'src')))
+
+    # Now you can import normally
+    from PyThon.Performance import average_performance,measure_performance
+
+    @average_performance(runs=1_000)
+    def detection_perf(image,scaleDownFactor):
+        vv              = detect_drop(image,image.shape, show=False, scaleDownFactorx=scaleDownFactor)
+        endpoint        = walk_forward(vv)
+        beginning       = backward(vv)
+        return beginning, endpoint
+    
+
     # Load the image
     scaleDownFactor = 5
     image_path      = "Projects/Viscosity/DropDetection/SampleImages/002667.jpg"

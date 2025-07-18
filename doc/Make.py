@@ -7,7 +7,7 @@ import maker  # Assuming this module provides extract_python_functions and extra
 source_dirs = {
     'Python': 'src/PyThon',
     'C': 'src/C',
-    'C++': 'src/Cpp',
+    'C++': 'src/CPP',
     'CUDA': 'src/CUDA'
 }
 notes_dir = 'doc/notes'
@@ -156,7 +156,7 @@ def main():
                             })
     
     # Process notes files
-    for lang in ['Python', 'C']:
+    for lang in ['Python', 'C', 'C++', 'CUDA']:
         notes_file = os.path.join(notes_dir, f'notes_{lang.lower()}.md')
         content_html, file_lang = generate_notes_html(notes_file, lang)
         html_path = os.path.join(output_base_dir, lang, 'notes.html')

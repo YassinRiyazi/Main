@@ -133,8 +133,15 @@
 <li><a href="DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
 <li><a href="DropDetection/utils.html">utils.py</a></li>
 </ul></li>
+<li>DropLowHighUnifier<ul>
+<li><a href="DropLowHighUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+</ul></li>
 <li>DynamicLoader<ul>
-<li><a href="DynamicLoader/DLoader.html">DLoader.py</a></li>
+<li>load-remote-module<ul>
+<li>load_remote_module<ul>
+<li><a href="DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li>FFMpeg<ul>
 <li><a href="FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
@@ -156,6 +163,16 @@
 <li><a href="../C/notes.html">c_notes.md</a></li>
 </ul>
 </li>
+<li class="language">C++
+<ul>
+<li><a href="../C++/notes.html">c++_notes.md</a></li>
+</ul>
+</li>
+<li class="language">CUDA
+<ul>
+<li><a href="../CUDA/notes.html">cuda_notes.md</a></li>
+</ul>
+</li>
 </ul>
 </nav>
     
@@ -164,11 +181,23 @@
         
         <h1>Notes on Python</h1>
 <ul>
-<li>Using __init__.py will fail in docs. </li>
+<li>
+<p>Using __init__.py will fail in docs. </p>
+</li>
+<li>
+<p>Adding path of modules:
+    ```import sys
+    import os</p>
+<h1>Add the absolute path to the ./src folder</h1>
+<p>sys.path.append(os.path.abspath(os.path.join(os.path.dirname(<strong>file</strong>), '../../../', 'src')))</p>
+<h1>Now you can import normally</h1>
+<p>from PyThon.Performance import average_performance,measure_performance```</p>
+</li>
 </ul>
+<p>interesting opencv doc: <a href="https://docs.opencv.org/4.x/d2/d96/tutorial_py_table_of_contents_imgproc.html">Here</a></p>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-18 15:24:46</span></p>
+            <p>Documentation generated on <span>2025-07-18 18:55:25</span></p>
         </footer>
     </div>
 </body>
