@@ -1,4 +1,5 @@
 import os
+import shutil
 from datetime import datetime
 import markdown
 import maker  # Assuming this module provides extract_python_functions and extract_c_functions
@@ -13,74 +14,28 @@ source_dirs = {
 notes_dir = 'doc/notes'
 output_base_dir = 'docs'
 
-def generate_python_function_html(func):
-    """Generate HTML for a Python function."""
-    doc = func['doc']
-
-    vv = ""
-    for arg in doc['args']:
-            # vv+=f'<p style="background-color:yellow;"><b>{arg["name"]}</b></p>:<p style="background-color:green;"><b>{arg["type"]}</b></p>,'
-            vv += f'<span style="color:#94D6BFFF;"><b>{arg["name"]}</b></span>:<span style="color:#42C39DFF;"><b>{arg["type"]}</b></span>, '
-
-
-    html = [
-        '<div class="function">',
-        f'<div class="function-name">{func["name"]}({vv[:-1]})</div>',
-        f'<div class="description">{doc["description"]}</div>'
-    ]
-
-
-
-    if doc['args']:
-        html.append('<div class="section-title">Parameters:</div><ul>')
-        for arg in doc['args']:
-            html.append(f'<li><code>{arg["name"]}</code> ({arg["type"]}): {arg["desc"]}</li>')
-        html.append('</ul>')
-
-    if doc['returns']:
-        html.append('<div class="section-title">Returns:</div>')
-        html.append(f'<div><code>{doc["returns"]["type"]}</code>: {doc["returns"]["desc"]}</div>')
-
-    for kk in doc:
-        if doc[kk] != [] and kk != 'args' and kk != 'description' and kk != 'returns':
-            print(doc[kk])
-            html.append(f'<div class=section-title>{kk}:</div>')
-            for i in doc[kk]:
-                html.append(f'<div>{i}</div>')
-
-    html.append('</div>')
-    return '\n'.join(html)
-
-def generate_c_function_html(func):
-    """Generate HTML for a C function."""
-    doc = func['doc']
-    html = [
-        '<div class="function">',
-        f'<div class="function-name">{func["return_type"]} {func["name"]}()</div>',
-        f'<div class="brief">{doc["brief"]}</div>',
-        f'<div class="description">{doc["description"]}</div>'
-    ]
-    if doc['params']:
-        html.append('<div class="section-title">Parameters:</div><ul>')
-        for param in doc['params']:
-            html.append(f'<li><code>{param["name"]}</code>: {param["desc"]}</li>')
-        html.append('</ul>')
-    if doc['returns']:
-        html.append('<div class="section-title">Returns:</div>')
-        html.append(f'<div><code>{doc["returns"]["type"]}</code>: {doc["returns"]["desc"]}</div>')
-    html.append('</div>')
-    return '\n'.join(html)
-
 def generate_content_html(file_path):
     """Generate HTML content for functions in the given source file."""
     if file_path.endswith('.py') and not file_path.endswith("__init__.py"):
         functions = maker.extract_python_functions(file_path)
-        content = [generate_python_function_html(func) for func in functions]
+        content = [maker.generate_python_function_html(func) for func in functions]
         lang = 'Python'
+
     elif file_path.endswith('.c'):
         functions = maker.extract_c_functions(file_path)
-        content = [generate_c_function_html(func) for func in functions]
+        content = [maker.generate_c_function_html(func) for func in functions]
         lang = 'C'
+
+    # elif file_path.endswith('.cpp'):
+    #     functions = maker.extract_c_functions(file_path)
+    #     content = [maker.generate_cpp_function_html(func) for func in functions]
+    #     lang = 'C++'
+
+    # elif file_path.endswith('.cu'):
+    #     functions = maker.extract_c_functions(file_path)
+    #     content = [maker.generate_cuda_function_html(func) for func in functions]
+    #     lang = 'CUDA'
+
     else:
         return None, None
     return '\n'.join(content) if content else '<p>No functions found.</p>', lang
@@ -148,62 +103,10 @@ def create_nav_menu(processed_files, current_file_path):
     nav_html.extend(['</ul>', '</nav>'])
     return '\n'.join(nav_html)
 
-def main():
-    os.makedirs(output_base_dir, exist_ok=True)
-    processed_files = []
-    
-    # Process source files
-    for lang, dir_path in source_dirs.items():
-        if os.path.exists(dir_path):
-            for root, _, files in os.walk(dir_path):
-                for file in files:
-                    if file.endswith(('.py', '.c')):
-                        file_path = os.path.join(root, file)
-                        content_html, file_lang = generate_content_html(file_path)
-                        if content_html:
-                            base_name = os.path.splitext(file)[0]
-                            rel_path = os.path.relpath(file_path, start=source_dirs[lang])
-                            html_path = os.path.join(output_base_dir, lang, os.path.splitext(rel_path)[0] + '.html')
-                            os.makedirs(os.path.dirname(html_path), exist_ok=True)
-                            processed_files.append({
-                                'content_html': content_html,
-                                'lang': file_lang,
-                                'source_path': file_path,
-                                'html_path': html_path,
-                                'name': base_name,
-                                'type': 'source'
-                            })
-    
-    # Process notes files
-    for lang in ['Python', 'C', 'C++', 'CUDA']:
-        notes_file = os.path.join(notes_dir, f'notes_{lang.lower()}.md')
-        content_html, file_lang = generate_notes_html(notes_file, lang)
-        html_path = os.path.join(output_base_dir, lang, 'notes.html')
-        os.makedirs(os.path.dirname(html_path), exist_ok=True)
-        processed_files.append({
-            'content_html': content_html,
-            'lang': file_lang,
-            'source_path': notes_file,
-            'html_path': html_path,
-            'name': f'{lang} Notes',
-            'type': 'notes'
-        })
-    
-    # Generate full HTML for each file
-    for file in processed_files:
-        with open('doc/template.html', 'r') as f:
-            template = f.read()
-        nav_menu = create_nav_menu(processed_files, file['html_path'])
-        output = template.replace('<!-- TITLE -->', f"{file['name']} Documentation")
-        output = output.replace('<!-- NAVIGATION -->', nav_menu)
-        output = output.replace('<!-- CONTENT -->', file['content_html'])
-        output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        with open(file['html_path'], 'w') as f:
-            f.write(output)
-    
+def GenerateMainPage(LangLists,processed_files):
     # Generate index.html
     index_content = ['<h1>Project Documentation</h1>', '<div class="overview">']
-    for lang in ['Python', 'C', 'C++', 'CUDA']:
+    for lang in LangLists:
         lang_files = [f for f in processed_files if f['lang'] == lang]
         if lang_files:
             index_content.append(f'<h2>{lang} Files</h2><ul>')
@@ -214,19 +117,83 @@ def main():
             index_content.append('</ul>')
     index_content.append('</div>')
     index_content_html = '\n'.join(index_content)
+
     with open('doc/template.html', 'r') as f:
         template = f.read()
-    nav_menu = create_nav_menu(processed_files, os.path.join(output_base_dir, 'index.html'))
-    output = template.replace('<!-- TITLE -->', 'Project Documentation')
-    output = output.replace('<!-- NAVIGATION -->', nav_menu)
-    output = output.replace('<!-- CONTENT -->', index_content_html)
-    output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+
+    nav_menu    = create_nav_menu(processed_files, os.path.join(output_base_dir, 'index.html'))
+    output      = template.replace('<!-- TITLE -->', 'Project Documentation')
+    output      = output.replace('<!-- NAVIGATION -->', nav_menu)
+    output      = output.replace('<!-- CONTENT -->', index_content_html)
+    output      = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    output      = output.replace('<!-- Adress -->', '<a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a>')
+
     with open(os.path.join(output_base_dir, 'index.html'), 'w') as f:
         f.write(output)
 
 
-if __name__ == "__main__":
-    import shutil
-    shutil.rmtree(r"docs")
+def main():
+    if os.path.isdir(output_base_dir):
+        shutil.rmtree(output_base_dir)
+    os.makedirs(output_base_dir, exist_ok=True)
 
+    LangLists = ['Python', 'C', 'C++', 'CUDA']
+    processed_files = []
+    # Process source files
+    for lang, dir_path in source_dirs.items():
+        if os.path.exists(dir_path):
+            for root, _, files in os.walk(dir_path):
+                for file in files:
+                    if file.endswith(('.py',
+                                      '.c','.cu','.h',
+                                      '.cpp','.hpp',)):
+                        file_path = os.path.join(root, file)
+                        content_html, file_lang = generate_content_html(file_path)
+                        if content_html:
+                            base_name   = os.path.splitext(file)[0]
+                            rel_path    = os.path.relpath(file_path, start=source_dirs[lang])
+                            html_path   = os.path.join(output_base_dir, lang, os.path.splitext(rel_path)[0] + '.html')
+                            os.makedirs(os.path.dirname(html_path), exist_ok=True)
+                            processed_files.append({
+                                                    'content_html': content_html,
+                                                    'lang':         file_lang,
+                                                    'source_path':  file_path,
+                                                    'html_path':    html_path,
+                                                    'name':         base_name,
+                                                    'type': 'source'
+                                                })
+    
+    # Process notes files
+    for lang in LangLists:
+        notes_file = os.path.join(notes_dir, f'notes_{lang.lower()}.md')
+        content_html, file_lang = generate_notes_html(notes_file, lang)
+        html_path = os.path.join(output_base_dir, lang, 'notes.html')
+        os.makedirs(os.path.dirname(html_path), exist_ok=True)
+        processed_files.append({
+                                'content_html': content_html,
+                                'lang': file_lang,
+                                'source_path': notes_file,
+                                'html_path': html_path,
+                                'name': f'{lang} Notes',
+                                'type': 'notes'
+                            })
+    _tempWebAdress = "https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/"
+    # Generate full HTML for each file
+    for file in processed_files:
+        with open('doc/template.html', 'r') as f:
+            template = f.read()
+        nav_menu = create_nav_menu(processed_files, file['html_path'])
+        output  = template.replace('<!-- TITLE -->', f"{file['name']} Documentation")
+        output  = output.replace('<!-- NAVIGATION -->', nav_menu)
+        output  = output.replace('<!-- CONTENT -->', file['content_html'])
+        output  = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        output  = output.replace('<!-- Adress -->', f'<a href="{_tempWebAdress}{file["source_path"]}">{_tempWebAdress}{file["source_path"]}</a>')
+
+
+        with open(file['html_path'], 'w') as f:
+            f.write(output)
+    
+    GenerateMainPage(LangLists,processed_files)
+
+if __name__ == "__main__":
     main()

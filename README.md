@@ -17,7 +17,7 @@
 > > - [ ] Add unified method to add TODO
 > > - [ ] Add functionality to import read me description for each src file and folder, and including it in web doc
 > > - [ ] Add support for Python classes
-> > - [ ] Add a link in each doc page to include that module easily.
+> > - [V] Add a link in each doc page to include that module easily.
 
 ## Target:
 0. Doing a hell of a Ph.D.

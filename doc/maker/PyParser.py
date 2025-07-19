@@ -2,7 +2,9 @@ import re
 import ast
 
 def parse_python_docstring(docstring):
-    """Parse a Python docstring into a structured dictionary."""
+    """
+        Parse a Python docstring into a structured dictionary.
+    """
     sections = {
         'description': [],
         'args': [],
@@ -112,8 +114,41 @@ def extract_python_functions(file_path):
                     'name': node.name,
                     'doc': doc_sections
                 })
-    
     return functions
+
+def generate_python_function_html(func):
+    """Generate HTML for a Python function."""
+    doc = func['doc']
+
+    vv = ""
+    for arg in doc['args']:
+            vv += f'<span style="color:#94D6BFFF;"><b>{arg["name"]}</b></span>:<span style="color:#42C39DFF;"><b>{arg["type"]}</b></span>, '
+
+    html = [
+        '<div class="function">',
+        f'<div class="function-name">{func["name"]}({vv[:-1]})</div>',
+        f'<div class="description">{doc["description"]}</div>'
+    ]
+
+    if doc['args']:
+        html.append('<div class="section-title">Parameters:</div><ul>')
+        for arg in doc['args']:
+            html.append(f'<li><code>{arg["name"]}</code> ({arg["type"]}): {arg["desc"]}</li>')
+        html.append('</ul>')
+
+    if doc['returns']:
+        html.append('<div class="section-title">Returns:</div>')
+        html.append(f'<div><code>{doc["returns"]["type"]}</code>: {doc["returns"]["desc"]}</div>')
+
+    for kk in doc:
+        if doc[kk] != [] and kk != 'args' and kk != 'description' and kk != 'returns':
+            html.append(f'<div class=section-title>{kk}:</div>')
+            for i in doc[kk]:
+                html.append(f'<div>{i}</div>')
+
+    html.append('</div>')
+    return '\n'.join(html)
+
 
 if __name__ == "__main__":
     print(extract_python_functions("src/PyThon/Test/test.py"))

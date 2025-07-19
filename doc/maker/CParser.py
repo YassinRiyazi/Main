@@ -91,3 +91,24 @@ def extract_c_functions(file_path):
         })
     
     return functions
+
+
+def generate_c_function_html(func):
+    """Generate HTML for a C function."""
+    doc = func['doc']
+    html = [
+        '<div class="function">',
+        f'<div class="function-name">{func["return_type"]} {func["name"]}()</div>',
+        f'<div class="brief">{doc["brief"]}</div>',
+        f'<div class="description">{doc["description"]}</div>'
+    ]
+    if doc['params']:
+        html.append('<div class="section-title">Parameters:</div><ul>')
+        for param in doc['params']:
+            html.append(f'<li><code>{param["name"]}</code>: {param["desc"]}</li>')
+        html.append('</ul>')
+    if doc['returns']:
+        html.append('<div class="section-title">Returns:</div>')
+        html.append(f'<div><code>{doc["returns"]["type"]}</code>: {doc["returns"]["desc"]}</div>')
+    html.append('</div>')
+    return '\n'.join(html)

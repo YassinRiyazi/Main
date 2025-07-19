@@ -1,2 +1,2 @@
-from .PyParser import parse_python_docstring, extract_python_functions
-from .CParser import parse_c_comments, extract_c_functions
+from .PyParser import *
+from .CParser import *
