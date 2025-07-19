@@ -189,7 +189,11 @@
 </div>
 <div class="function">
 <div class="function-name">detect_drop()</div>
-<div class="description">Trying to detect images with less than 2ms delay. [V] 0. Convert image to grayscale, [V] 1. Resizing image, [V] 2. Applyng gussina blur (morphologyEx worked better than Gaussian blur), [-] 3. Transpoing image (Optimization puposes) [Didn't improve any thing and because of if damaged was more than benefits], [V] 4. Summation over rows [-] 5. Normalize images based on height and maximum brightness, [V] 6. Finding beggining of the drop and ending of the drop, and finally drawing a rectangle around the drop. Caution: Code will fail if there are more than one drop in the image. Images should have exactly 5 rows of black pixels at the bottom of the image. It works with tilted setup drop imaeges, on other drop shape it is untested</div>
+<div class="description">Trying to detect images with less than 2ms delay. [V] 0. Convert image to grayscale, [V] 1. Resizing image, [V] 2. Applyng gussina blur (morphologyEx worked better than Gaussian blur), [-] 3. Transpoing image (Optimization puposes) [Didn't improve any thing and because of if damaged was more than benefits], [V] 4. Summation over rows [-] 5. Normalize images based on height and maximum brightness, [V] 6. Finding beggining of the drop and ending of the drop, and finally drawing a rectangle around the drop.</div>
+<div class=section-title>caution:</div>
+<div>Code will fail if there are more than one drop in the image.</div>
+<div>Images should have exactly 5 rows of black pixels at the bottom of the image.</div>
+<div>It works with tilted setup drop imaeges, on other drop shape it is untested</div>
 </div>
 <div class="function">
 <div class="function-name">draw_bounds()</div>
@@ -197,7 +201,7 @@
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-18 18:55:25</span></p>
+            <p>Documentation generated on <span>2025-07-19 21:11:36</span></p>
         </footer>
     </div>
 </body>

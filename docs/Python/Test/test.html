@@ -180,25 +180,40 @@
         <h1>test Documentation</h1>
         
         <div class="function">
-<div class="function-name">calculate_area()</div>
+<div class="function-name">calculate_area(<span style="color:#94D6BFFF;"><b>radius</b></span>:<span style="color:#42C39DFF;"><b>float</b></span>,)</div>
 <div class="description">Calculate the area of a circle.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>radius</code> (float): The radius of the circle in meters.</li>
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>float</code>: The area of the circle in square meters.</div>
+<div class=section-title>examples:</div>
+<div>>>> calculate_area(2.0)</div>
+<div>12.566370614359172</div>
 </div>
 <div class="function">
-<div class="function-name">greet()</div>
+<div class="function-name">greet(<span style="color:#94D6BFFF;"><b>name</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>times</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>,)</div>
 <div class="description">Print a greeting message multiple times.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>name</code> (str): The name to greet.</li>
 <li><code>times</code> (int): Number of times to repeat the greeting (default: 1).</li>
 </ul>
+<div class=section-title>raises:</div>
+<div>{'type': 'ValueError', 'desc': 'If times is negative.'}</div>
+<div class=section-title>examples:</div>
+<div>>>> greet("Alice", 3)</div>
+<div class=section-title>notes:</div>
+<div>This function is a simple demonstration of how to use docstrings.</div>
+<div class=section-title>see_also:</div>
+<div>- `calculate_area`: A function that calculates the area of a circle.</div>
+<div class=section-title>caution:</div>
+<div>Ensure that the 'times' parameter is not negative.</div>
+<div class=section-title>warning:</div>
+<div>This function does not handle non-string names gracefully.</div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-18 18:55:25</span></p>
+            <p>Documentation generated on <span>2025-07-19 21:11:36</span></p>
         </footer>
     </div>
 </body>

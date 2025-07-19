@@ -1,4 +1,5 @@
 import re
+import ast
 
 def parse_python_docstring(docstring):
     """Parse a Python docstring into a structured dictionary."""
@@ -7,7 +8,11 @@ def parse_python_docstring(docstring):
         'args': [],
         'returns': None,
         'raises': [],
-        'examples': []
+        'examples': [],
+        'notes': [],
+        'see_also': [],
+        'caution': [],
+        'warning': [],
     }
     current_section = 'description'
     
@@ -29,6 +34,19 @@ def parse_python_docstring(docstring):
         elif line.lower().startswith('example:') or line.lower().startswith('examples:'):
             current_section = 'examples'
             continue
+
+        elif line.lower().startswith('notes:'):
+            current_section = 'notes'
+            continue
+        elif line.lower().startswith('see_also:') or line.lower().startswith('see also:'):
+            current_section = 'see_also'
+            continue    
+        elif line.lower().startswith('caution:'):
+            current_section = 'caution'
+            continue 
+        elif line.lower().startswith('warning:'):
+            current_section = 'warning'
+            continue    
             
         # Parse args section
         if current_section == 'args':
@@ -58,7 +76,19 @@ def parse_python_docstring(docstring):
         # Parse examples section
         elif current_section == 'examples':
             sections['examples'].append(line)
-        # Default to description
+
+        elif current_section == 'notes':
+            sections['notes'].append(line)
+
+        elif current_section == 'see_also':
+            sections['see_also'].append(line)
+
+        elif current_section == 'caution':
+            sections['caution'].append(line)
+
+        elif current_section == 'warning':
+            sections['warning'].append(line)
+
         else:
             sections['description'].append(line)
     
@@ -66,31 +96,6 @@ def parse_python_docstring(docstring):
     sections['description'] = ' '.join(sections['description'])
     return sections
 
-
-# def extract_python_functions(file_path):
-#     """Extract functions and their docstrings from a Python file."""
-#     with open(file_path, 'r') as f:
-#         content = f.read()
-    
-#     pattern = re.compile(
-#         r'def\s+(\w+)\s*\([^)]*\)\s*:\s*\n\s*"""(.*?)"""',
-#         re.DOTALL
-#     )
-    
-#     functions = []
-#     for match in pattern.finditer(content):
-#         func_name = match.group(1)
-#         docstring = match.group(2).strip()
-#         doc_sections = parse_python_docstring(docstring)
-#         functions.append({
-#             'name': func_name,
-#             'doc': doc_sections
-#         })
-    
-#     return functions
-
-
-import ast
 
 def extract_python_functions(file_path):
     """Extract functions and their docstrings from a Python file using AST."""

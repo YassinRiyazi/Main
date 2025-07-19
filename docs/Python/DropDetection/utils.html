@@ -180,7 +180,7 @@
         <h1>utils Documentation</h1>
         
         <div class="function">
-<div class="function-name">crop_and_save_image()</div>
+<div class="function-name">crop_and_save_image(<span style="color:#94D6BFFF;"><b>input_path</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>output_path</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>x1</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>y1</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>x2</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>y2</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>,)</div>
 <div class="description">Crops a region from the input image and saves it to the output path.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>input_path</code> (str): Path to the input image.</li>
@@ -190,10 +190,14 @@
 <li><code>x2</code> (int): Bottom-right x-coordinate.</li>
 <li><code>y2</code> (int): Bottom-right y-coordinate.</li>
 </ul>
+<div class=section-title>raises:</div>
+<div>{'type': 'ValueError', 'desc': 'If the crop coordinates are invalid or image cannot be loaded.'}</div>
+<div class=section-title>examples:</div>
+<div>crop_and_save_image("input.jpg", "output.jpg", 10, 20, 100, 200)</div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-18 18:55:25</span></p>
+            <p>Documentation generated on <span>2025-07-19 21:11:36</span></p>
         </footer>
     </div>
 </body>

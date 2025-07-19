@@ -27,6 +27,21 @@ def greet(name, times=1):
         
     Raises:
         ValueError: If times is negative.
+
+    Example:
+        >>> greet("Alice", 3)
+    
+    Caution:
+        Ensure that the 'times' parameter is not negative.
+
+    notes:
+        This function is a simple demonstration of how to use docstrings.
+    
+    See Also:
+        - `calculate_area`: A function that calculates the area of a circle.
+    
+    Warning:
+        This function does not handle non-string names gracefully.
     """
     if times < 0:
         raise ValueError("Times cannot be negative")

@@ -180,7 +180,7 @@
         <h1>Vidoe2Jpg Documentation</h1>
         
         <div class="function">
-<div class="function-name">ffmpegFrameExtractor()</div>
+<div class="function-name">ffmpegFrameExtractor(<span style="color:#94D6BFFF;"><b>input_video_path</b></span>:<span style="color:#42C39DFF;"><b>os.PathLike</b></span>, <span style="color:#94D6BFFF;"><b>output_frame_path</b></span>:<span style="color:#42C39DFF;"><b>os.PathLike, optional</b></span>, <span style="color:#94D6BFFF;"><b>fps</b></span>:<span style="color:#42C39DFF;"><b>int, optional</b></span>, <span style="color:#94D6BFFF;"><b>_Wipe</b></span>:<span style="color:#42C39DFF;"><b>bool, optional</b></span>, <span style="color:#94D6BFFF;"><b>_CUDA</b></span>:<span style="color:#42C39DFF;"><b>bool, optional</b></span>,)</div>
 <div class="description">Extract frames from a video using FFmpeg, with optional CUDA acceleration.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>input_video_path</code> (os.PathLike): Path to the input video file.</li>
@@ -191,10 +191,13 @@
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>None</code>: Not much</div>
+<div class=section-title>examples:</div>
+<div>>>> ffmpegFrameExtractor("video.mp4", fps=2)</div>
+<div>Frames extracted successfully to /path/to/video/frames/frame_%06d.jpg</div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-18 18:55:25</span></p>
+            <p>Documentation generated on <span>2025-07-19 21:11:36</span></p>
         </footer>
     </div>
 </body>

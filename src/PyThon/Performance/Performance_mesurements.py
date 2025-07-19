@@ -47,7 +47,7 @@ def measure_performance(func):
     return wrapper
 
 
-def average_performance(runs=1000):
+def average_performance(runs:int=1000):
     """
     <p style="background-color:tomato;"><b> Decorator:</b></p> factory that returns a decorator to measure average performance
     of a function over multiple runs.

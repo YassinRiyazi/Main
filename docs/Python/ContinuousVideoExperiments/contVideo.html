@@ -180,16 +180,18 @@
         <h1>contVideo Documentation</h1>
         
         <div class="function">
-<div class="function-name">safe_delete()</div>
+<div class="function-name">safe_delete(<span style="color:#94D6BFFF;"><b>file</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>,)</div>
 <div class="description">Safely deletes a file if it exists.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>file</code> (str): Path to the file to delete.</li>
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>None</code>: None</div>
+<div class=section-title>raises:</div>
+<div>{'type': 'Exception', 'desc': 'If any unexpected error occurs while deleting the file.'}</div>
 </div>
 <div class="function">
-<div class="function-name">delInRange()</div>
+<div class="function-name">delInRange(<span style="color:#94D6BFFF;"><b>_start</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>_end</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>_listadress</b></span>:<span style="color:#42C39DFF;"><b>list</b></span>, <span style="color:#94D6BFFF;"><b>max_threads</b></span>:<span style="color:#42C39DFF;"><b>int, optional</b></span>,)</div>
 <div class="description">Deletes a range of files from a list using multithreading.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>_start</code> (int): Start index of the file range to delete.</li>
@@ -199,16 +201,18 @@
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>None</code>: None</div>
+<div class=section-title>raises:</div>
+<div>{'type': 'Exception', 'desc': 'If any unexpected error occurs during file deletion.'}</div>
 </div>
 <div class="function">
-<div class="function-name">detect_and_filter_batch()</div>
+<div class="function-name">detect_and_filter_batch(<span style="color:#94D6BFFF;"><b>index_range</b></span>:<span style="color:#42C39DFF;"><b>tuple</b></span>,)</div>
 <div class="description">Worker function for a process that detects drops in a batch of frames using YOLO. Deletes all frames in the range if no drops are detected in the first and last frames.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>index_range</code> (tuple): Contains (start_idx, end_idx, frame_list, skip, yolo_conf)</li>
 </ul>
 </div>
 <div class="function">
-<div class="function-name">Walker()</div>
+<div class="function-name">Walker(<span style="color:#94D6BFFF;"><b>image_folder</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>skip</b></span>:<span style="color:#42C39DFF;"><b>int, optional</b></span>, <span style="color:#94D6BFFF;"><b>yolo_conf</b></span>:<span style="color:#42C39DFF;"><b>float, optional</b></span>, <span style="color:#94D6BFFF;"><b>num_workers</b></span>:<span style="color:#42C39DFF;"><b>int, optional</b></span>,)</div>
 <div class="description">Walk through all images in a folder in steps of `skip` frames. Uses multiprocessing to detect drops with YOLO and deletes frame ranges without drops.</div>
 <div class="section-title">Parameters:</div><ul>
 <li><code>image_folder</code> (str): Path to the folder containing image frames.</li>
@@ -216,10 +220,12 @@
 <li><code>yolo_conf</code> (float, optional): YOLO confidence threshold. Defaults to 0.6.</li>
 <li><code>num_workers</code> (int, optional): Number of parallel processes. Defaults to half of CPU cores.</li>
 </ul>
+<div class=section-title>examples:</div>
+<div>>>> Walker("extracted_frames", skip=30, yolo_conf=0.5)</div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-18 18:55:25</span></p>
+            <p>Documentation generated on <span>2025-07-19 21:11:36</span></p>
         </footer>
     </div>
 </body>
