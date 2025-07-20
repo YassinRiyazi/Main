@@ -14,28 +14,24 @@ source_dirs = {
 notes_dir = 'doc/notes'
 output_base_dir = 'docs'
 
+def get_language_from_path(html_path, output_base_dir):
+    """Determine the language from the HTML path."""
+    rel_path = os.path.relpath(html_path, output_base_dir)
+    parts = rel_path.split(os.sep)
+    if len(parts) >= 2 and parts[0] in ['Python', 'C', 'C++', 'CUDA']:
+        return parts[0]
+    return None
+
 def generate_content_html(file_path):
     """Generate HTML content for functions in the given source file."""
     if file_path.endswith('.py') and not file_path.endswith("__init__.py"):
         functions = maker.extract_python_functions(file_path)
         content = [maker.generate_python_function_html(func) for func in functions]
         lang = 'Python'
-
     elif file_path.endswith('.c'):
         functions = maker.extract_c_functions(file_path)
         content = [maker.generate_c_function_html(func) for func in functions]
         lang = 'C'
-
-    # elif file_path.endswith('.cpp'):
-    #     functions = maker.extract_c_functions(file_path)
-    #     content = [maker.generate_cpp_function_html(func) for func in functions]
-    #     lang = 'C++'
-
-    # elif file_path.endswith('.cu'):
-    #     functions = maker.extract_c_functions(file_path)
-    #     content = [maker.generate_cuda_function_html(func) for func in functions]
-    #     lang = 'CUDA'
-
     else:
         return None, None
     return '\n'.join(content) if content else '<p>No functions found.</p>', lang
@@ -54,7 +50,7 @@ def build_tree(files, source_dir):
     tree = {}
     for file in files:
         if file['type'] == 'notes':
-            tree[f"{file['lang'].lower()}_notes.md"] = file['html_path']
+            tree['Notes'] = file['html_path']
         else:
             rel_path = os.path.relpath(file['source_path'], source_dir)
             parts = rel_path.split(os.sep)
@@ -66,15 +62,19 @@ def build_tree(files, source_dir):
             current[parts[-1]] = file['html_path']
     return tree
 
-def generate_tree_html(tree, current_file_path):
-    """Recursively generate HTML for the directory tree."""
+def generate_tree_html(tree, current_file_path, current_path_parts=None):
+    """Recursively generate HTML for the directory tree with collapsible sections."""
+    if current_path_parts is None:
+        current_path_parts = []
     html = ['<ul>']
     for name in sorted(tree.keys()):
         value = tree[name]
         if isinstance(value, dict):
             # Directory
-            sub_html = generate_tree_html(value, current_file_path)
-            html.append(f'<li>{name}{sub_html}</li>')
+            is_open = current_path_parts and name == current_path_parts[0]
+            open_attr = ' open' if is_open else ''
+            sub_html = generate_tree_html(value, current_file_path, current_path_parts[1:] if is_open else [])
+            html.append(f'<li><details{open_attr}><summary>{name}</summary>{sub_html}</details></li>')
         else:
             # File
             rel_path = os.path.relpath(value, start=os.path.dirname(current_file_path))
@@ -84,7 +84,8 @@ def generate_tree_html(tree, current_file_path):
     return '\n'.join(html)
 
 def create_nav_menu(processed_files, current_file_path):
-    """Create the navigation menu with a tree structure."""
+    """Create the navigation menu with collapsible sections."""
+    current_file = next((f for f in processed_files if f['html_path'] == current_file_path), None)
     languages = {}
     for file in processed_files:
         lang = file['lang']
@@ -95,16 +96,25 @@ def create_nav_menu(processed_files, current_file_path):
     nav_html = ['<nav class="sidebar">', '<h2>Navigation</h2>', '<ul>']
     for lang in ['Python', 'C', 'C++', 'CUDA']:
         if lang in languages and languages[lang]:
-            nav_html.append(f'<li class="language">{lang}')
+            open_attr = ' open' if current_file and current_file['lang'] == lang else ''
+            if current_file and current_file['lang'] == lang:
+                if current_file['type'] == 'notes':
+                    current_path_parts = ['Notes']
+                else:
+                    rel_path = os.path.relpath(current_file['source_path'], source_dirs[lang])
+                    current_path_parts = rel_path.split(os.sep)
+            else:
+                current_path_parts = []
+            nav_html.append(f'<li class="language"><details{open_attr}><summary>{lang}</summary>')
             tree = build_tree(languages[lang], source_dirs[lang])
-            tree_html = generate_tree_html(tree, current_file_path)
+            tree_html = generate_tree_html(tree, current_file_path, current_path_parts)
             nav_html.append(tree_html)
-            nav_html.append('</li>')
+            nav_html.append('</details></li>')
     nav_html.extend(['</ul>', '</nav>'])
     return '\n'.join(nav_html)
 
-def GenerateMainPage(LangLists,processed_files):
-    # Generate index.html
+def GenerateMainPage(LangLists, processed_files):
+    """Generate index.html."""
     index_content = ['<h1>Project Documentation</h1>', '<div class="overview">']
     for lang in LangLists:
         lang_files = [f for f in processed_files if f['lang'] == lang]
@@ -121,16 +131,15 @@ def GenerateMainPage(LangLists,processed_files):
     with open('doc/template.html', 'r') as f:
         template = f.read()
 
-    nav_menu    = create_nav_menu(processed_files, os.path.join(output_base_dir, 'index.html'))
-    output      = template.replace('<!-- TITLE -->', 'Project Documentation')
-    output      = output.replace('<!-- NAVIGATION -->', nav_menu)
-    output      = output.replace('<!-- CONTENT -->', index_content_html)
-    output      = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    output      = output.replace('<!-- Adress -->', '<a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a>')
+    nav_menu = create_nav_menu(processed_files, os.path.join(output_base_dir, 'index.html'))
+    output = template.replace('<!-- TITLE -->', 'Project Documentation')
+    output = output.replace('<!-- NAVIGATION -->', nav_menu)
+    output = output.replace('<!-- CONTENT -->', index_content_html)
+    output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    output = output.replace('<!-- Adress -->', '<a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a>')
 
     with open(os.path.join(output_base_dir, 'index.html'), 'w') as f:
         f.write(output)
-
 
 def main():
     if os.path.isdir(output_base_dir):
@@ -144,24 +153,22 @@ def main():
         if os.path.exists(dir_path):
             for root, _, files in os.walk(dir_path):
                 for file in files:
-                    if file.endswith(('.py',
-                                      '.c','.cu','.h',
-                                      '.cpp','.hpp',)):
+                    if file.endswith(('.py', '.c', '.cu', '.h', '.cpp', '.hpp')):
                         file_path = os.path.join(root, file)
                         content_html, file_lang = generate_content_html(file_path)
                         if content_html:
-                            base_name   = os.path.splitext(file)[0]
-                            rel_path    = os.path.relpath(file_path, start=source_dirs[lang])
-                            html_path   = os.path.join(output_base_dir, lang, os.path.splitext(rel_path)[0] + '.html')
+                            base_name = os.path.splitext(file)[0]
+                            rel_path = os.path.relpath(file_path, start=source_dirs[lang])
+                            html_path = os.path.join(output_base_dir, lang, os.path.splitext(rel_path)[0] + '.html')
                             os.makedirs(os.path.dirname(html_path), exist_ok=True)
                             processed_files.append({
-                                                    'content_html': content_html,
-                                                    'lang':         file_lang,
-                                                    'source_path':  file_path,
-                                                    'html_path':    html_path,
-                                                    'name':         base_name,
-                                                    'type': 'source'
-                                                })
+                                'content_html': content_html,
+                                'lang': file_lang,
+                                'source_path': file_path,
+                                'html_path': html_path,
+                                'name': base_name,
+                                'type': 'source'
+                            })
     
     # Process notes files
     for lang in LangLists:
@@ -170,30 +177,30 @@ def main():
         html_path = os.path.join(output_base_dir, lang, 'notes.html')
         os.makedirs(os.path.dirname(html_path), exist_ok=True)
         processed_files.append({
-                                'content_html': content_html,
-                                'lang': file_lang,
-                                'source_path': notes_file,
-                                'html_path': html_path,
-                                'name': f'{lang} Notes',
-                                'type': 'notes'
-                            })
+            'content_html': content_html,
+            'lang': file_lang,
+            'source_path': notes_file,
+            'html_path': html_path,
+            'name': f'{lang} Notes',
+            'type': 'notes'
+        })
+    
     _tempWebAdress = "https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/"
     # Generate full HTML for each file
     for file in processed_files:
         with open('doc/template.html', 'r') as f:
             template = f.read()
         nav_menu = create_nav_menu(processed_files, file['html_path'])
-        output  = template.replace('<!-- TITLE -->', f"{file['name']} Documentation")
-        output  = output.replace('<!-- NAVIGATION -->', nav_menu)
-        output  = output.replace('<!-- CONTENT -->', file['content_html'])
-        output  = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        output  = output.replace('<!-- Adress -->', f'<a href="{_tempWebAdress}{file["source_path"]}">{_tempWebAdress}{file["source_path"]}</a>')
-
+        output = template.replace('<!-- TITLE -->', f"{file['name']} Documentation")
+        output = output.replace('<!-- NAVIGATION -->', nav_menu)
+        output = output.replace('<!-- CONTENT -->', file['content_html'])
+        output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+        output = output.replace('<!-- Adress -->', f'<a href="{_tempWebAdress}{file["source_path"]}">{_tempWebAdress}{file["source_path"]}</a>')
 
         with open(file['html_path'], 'w') as f:
             f.write(output)
     
-    GenerateMainPage(LangLists,processed_files)
+    GenerateMainPage(LangLists, processed_files)
 
 if __name__ == "__main__":
     main()
