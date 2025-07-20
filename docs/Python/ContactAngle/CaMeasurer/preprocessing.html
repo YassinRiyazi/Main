@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>preprocessing Documentation</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 0; 
+            display: grid;
+            grid-template-columns: 250px 1fr;
+        }
+        .sidebar {
+            background: #f5f5f5;
+            padding: 20px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            overflow-y: auto;
+        }
+        .content {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #2980b9; margin-top: 30px; }
+        .function { 
+            background: #f9f9f9; 
+            border-left: 4px solid #3498db; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+        }
+        .function-name { 
+            color: #2c3e50; 
+            font-weight: bold; 
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .section-title { 
+            font-weight: bold; 
+            color: #16a085; 
+            margin-top: 15px;
+        }
+        code { 
+            background: #eee; 
+            padding: 2px 5px; 
+            border-radius: 3px; 
+            font-family: monospace;
+        }
+        pre { 
+            background: #f5f5f5; 
+            padding: 10px; 
+            border-radius: 5px; 
+            overflow-x: auto; 
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .language {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+
+        /* Prism.js default theme styles (minified version adapted for inline use) */
+        pre[class*="language-"] {
+            background: #f5f2f0;
+            color: #000;
+            text-shadow: 0 1px #fff;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 1em;
+            text-align: left;
+            white-space: pre;
+            word-spacing: normal;
+            word-break: normal;
+            word-wrap: normal;
+            line-height: 1.5;
+            tab-width: 4;
+            hyphens: none;
+            padding: 1em;
+            margin: .5em 0;
+            overflow: auto;
+            border-radius: 0.3em;
+        }
+        code[class*="language-"] {
+            background: #f5f2f0;
+            color: #000;
+            font-family: Consolas, Monaco, 'Andale Mono', monospace;
+            font-size: 1em;
+            text-align: left;
+            white-space: pre;
+            word-spacing: normal;
+            word-break: normal;
+            word-wrap: normal;
+            line-height: 1.5;
+            tab-width: 4;
+            hyphens: none;
+        }
+        .token.command {
+            color: #005cc5;
+        }
+        .token.parameter {
+            color: #22863a;
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+<h2>Navigation</h2>
+<ul>
+<li class="language">Python
+<ul>
+<li>ContactAngle<ul>
+<li>CaMeasurer<ul>
+<li><a href="criteria_definition.html">criteria_definition.py</a></li>
+<li><a href="edgeDetection.html">edgeDetection.py</a></li>
+<li><a href="imageloader.html">imageloader.py</a></li>
+<li><a href="main.html">main.py</a></li>
+<li><a href="preprocessing.html">preprocessing.py</a></li>
+<li><a href="processing.html">processing.py</a></li>
+<li><a href="superResolution.html">superResolution.py</a></li>
+<li><a href="visualization.html">visualization.py</a></li>
+</ul></li>
+<li><a href="../main.html">main.py</a></li>
+<li>models<ul>
+<li><a href="../models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+<li><a href="../models/h5toPt.html">h5toPt.py</a></li>
+</ul></li>
+</ul></li>
+<li>ContinuousVideoExperiments<ul>
+<li><a href="../../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+</ul></li>
+<li>DropDetection<ul>
+<li><a href="../../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+<li><a href="../../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+<li><a href="../../DropDetection/utils.html">utils.py</a></li>
+</ul></li>
+<li>DropLowHighUnifier<ul>
+<li><a href="../../DropLowHighUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+</ul></li>
+<li>DynamicLoader<ul>
+<li>load-remote-module<ul>
+<li>load_remote_module<ul>
+<li><a href="../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>FFMpeg<ul>
+<li><a href="../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+</ul></li>
+<li>Performance<ul>
+<li><a href="../../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+</ul></li>
+<li>Test<ul>
+<li><a href="../../Test/test.html">test.py</a></li>
+</ul></li>
+<li><a href="../../notes.html">python_notes.md</a></li>
+</ul>
+</li>
+<li class="language">C
+<ul>
+<li>Test<ul>
+<li><a href="../../../C/Test/temp.html">temp.c</a></li>
+</ul></li>
+<li><a href="../../../C/notes.html">c_notes.md</a></li>
+</ul>
+</li>
+<li class="language">C++
+<ul>
+<li><a href="../../../C++/notes.html">c++_notes.md</a></li>
+</ul>
+</li>
+<li class="language">CUDA
+<ul>
+<li><a href="../../../CUDA/notes.html">cuda_notes.md</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+    
+    <div class="content">
+        <h1>preprocessing Documentation</h1>
+        
+        <div class="function">
+<div class="function-name">check_and_save_color_images(<span style="color:#94D6BFFF;"><b>folder_path</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>,)</div>
+<div class="description">Check images in a folder and ensure they are saved as 3-channel color images. This function scans a given folder for image files and verifies if each image is a 3-channel color image (BGR). If an image has fewer channels (e.g., grayscale), it is converted to a 3-channel BGR format and saved in place.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>folder_path</code> (str): The path to the folder containing image files.</li>
+</ul>
+<div class=section-title>examples:</div>
+<div>>>> check_and_save_color_images("images/")</div>
+<div class=section-title>notes:</div>
+<div>- Images that are already in color format will be left unmodified.</div>
+<div>- The function prints messages for missing folders, failed reads, and conversions.</div>
+<div class=section-title>see_also:</div>
+<div>- `cv2.imread`: Used for reading images.</div>
+<div>- `cv2.cvtColor`: Used to convert grayscale to BGR.</div>
+<div>- `cv2.imwrite`: Used to overwrite the original image with the new one.</div>
+<div class=section-title>caution:</div>
+<div>Only image files with extensions '.png', '.jpg', '.jpeg', or '.bmp'</div>
+<div>will be processed. Non-image files are ignored.</div>
+<div class=section-title>warning:</div>
+<div>This function overwrites original grayscale images with their color-converted versions.</div>
+</div>
+<div class="function">
+<div class="function-name">make_folders(<span style="color:#94D6BFFF;"><b>ad</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>,)</div>
+<div class="description">Create two subfolders 'SR_edge' and 'SR_result' inside the given directory. If either folder already exists, it is deleted and recreated to ensure a clean directory.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>ad</code> (str): The path to the parent directory where subfolders will be created.</li>
+</ul>
+<div class=section-title>examples:</div>
+<div>>>> make_folders("/path/to/project")</div>
+<div class=section-title>notes:</div>
+<div>- The folders created are:</div>
+<div>- 'SR_edge': Typically used to store edge detection outputs.</div>
+<div>- 'SR_result': Typically used to store final super-resolution results.</div>
+<div>- Uses `shutil.rmtree()` to forcefully delete existing directories before recreating.</div>
+<div class=section-title>see_also:</div>
+<div>- `os.makedirs`: For creating directories.</div>
+<div>- `shutil.rmtree`: For removing directories and their contents.</div>
+<div class=section-title>caution:</div>
+<div>This function will **delete** existing 'SR_edge' and 'SR_result' folders</div>
+<div>along with all their contents, if they already exist.</div>
+<div class=section-title>warning:</div>
+<div>Any existing data in 'SR_edge' and 'SR_result' will be permanently lost if present.</div>
+</div>
+        
+        <footer>
+            <p>Documentation generated on <span>2025-07-20 21:46:28</span></p>
+            <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/preprocessing.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/preprocessing.py</a></span></p>
+        </footer>
+    </div>
+</body>
+</html>
