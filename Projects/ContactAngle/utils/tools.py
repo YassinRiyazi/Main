@@ -11,20 +11,6 @@ import cv2
 import os
 
 
-# In[42]:
-
-
-#a function to load all similar formats pictures in a folder 
-def load_files(add,formatt='tif'):
-    FileNames=[]
-    FileName=os.listdir(add)
-    for i in range(len(FileName)):
-        try:
-            if FileName[i].split(".")[1]==formatt:
-                FileNames=FileNames+[FileName[i]]
-        except:
-            pass
-    return(FileNames)
 
 #checking if the frame is suitable to start analyzing or not
 def drop_check(diff_img,surface_y, pic_y_length=150, vertical_margin=10 , horizontal_margin=10):

@@ -1,46 +1,39 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import warnings
 import numpy as np
 
-
-# In[39]:
-
-
-#selecting pixels of the advancing part
-def advancing_pixel_selection( i_list,j_list, left_number_of_pixels=150):
+# #selecting pixels of the advancing part
+# def advancing_pixel_selection( i_list,j_list, left_number_of_pixels=150):
     
-    #selecting left side of the droplet
-    i_list=np.array(i_list)
-    j_list=np.array(j_list)
-    i_left=i_list[(i_list<int(np.mean(i_list))) & (j_list<left_number_of_pixels)]
-    j_left=j_list[(i_list<int(np.mean(i_list))) & (j_list<left_number_of_pixels)]
-    i_left=i_left[j_left<max(j_left)-2]
-    j_left=j_left[j_left<max(j_left)-2]
+#     #selecting left side of the droplet
+#     i_list=np.array(i_list)
+#     j_list=np.array(j_list)
+#     i_left=i_list[(i_list<int(np.mean(i_list))) & (j_list<left_number_of_pixels)]
+#     j_left=j_list[(i_list<int(np.mean(i_list))) & (j_list<left_number_of_pixels)]
+#     i_left=i_left[j_left<max(j_left)-2]
+#     j_left=j_left[j_left<max(j_left)-2]
     
-    #selecting the exact number of pixels based on the input
-    j_left_selected=[]
-    i_left_selected=[]
-    for j in range(len(j_left)):
-        remain_number=left_number_of_pixels-len(j_left_selected)
-        if remain_number==0:
-            break
+#     #selecting the exact number of pixels based on the input
+#     j_left_selected=[]
+#     i_left_selected=[]
+#     for j in range(len(j_left)):
+#         remain_number=left_number_of_pixels-len(j_left_selected)
+#         if remain_number==0:
+#             break
 
-        elif remain_number>=len(i_left[j_left==j]):
-            i_left_selected=i_left_selected+list(i_left[j_left==j])
-            j_left_selected=j_left_selected+list(j_left[j_left==j])
+#         elif remain_number>=len(i_left[j_left==j]):
+#             i_left_selected=i_left_selected+list(i_left[j_left==j])
+#             j_left_selected=j_left_selected+list(j_left[j_left==j])
 
-        elif remain_number<len(i_left[j_left==j]):
-            final_remain=len(i_left[j_left==j])-remain_number
-            i_sort=np.sort(i_left[j_left==j])
-            i_left_selected=i_left_selected+list(i_sort[:final_remain])
-            j_left_selected=j_left_selected+list(j_left[j_left==j][:final_remain])
+#         elif remain_number<len(i_left[j_left==j]):
+#             final_remain=len(i_left[j_left==j])-remain_number
+#             i_sort=np.sort(i_left[j_left==j])
+#             i_left_selected=i_left_selected+list(i_sort[:final_remain])
+#             j_left_selected=j_left_selected+list(j_left[j_left==j][:final_remain])
 
-    return(i_left_selected, j_left_selected)
+#     return(i_left_selected, j_left_selected)
+
+
+
 
 #select pixels of the receding part
 def receding_pixel_selection( i_list,j_list, right_number_of_pixels=65):

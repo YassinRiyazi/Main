@@ -1,4 +1,4 @@
-import      natsort
+# import      natsort
 from        .cv2_util      import *
 from        .ffmpeg_util   import *
 from        .Shumaly_util  import *
@@ -16,16 +16,7 @@ def get_subdirectories(root_dir, max_depth=2):
             del dirs[:]  # Stop descending further
     return directories
 
-def load_files(ad):
-    valid_extensions = {"tiff", "tif", "png", "jpg", "jpeg", "bmp", "gif", "webp"}  # Common image formats
-    FileNames = []
-    for file in sorted(os.listdir(ad)):
-        try:
-            if file.split(".")[-1].lower() in valid_extensions:
-                FileNames.append(file)
-        except IndexError:
-            pass
-    return natsort.natsorted(FileNames)
+
 
 def ensure_directory_exists(directory: str) -> None:
     """
