@@ -135,7 +135,10 @@ def advancing_pixel_selection(i_list, j_list, left_number_of_pixels=150):
     and improved precision, ensuring even row distribution.
     There is a logocal error in the code. Look at Projects/ContactAngle/CaMeasurer/advancing_pixel_selection_advacingPoints30.png
 
+    <img src="../../../../src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advancingPoints10.png" alt="Italian Trulli">
+
     <img src="../../../../src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_advacingPoints90.png" alt="Italian Trulli">
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advacingPoints10.png" alt="Italian Trulli">
 
     <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advacingPoints150.pngalt="Italian Trulli">
 
