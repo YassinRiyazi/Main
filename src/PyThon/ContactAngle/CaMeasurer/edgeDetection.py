@@ -135,6 +135,10 @@ def advancing_pixel_selection(i_list, j_list, left_number_of_pixels=150):
     and improved precision, ensuring even row distribution.
     There is a logocal error in the code. Look at Projects/ContactAngle/CaMeasurer/advancing_pixel_selection_advacingPoints30.png
 
+    <img src="../../../../src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_advacingPoints90.png" alt="Italian Trulli">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advacingPoints150.pngalt="Italian Trulli">
+
     Args:
         i_list (List[int]): x-coordinates (horizontal positions) of edge pixels.
         j_list (List[int]): y-coordinates (vertical positions) of edge pixels.
@@ -192,8 +196,7 @@ def Advancing_pixel_selection_Euclidean(i_list, j_list, left_number_of_pixels=15
     """
     Selects pixels from the advancing (left) side of a droplet, sorted by 2D Euclidean distance
     from the leftmost point, returning specified number of pixels.
-    <img src="../../../../src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_advacingPoints90.png" alt="Italian Trulli">
-
+    
     
 
     Args:
