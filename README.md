@@ -40,3 +40,6 @@
 5. Don't adopt newest version of the framework. Stay one stable version behind.
     1. Unless it provides a feature that is needed.
 
+6. In programming, line length is often dictated by style guides, such as [PEP 8](https://peps.python.org/pep-0008/) for Python, which suggests a limit of 79 characters. 
+
+7. we’re going to always take the “less code” route when not obviously wrong

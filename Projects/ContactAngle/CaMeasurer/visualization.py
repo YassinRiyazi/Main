@@ -205,7 +205,7 @@ def visualize(save_address , i_list,j_list,i_left,j_left,i_right,j_right,
     upscale_factor=3
     conversion_factor=cm_on_pixel/upscale_factor
 
-    fig, ax = plt.subplots(figsize=(15, 10),dpi=100)  # Use subplot
+    fig, ax = plt.subplots(figsize=(15, 10),dpi=30)  # Use subplot
     ax.clear()
 
     # Drop shape
@@ -281,7 +281,7 @@ def visualize(save_address , i_list,j_list,i_left,j_left,i_right,j_right,
     ax.set_ylim(-30, 300)  # Set y limit as requested
     ax.tick_params(axis='both', labelsize=20)
     plt.tight_layout()
-    fig.savefig(save_address.replace('.tiff', '.png'))
+    fig.savefig(save_address,dpi=30)
     plt.close(fig)
 
     return left_angle_degree, right_angle_degree, right_angle_point, left_angle_point, contact_line_length, x_center, y_center, middle_angle_degree[0]
