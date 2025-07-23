@@ -10,6 +10,13 @@ import multiprocessing
 
 from ultralytics import YOLO
 
+
+import tqdm 
+
+
+import sys
+# Add the absolute path to the ./src folder
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../', 'src/PyThon/ContactAngle')))
 import CaMeasurer
 
 
@@ -132,7 +139,7 @@ def get_mp4_files(root_dir, max_depth=2):
 
 
 if __name__ == "__main__":
-
+    
     adress  = "/media/ubun25/DONT/MPI/S4S-ROF/drop/"
     # processs("/media/ubun25/DONT/MPI/S4S-ROF/frame_Extracted/280/S2-SNr2.1_D/frame_Extracted20250621_203528_DropNumber_01")
     # experiments = []

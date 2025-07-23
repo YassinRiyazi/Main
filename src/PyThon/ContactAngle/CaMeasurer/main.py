@@ -37,11 +37,16 @@ def base_function_process(ad,name_files,file_number, model, kernel, num_px_ratio
         1.3.loading the x1, x2 positions
         2.  Supper resulotion
         3.  Extracting whole edge points
-        4.  Extracting advancing and receding points   
+        4.  Extracting advancing and receding points
+
+        Test:
+            Removing two layer polynomial 
+            Removing superresolution from this section
+
     """
     # 1. Loading data
     just_drop       = cv2.imread(os.path.join(ad,name_files[file_number]))
-    just_drop       = just_drop[:-15,:,:]
+    just_drop       = just_drop[:-17,:,:]
     x1              = read_four_integers(os.path.join(ad,name_files[file_number]).replace("jpg","txt"))[0]
 
     # 2.  Supper resulotion
@@ -67,20 +72,20 @@ def base_function_process(ad,name_files,file_number, model, kernel, num_px_ratio
     right_angle_degree,right_angle_point        = right_angle(i_poly_right_rotated, j_poly_right_rotated,1)
     left_angle_degree,left_angle_point          = left_angle(i_poly_left_rotated, j_poly_left_rotated,1)
     
-    left_number_of_pixels,  left_polynomial_degree = polyOrderDecider(left_angle_degree,    num_px_ratio)
-    right_number_of_pixels, right_polynomial_degree= polyOrderDecider(right_angle_degree,   num_px_ratio)
+    # left_number_of_pixels,  left_polynomial_degree = polyOrderDecider(left_angle_degree,    num_px_ratio)
+    # right_number_of_pixels, right_polynomial_degree= polyOrderDecider(right_angle_degree,   num_px_ratio)
 
 
     #9. extracting the desired number of pixels as input of the polynomial fitting 
-    i_left, j_left      = CaMeasurer.Advancing_pixel_selection_Euclidean(i_list,j_list, left_number_of_pixels=left_number_of_pixels)
-    i_right, j_right    = CaMeasurer.Receding_pixel_selection_Euclidean(i_list,j_list, right_number_of_pixels=right_number_of_pixels)
+    # i_left, j_left      = CaMeasurer.Advancing_pixel_selection_Euclidean(i_list,j_list, left_number_of_pixels=left_number_of_pixels)
+    # i_right, j_right    = CaMeasurer.Receding_pixel_selection_Euclidean(i_list,j_list, right_number_of_pixels=right_number_of_pixels)
 
     #10. rotation for fitting, it can increase the accuracy to rotate 90 degrees and then fit the polynomial
-    i_left_rotated,j_left_rotated=j_left,i_left       
-    i_right_rotated,j_right_rotated=j_right,i_right 
+    # i_left_rotated,j_left_rotated=j_left,i_left       
+    # i_right_rotated,j_right_rotated=j_right,i_right 
 
-    i_poly_left_rotated, j_poly_left_rotated    = CaMeasurer.poly_fitting(i_left_rotated,j_left_rotated,left_polynomial_degree,left_number_of_pixels)
-    i_poly_right_rotated, j_poly_right_rotated  = CaMeasurer.poly_fitting(i_right_rotated,j_right_rotated,right_polynomial_degree,right_number_of_pixels)
+    # i_poly_left_rotated, j_poly_left_rotated    = CaMeasurer.poly_fitting(i_left_rotated,j_left_rotated,left_polynomial_degree,left_number_of_pixels)
+    # i_poly_right_rotated, j_poly_right_rotated  = CaMeasurer.poly_fitting(i_right_rotated,j_right_rotated,right_polynomial_degree,right_number_of_pixels)
 
     j_poly_left=i_poly_left_rotated
     i_poly_left=j_poly_left_rotated

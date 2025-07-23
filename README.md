@@ -28,6 +28,9 @@
 
 
 ## Rules:
+Always think about what is the appropriiate way to do it.
+
+
 1. All functions must be prototyped in python. 
     1. If performance is necessary, after trying with python go for other better implementation.
 

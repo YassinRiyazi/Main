@@ -199,13 +199,14 @@ def vertical_center(i_list, j_list, intersection_margin=4):
 
 def visualize(save_address , i_list,j_list,i_left,j_left,i_right,j_right,
              j_poly_left,i_poly_left,j_poly_right,i_poly_right,x_cropped,
-             i_poly_left_rotated, j_poly_left_rotated, i_poly_right_rotated, j_poly_right_rotated, cm_on_pixel=5/1280, middle_line_switch=0):
+             i_poly_left_rotated, j_poly_left_rotated, i_poly_right_rotated, j_poly_right_rotated, cm_on_pixel=5/1280, middle_line_switch=0,
+             dpi = 100):
 
     font_size=14
     upscale_factor=3
     conversion_factor=cm_on_pixel/upscale_factor
 
-    fig, ax = plt.subplots(figsize=(15, 10),dpi=100)  # Use subplot
+    fig, ax = plt.subplots(figsize=(15, 10),dpi=dpi)  # Use subplot
     ax.clear()
 
     # Drop shape
@@ -253,8 +254,8 @@ def visualize(save_address , i_list,j_list,i_left,j_left,i_right,j_right,
     ax.text(h_center + 5, i_text_horizontal, str(round(drop_height, 3)) + ' cm', color="green", fontsize=font_size)
 
     # Middle line
-    i_middle_line, j_middle_line = poly_fitting(i_mean, j_mean, polynomial_degree=1, line_space=100)
-    middle_angle_degree = middle_angle(i_middle_line, j_middle_line)
+    i_middle_line, j_middle_line    = poly_fitting(i_mean, j_mean, polynomial_degree=1, line_space=100)
+    middle_angle_degree             = middle_angle(i_middle_line, j_middle_line)
     if middle_line_switch != 0:
         i_middle_line, j_middle_line = poly_fitting(i_mean, j_mean, polynomial_degree=1, line_space=100)
         middle_angle_degree = middle_angle(i_middle_line, j_middle_line)
@@ -281,7 +282,7 @@ def visualize(save_address , i_list,j_list,i_left,j_left,i_right,j_right,
     ax.set_ylim(-30, 300)  # Set y limit as requested
     ax.tick_params(axis='both', labelsize=20)
     plt.tight_layout()
-    fig.savefig(save_address.replace('.tiff', '.png'))
+    fig.savefig(save_address,dpi=dpi)
     plt.close(fig)
 
     return left_angle_degree, right_angle_degree, right_angle_point, left_angle_point, contact_line_length, x_center, y_center, middle_angle_degree[0]

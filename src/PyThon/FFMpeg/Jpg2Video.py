@@ -27,10 +27,10 @@ def create_video_from_images(image_folder, output_video_path, fps=30):
         '-framerate',   str(fps),               # Set frames per second
         '-pattern_type', 'glob', '-i', '*.jpg', # Use 6-digit pattern to match the images (000612.jpg, 000613.jpg, ...)
         '-c:v',         'libx264',              # Video codec
-        # '-pix_fmt',     'yuv420p',              # Pixel format for compatibility
-        '-crf',         '18',                   # Set Constant Rate Factor for high quality (lower values = higher quality, 18-23 is typical range)
-        '-preset',      'slow',                 # Use 'slow' preset for better compression and quality (other options: veryfast, fast, medium, slow, veryslow)
-        # '-tune',        'film',                 # Tune the encoding for film (preserves quality)
+        ### '-pix_fmt',     'yuv420p',              # Pixel format for compatibility
+        # '-crf',         '18',                   # Set Constant Rate Factor for high quality (lower values = higher quality, 18-23 is typical range)
+        '-preset',      'fast',                 # Use 'slow' preset for better compression and quality (other options: veryfast, fast, medium, slow, veryslow)
+        ## '-tune',        'film',                 # Tune the encoding for film (preserves quality)
         '-y',
         output_video_path
     ]
@@ -116,14 +116,18 @@ if __name__ == "__main__":
     experiments = [experiment.replace(".mp4","") for experiment in experiments]
     experiments = [experiment.replace("frames","frame_Extracted") for experiment in experiments]
 
+    experiments = list(reversed(experiments))
+    with Pool(processes=cpu_count()) as pool:
+        pool.map(process_experiment, experiments)
+
     # ## Frames
     # experiments = sorted(get_mp4_files(adress, max_depth=5))
     # experiments = [experiment.replace("drop","frames") for experiment in experiments]
     # experiments = [experiment.replace(".mp4","") for experiment in experiments]
     # 
-    print(experiments[0])
-    with Pool(processes=cpu_count()//2) as pool:
-        pool.map(process_experiment, experiments)
+    # print(experiments[0])
+    # with Pool(processes=cpu_count()//2) as pool:
+    #     pool.map(process_experiment, experiments)
 
 # /media/ubun25/DONT/MPI/S4S-ROF/frames/280/S2-SNr2.14_D/frames20250620_222000_DropNumber_01
 # /media/ubun25/DONT/MPI/S4S-ROF/frames/280/S2-SNr2.14_D/frames20250620_222000_DropNumber_01
