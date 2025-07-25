@@ -1,4 +1,3 @@
-import utils
 import glob
 import os
 import cv2
@@ -162,6 +161,10 @@ def Main(experiment):
     if not os.path.exists(desfolder):
         os.makedirs(desfolder, exist_ok=True)
 
+    desfolder = images[0].replace('frames', 'frame_Extracted_xx')[:-11]
+    if not os.path.exists(desfolder):
+        os.makedirs(desfolder, exist_ok=True)
+
 
 
     scaleDownFactorx = 5
@@ -176,10 +179,16 @@ def Main(experiment):
             endpoint    = int(endpoint * scaleDownFactorx)
             beginning   = int(beginning * scaleDownFactorx) 
 
+            if (beginning - endpoint > 450):
+                endpoint    = walk_forward(vv, steep = 0.005)
+                beginning   = backward(vv)
+                endpoint    = int(endpoint * scaleDownFactorx)
+                beginning   = int(beginning * scaleDownFactorx) 
 
             save_address = image.replace('frames', 'frame_Extracted')
             crop_and_save_image(frame, save_address, endpoint, beginning)
 
+            save_address = image.replace('frames', 'frame_Extracted_xx')
             save_address = save_address.replace('.jpg', '.txt')
             # Save them to a text file
             with open(save_address, "w") as file:
@@ -189,24 +198,35 @@ def Main(experiment):
         _temp = experiment.replace('frames', 'frame_Extracted')
         subprocess.run(["rm", "-rf", os.path.join(_temp)])  # Remove the folder if error occurs
 
+def get_subdirectories(root_dir, max_depth=2):
+    directories = []
+    for root, dirs, _ in sorted(os.walk(root_dir)):
+        if root == root_dir:
+            continue  # Skip the root directory itself
+        depth = root[len(root_dir):].count(os.sep)
+        if depth < max_depth:
+            directories.append(root)
+        else:
+            del dirs[:]  # Stop descending further
+    return directories
 
 
 if __name__ == "__main__":
     multiprocessing.set_start_method("spawn", force=True)
     
     # Collect all experiment paths
-    root_folder_name = "frames"
+    root_folder_name = "/media/d2u25/Dont/S4S-ROF/frames"
     experiment_paths = []
-    for tilt in utils.get_subdirectories(root_folder_name):
-        for fluid in utils.get_subdirectories(tilt):
-            experiment_paths.extend(utils.get_subdirectories(fluid))
+    for tilt in get_subdirectories(root_folder_name):
+        for fluid in get_subdirectories(tilt):
+            experiment_paths.extend(get_subdirectories(fluid))
     print(f"Found {len(experiment_paths)} experiments.")
 
     # Use tqdm to track progress
     with multiprocessing.Pool(processes=min(18, os.cpu_count())) as pool:
         list(tqdm(pool.imap_unordered(Main, experiment_paths), total=len(experiment_paths)))
                 
-    # adress = r"frames/325/S2-SNr2.5_D/frames20250622_144709_DropNumber_02"
+    # adress = r"/media/d2u25/Dont/S4S-ROF/frames/300/S3-SNr3.05_D/frames20250707_201500_DropNumber_11"
     # Main(adress)
     """
         Check the YOLO result with OpenCV vcountors
