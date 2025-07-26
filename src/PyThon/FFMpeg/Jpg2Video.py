@@ -3,44 +3,79 @@ import subprocess
 from multiprocessing import Pool, cpu_count
 import glob
 
+import os
+import subprocess
+import glob
+
 def create_video_from_images(image_folder, output_video_path, fps=30):
-    # # Get all .jpg files from the folder
-    # images = [f for f in os.listdir(image_folder) if f.endswith('.jpg')]
+    """Create a video from .jpg images in a folder using ffmpeg.
 
-    # # Sort images to maintain the sequence
-    # images.sort()
+    Args:
+        image_folder (str): Path to the folder containing images.
+        output_video_path (str): Path where the output video will be saved.
+        fps (int): Frames per second for the video.
 
-    # # Check if there are images in the folder
-    # if not images:
-    #     print("No .jpg images found in the folder.")
-    #     return
+    Returns:
+        bool: True if video was created successfully, False otherwise.
 
-    # Change directory to the folder containing the images
+    Update:
+        Now returns success
+    """
+    # Change working directory to image folder
+    original_cwd = os.getcwd()
     os.chdir(image_folder)
 
-    # Construct the ffmpeg command to create a video from images
-    # The images must be named in a sequential order, like image1.jpg, image2.jpg, etc.
-    # FFmpeg uses a pattern such as 'image%d.jpg' to match the files
     command = [
         'ffmpeg',
         '-loglevel', 'error',
-        '-framerate',   str(fps),               # Set frames per second
-        '-pattern_type', 'glob', '-i', '*.jpg', # Use 6-digit pattern to match the images (000612.jpg, 000613.jpg, ...)
-        '-c:v',         'libx264',              # Video codec
-        ### '-pix_fmt',     'yuv420p',              # Pixel format for compatibility
-        # '-crf',         '18',                   # Set Constant Rate Factor for high quality (lower values = higher quality, 18-23 is typical range)
-        '-preset',      'fast',                 # Use 'slow' preset for better compression and quality (other options: veryfast, fast, medium, slow, veryslow)
-        ## '-tune',        'film',                 # Tune the encoding for film (preserves quality)
+        '-framerate', str(fps),
+        '-pattern_type', 'glob', '-i', '*.jpg',
+        '-c:v', 'libx264',
+        '-preset', 'fast',
+        '-threads', '2',                  # Limit ffmpeg to 2 threads
         '-y',
         output_video_path
     ]
 
-    # Execute the command using subprocess
     try:
         subprocess.run(command, check=True)
-        print(f"Video saved at {output_video_path}")
+        return True
     except subprocess.CalledProcessError as e:
-        print(f"Error during video creation: {e}")
+        print(f"❌ ffmpeg failed: {e}")
+        return False
+    finally:
+        os.chdir(original_cwd)
+
+def process_experiment(_adress):
+    """Process one experiment directory: create video from images and delete them if successful.
+
+    Args:
+        _adress (str): Path to the experiment directory.
+    """
+    image_folder = os.path.join(_adress, "SR_edge")
+    outputpath = os.path.join(image_folder, "result.mp4")
+    result_csv = os.path.join(_adress, 'SR_result', 'result.csv')
+
+    # Skip if video already exists and is non-zero size
+    if os.path.isfile(outputpath) and os.path.getsize(outputpath) > 0:
+        return
+
+    # Check that required files exist
+    imgs = glob.glob(os.path.join(image_folder, "*.jpg"))
+    if len(imgs) == 0 or not os.path.isfile(result_csv):
+        return
+
+    # Create video
+    success = create_video_from_images(image_folder, outputpath)
+
+    # Delete images only if ffmpeg succeeded
+    if success:
+        for img_path in imgs:
+            try:
+                os.remove(img_path)
+            except Exception as e:
+                print(f"⚠️ Error deleting {img_path}: {e}")
+
 
 def get_mp4_files(root_dir, max_depth=2):
     mp4_files = []
@@ -63,29 +98,6 @@ def get_mp4_files(root_dir, max_depth=2):
 
     scan_directory(root_dir)
     return sorted(mp4_files)
-
-def process_experiment(_adress):
-    image_folder    = os.path.join(_adress, "SR_edge")
-    outputpath      = os.path.join(image_folder, "result.mp4")
-    result_csv      = os.path.join(_adress, 'SR_result', 'result.csv')
-
-    # Skip if result.mp4 exists and is non-zero in size
-    if os.path.isfile(outputpath) and os.path.getsize(outputpath) > 0:
-        return
-
-    # Check for images and CSV
-    imgs = glob.glob(os.path.join(image_folder, "*.jpg"))
-    if len(imgs) == 0 or not os.path.isfile(result_csv):
-        return
-
-    create_video_from_images(image_folder, outputpath)
-
-    # Remove .jpg files after video is created
-    for img_path in imgs:
-        try:
-            os.remove(img_path)
-        except Exception as e:
-            print(f"⚠️ Error deleting {img_path}: {e}")
 
 def process_experiment_frames(_adress):
     outputpath = os.path.join(_adress, "result.mp4")

@@ -6,6 +6,11 @@ import matplotlib.pyplot as plt
 def edge_extraction(gray, thr=40):
     """
     Extract edge pixels from an upscaled image using a threshold.
+
+    
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/edge_extraction_thr_10.png" alt="Italian Trulli" style="width: 800px; height: auto;">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/edge_extraction_thr_100.png" alt="Italian Trulli" style="width: 800px; height: auto;">
     
     This function detects the first pixel above the threshold from the left, right,
     and top of the image to form a rough outline of detected objects. Duplicate points
@@ -135,6 +140,14 @@ def advancing_pixel_selection(i_list, j_list, left_number_of_pixels=150):
     and improved precision, ensuring even row distribution.
     There is a logocal error in the code. Look at Projects/ContactAngle/CaMeasurer/advancing_pixel_selection_advacingPoints30.png
 
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_advacingPoints10.png" alt="Italian Trulli">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_advacingPoints90.png" alt="Italian Trulli">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_advacingPoints150.png" alt="Italian Trulli">
+
+
+
     Args:
         i_list (List[int]): x-coordinates (horizontal positions) of edge pixels.
         j_list (List[int]): y-coordinates (vertical positions) of edge pixels.
@@ -193,6 +206,13 @@ def Advancing_pixel_selection_Euclidean(i_list, j_list, left_number_of_pixels=15
     Selects pixels from the advancing (left) side of a droplet, sorted by 2D Euclidean distance
     from the leftmost point, returning specified number of pixels.
 
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_Euclidean_advacingPoints10.png" alt="Italian Trulli">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_Euclidean_advacingPoints90.png" alt="Italian Trulli">
+    
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/advancing_pixel_selection_Euclidean_advacingPoints150.png" alt="Italian Trulli">
+    
+
     Args:
         i_list (List[int]): x-coordinates (horizontal positions) of edge pixels.
         j_list (List[int]): y-coordinates (vertical positions) of edge pixels.
@@ -200,6 +220,8 @@ def Advancing_pixel_selection_Euclidean(i_list, j_list, left_number_of_pixels=15
 
     Returns:
         Tuple[List[int], List[int]]: Selected advancing edge pixels (x, y).
+
+    
     """
     # Convert to numpy arrays once
     i_array = np.array(i_list, dtype=np.float32)
@@ -227,6 +249,14 @@ def Receding_pixel_selection_Euclidean(i_list, j_list, right_number_of_pixels=15
     """
     Selects pixels from the receding (right) side of a droplet, sorted by 2D Euclidean distance
     from the leftmost point, returning specified number of pixels from both ends.
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advacingPoints10.png" alt="Italian Trulli">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advacingPoints90.png" alt="Italian Trulli">
+
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/doc/Receding_pixel_selection_Euclidean_advacingPoints150.png" alt="Italian Trulli">
+
+
 
     Args:
         i_list (List[int]): x-coordinates (horizontal positions) of edge pixels.

@@ -184,7 +184,7 @@ if __name__ == "__main__":
             experiments.extend(get_subdirectories(fluid))
 
     # Use multiprocessing pool
-    with multiprocessing.Pool(processes=int(multiprocessing.cpu_count()*0.4)) as pool: #
+    with multiprocessing.Pool(processes=int(multiprocessing.cpu_count()*0.35)) as pool: #
         list(tqdm.tqdm(pool.imap_unordered(processs, experiments), total=len(experiments)))
         # list(pool.imap_unordered(processs, experiments))
 
