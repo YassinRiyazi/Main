@@ -32,7 +32,7 @@ def create_video_from_images(image_folder, output_video_path, fps=30):
         '-pattern_type', 'glob', '-i', '*.jpg',
         '-c:v', 'libx264',
         '-preset', 'fast',
-        '-threads', '2',                  # Limit ffmpeg to 2 threads
+        '-threads', '1',                  # Limit ffmpeg to 2 threads
         '-y',
         output_video_path
     ]

@@ -235,10 +235,16 @@ def main():
         nav_menu = create_nav_menu(processed_files, file['html_path'])
         if file['type'] == 'source':
             title = f"{file['name']} Documentation"
+
         elif file['type'] == 'notes':
             title = f"{file['lang']} Notes"
-        elif file['type'] == 'devlog':
-            title = f"Devlog: {file['name']}"
+            
+        elif file['type'] == 'Devlog':
+            title = f""
+
+        elif file['type'] == 'WebLog':
+            title = f""
+
         output = template.replace('<!-- TITLE -->', title)
         output = output.replace('<!-- NAVIGATION -->', nav_menu)
         output = output.replace('<!-- CONTENT -->', file['content_html'])

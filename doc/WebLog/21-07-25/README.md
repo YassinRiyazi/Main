@@ -1,6 +1,0 @@
-Kir ka
-
-alkns
-
-
-;kasd
