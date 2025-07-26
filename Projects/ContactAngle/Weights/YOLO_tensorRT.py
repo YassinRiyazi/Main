@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 # Load the YOLO11 model
-model = YOLO(r"Weights/Gray-320-s.pt")
+model = YOLO(r"Projects/ContactAngle/Weights/Gray-320-s.pt")
 
 # Export the model to TensorRT format
 model.export(format="engine",
@@ -14,7 +14,7 @@ model.export(format="engine",
              simplify=True)
 
 # Load the YOLO11 model
-model = YOLO(r"Weights/Gray-320-n.pt")
+model = YOLO(r"Projects/ContactAngle/Weights/Gray-320-n.pt")
 
 # Export the model to TensorRT format
 model.export(format="engine",

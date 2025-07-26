@@ -4,14 +4,48 @@ import CaMeasurer
 import numpy as np
 from .criteria_definition   import *
 
-# USE one in CaMeasure
-def read_four_integers(file_path):
-    with open(file_path, 'r') as file:
-        line = file.readline()
-        numbers = list(map(int, line.strip().split()))
-        if len(numbers) != 2:
-            raise ValueError("The file does not contain exactly four integers.")
-        return numbers
+# # USE one in CaMeasure
+# def read_four_integers(file_path):
+#     with open(file_path, 'r') as file:
+#         line = file.readline()
+#         numbers = list(map(int, line.strip().split()))
+#         if len(numbers) != 2:
+#             raise ValueError("The file does not contain exactly four integers.")
+#         return numbers
+
+
+import pandas as pd
+
+def read_csv_for_endpoint_beginning(df, image_name):
+    """
+    Reads a CSV file and returns the endpoint and beginning values for a given image name.
+
+    Args:
+        csv_path (str): Path to the CSV file containing the image data.
+        image_name (str): Name of the image to look up (e.g., 'image001.jpg').
+
+    Returns:
+        list: A list containing [endpoint, beginning].
+
+    Raises:
+        FileNotFoundError: If the CSV file doesn't exist.
+        ValueError: If the image is not found or the row does not contain exactly two integers.
+    """
+    # try:
+    #     # df = pd.read_csv(csv_path)
+    # except FileNotFoundError:
+    #     raise FileNotFoundError(f"CSV file not found at: {csv_path}")
+
+    match = df[df['image'] == image_name]
+    if match.empty:
+        raise ValueError(f"Image '{image_name}' not found in the CSV.")
+
+    row = match.iloc[0]
+    endpoint = int(row['endpoint'])
+    beginning = int(row['beginning'])
+
+    return [endpoint, beginning]
+
 
 def polyOrderDecider(degree,num_px_ratio):
     if degree<=60 :
@@ -29,7 +63,7 @@ def polyOrderDecider(degree,num_px_ratio):
     return pixelNum,polyOrder
 
 
-def base_function_process(ad,name_files,file_number, model, kernel, num_px_ratio, left_polynomial_degree=3, right_polynomial_degree=2):
+def base_function_process(df,ad,name_files,file_number, model, kernel, num_px_ratio, left_polynomial_degree=3, right_polynomial_degree=2):
     """
         1.  Loading data
         1.1.Loading the image
@@ -46,8 +80,10 @@ def base_function_process(ad,name_files,file_number, model, kernel, num_px_ratio
     """
     # 1. Loading data
     just_drop       = cv2.imread(os.path.join(ad,name_files[file_number]))
-    just_drop       = just_drop[:-17,:,:]
-    x1              = read_four_integers(os.path.join(ad,name_files[file_number]).replace("jpg","txt"))[0]
+    just_drop       = just_drop[:-2,:,:]
+
+    # x1              = read_four_integers(os.path.join(ad,name_files[file_number]).replace("jpg","txt"))[0]
+    x1, x2 = read_csv_for_endpoint_beginning(df, name_files[file_number])
 
     # 2.  Supper resulotion
     upscaled_image  = CaMeasurer.upscale_image(model, just_drop, kernel)
@@ -69,8 +105,8 @@ def base_function_process(ad,name_files,file_number, model, kernel, num_px_ratio
     i_poly_left_rotated, j_poly_left_rotated    = CaMeasurer.poly_fitting(i_left_rotated,j_left_rotated,left_polynomial_degree,left_number_of_pixels)
     i_poly_right_rotated, j_poly_right_rotated  = CaMeasurer.poly_fitting(i_right_rotated,j_right_rotated,right_polynomial_degree,right_number_of_pixels)
 
-    right_angle_degree,right_angle_point        = right_angle(i_poly_right_rotated, j_poly_right_rotated,1)
-    left_angle_degree,left_angle_point          = left_angle(i_poly_left_rotated, j_poly_left_rotated,1)
+    # right_angle_degree,right_angle_point        = right_angle(i_poly_right_rotated, j_poly_right_rotated,1)
+    # left_angle_degree,left_angle_point          = left_angle(i_poly_left_rotated, j_poly_left_rotated,1)
     
     # left_number_of_pixels,  left_polynomial_degree = polyOrderDecider(left_angle_degree,    num_px_ratio)
     # right_number_of_pixels, right_polynomial_degree= polyOrderDecider(right_angle_degree,   num_px_ratio)

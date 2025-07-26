@@ -7,6 +7,7 @@ from tqdm import tqdm
 import subprocess
 import numpy                as np
 import matplotlib.pyplot    as plt
+from Phase_YOLO_frameNormalizer import process_experiment
 
 def walk_forward(array, steep = 0.0025)->int:
     """
@@ -55,18 +56,28 @@ def detect_drop(image,dims,show = False,scaleDownFactorx = 5, scaleDownFactory =
         Images should have exactly 5 rows of black pixels at the bottom of the image.
         It works with tilted setup drop imaeges, on other drop shape it is untested
 
+
+    Note:
+        Used morphologyEx desipte its been applied to frames. Some time in the end of slide, small drops
+        cause immature termination of the drop detection, then we would have a very long drop.
+
+        Since chance of having a 
+
     """
     resized_image = image
     # resized_image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
     # Resize the image to a smaller size for faster processing
     resized_image = cv2.resize(resized_image, (dims[1]//scaleDownFactorx, dims[0]//scaleDownFactory))
-    
-    ## Close operation fills small dark holes # Kernel size depends on spot size
-    # resized_image = cv2.morphologyEx(resized_image, cv2.MORPH_CLOSE, kernel)
-
     vv = resized_image.sum(axis=0)
     # vv = vv/(dims[0]-15)/scaleDownFactory  # Normalize the sum of rows
     vv = vv/vv.mean()  # Normalize the sum of rows to have a mean of 1
+
+    
+    resized_image = cv2.morphologyEx(resized_image, cv2.MORPH_CLOSE, kernel)
+
+    ## Close operation fills small dark holes # Kernel size depends on spot size
+    vv_mor = resized_image.sum(axis=0)
+    vv_mor = vv_mor/vv_mor.mean()  # Normalize the sum of rows to have a mean of 1
 
     if show:
         print("Sum of rows:", vv.shape, "image shape", resized_image.shape)
@@ -80,7 +91,7 @@ def detect_drop(image,dims,show = False,scaleDownFactorx = 5, scaleDownFactory =
         plt.ylabel("Sum Value")
         plt.show()
 
-    return vv
+    return vv, vv_mor
 
 def bottom_row_unifier(image, base, height, target_height=170, bottom_padding=5):
     """
@@ -150,53 +161,63 @@ def crop_and_save_image(image, output_path, x1, x2,tolerance=3 ):
 
 def Main(experiment):
     """
-    Crops all images for a single experiment folder based on its detections.csv file.
+    Crops all images for a single experiment folder and saves crop info to CSV.
     """
-    # try:
     images = sorted(glob.glob(os.path.join(experiment, '*.jpg')))
     if not images:
         return
 
-    desfolder = images[0].replace('frames', 'frame_Extracted')[:-11]
-    if not os.path.exists(desfolder):
-        os.makedirs(desfolder, exist_ok=True)
+    desfolder_crop = images[0].replace('frames', 'frame_Extracted')[:-11]
+    os.makedirs(desfolder_crop, exist_ok=True)
 
-    desfolder = images[0].replace('frames', 'frame_Extracted_xx')[:-11]
-    if not os.path.exists(desfolder):
-        os.makedirs(desfolder, exist_ok=True)
-
-
-
+    desfolder_csv = images[0].replace('frames', 'frame_Extracted_xx')[:-11]
+    os.makedirs(desfolder_csv, exist_ok=True)
+    
     scaleDownFactorx = 5
+    rows = []
+
+    drop_width = 300
+
     try:
-        for image in images[0:]:
-            frame       = cv2.imread(image)
-            frame       = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            vv          = detect_drop(frame,frame.shape, show=False, scaleDownFactorx=scaleDownFactorx)
-            endpoint    = walk_forward(vv)
+        for image in images:
+            frame     = cv2.imread(image)
+            frame     = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+            vv, vv_mor  = detect_drop(frame, frame.shape, show=False, scaleDownFactorx=scaleDownFactorx)
+            endpoint    = walk_forward(vv_mor)
             beginning   = backward(vv)
 
-            endpoint    = int(endpoint * scaleDownFactorx)
-            beginning   = int(beginning * scaleDownFactorx) 
+            endpoint  = int(endpoint * scaleDownFactorx)
+            beginning = int(beginning * scaleDownFactorx) 
 
-            if (beginning - endpoint > 450):
-                endpoint    = walk_forward(vv, steep = 0.005)
-                beginning   = backward(vv)
-                endpoint    = int(endpoint * scaleDownFactorx)
-                beginning   = int(beginning * scaleDownFactorx) 
+            if (beginning - endpoint > drop_width):
+                print(image)
+                endpoint  = walk_forward(vv_mor, steep=0.005)
+                # beginning = backward(vv)
+                endpoint  = int(endpoint * scaleDownFactorx)
+                # beginning = int(beginning * scaleDownFactorx) 
 
-            save_address = image.replace('frames', 'frame_Extracted')
-            crop_and_save_image(frame, save_address, endpoint, beginning)
+            save_path = image.replace('frames', 'frame_Extracted')
+            crop_and_save_image(frame, save_path, endpoint, beginning)
 
-            save_address = image.replace('frames', 'frame_Extracted_xx')
-            save_address = save_address.replace('.jpg', '.txt')
-            # Save them to a text file
-            with open(save_address, "w") as file:
-                file.write(f"{endpoint}\t{beginning}")
+            img_name = os.path.basename(image)
+            rows.append({'image': img_name, 'endpoint': endpoint, 'beginning': beginning})
+
+            drop_width = int (1.15 * (beginning - endpoint))
+
+        # Save results as a single CSV file
+        csv_path = os.path.join(desfolder_csv, 'detections.csv')
+        df = pd.DataFrame(rows)
+        df.to_csv(csv_path, index=False)
+
     except Exception as e:
         print(f"Error processing {experiment}: {e}")
+        # Clean up folders on failure
         _temp = experiment.replace('frames', 'frame_Extracted')
-        subprocess.run(["rm", "-rf", os.path.join(_temp)])  # Remove the folder if error occurs
+        subprocess.run(["rm", "-rf", _temp])
+        _temp = experiment.replace('frames', 'frame_Extracted_xx')
+        subprocess.run(["rm", "-rf", _temp])
+
 
 def get_subdirectories(root_dir, max_depth=2):
     directories = []
@@ -223,7 +244,7 @@ if __name__ == "__main__":
     print(f"Found {len(experiment_paths)} experiments.")
 
     # Use tqdm to track progress
-    with multiprocessing.Pool(processes=min(18, os.cpu_count())) as pool:
+    with multiprocessing.Pool(processes=min(12, os.cpu_count())) as pool:
         list(tqdm(pool.imap_unordered(Main, experiment_paths), total=len(experiment_paths)))
                 
     # adress = r"/media/d2u25/Dont/S4S-ROF/frames/300/S3-SNr3.05_D/frames20250707_201500_DropNumber_11"

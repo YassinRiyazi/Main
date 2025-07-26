@@ -12,12 +12,15 @@ from ultralytics import YOLO
 
 
 import tqdm 
-
+import pandas as pd
 
 import sys
 # Add the absolute path to the ./src folder
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../', 'src/PyThon/ContactAngle')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../', 'src/PyThon/FFMpeg')))
+
 import CaMeasurer
+from Jpg2Video import process_experiment
 
 
 def processs(ad):
@@ -36,6 +39,11 @@ def processs(ad):
     if os.path.isfile(os.path.join(ad,'SR_result','result.csv')):
         return None
     
+    _ad_csv = ad.replace("frame_Extracted","frame_Extracted_xx")
+    _ad_csv = _ad_csv.replace("result/","")
+    df = pd.read_csv(os.path.join(_ad_csv,'detections.csv'))
+
+
     CaMeasurer.make_folders(ad)
 
     fps                         = 4000
@@ -54,12 +62,14 @@ def processs(ad):
 
     CaMeasurer.logFile(ad)
 
+
     #def folder_pro
     # for file_number in tqdm.tqdm(range(1, len(name_files))):
     try:
         for file_number in range(1, len(name_files)):
             try:
-                arggs = CaMeasurer.base_function_process(ad,name_files,file_number, model = model, kernel = kernel, num_px_ratio=num_px_ratio)
+                arggs = CaMeasurer.base_function_process(df,ad,name_files,file_number,
+                                                         model = model, kernel = kernel, num_px_ratio=num_px_ratio)
                 i_list, j_list, i_left, j_left, i_right, j_right, j_poly_left, i_poly_left, j_poly_right, i_poly_right, x_cropped, i_poly_left_rotated, j_poly_left_rotated, i_poly_right_rotated, j_poly_right_rotated = arggs
                 distance = (x_cropped) * 3
                 address=os.path.join(ad,'SR_edge',str(name_files[file_number]))
@@ -67,7 +77,8 @@ def processs(ad):
                                                                                                                                             distance+np.array(i_list),j_list,distance+np.array(i_left),j_left,distance+np.array(i_right),j_right,
                                                                                                                                             j_poly_left,distance+np.array(i_poly_left),j_poly_right,distance+np.array(i_poly_right),x_cropped,
                                                                                                                                             distance+np.array(i_poly_left_rotated), j_poly_left_rotated, distance+np.array(i_poly_right_rotated),
-                                                                                                                                            j_poly_right_rotated, cm_on_pixel=cm_on_pixel_ratio, middle_line_switch=1)
+                                                                                                                                            j_poly_right_rotated, cm_on_pixel=cm_on_pixel_ratio, middle_line_switch=1,
+                                                                                                                                            dpi = 300)
                 
                 processed_number_list.append(int(name_files[file_number].split(".")[0].split("S0001")[-1]))
                 adv_list.append(adv)
@@ -110,6 +121,8 @@ def processs(ad):
         # df["velocity (cm/s)"]=savgol_filter(df["velocity (cm/s)"], filter_size, 2)
 
         df.to_csv(os.path.join(ad, 'SR_result', 'result.csv'), index=False)
+
+        process_experiment(ad)
     except:
         return None
 
@@ -137,22 +150,43 @@ def get_mp4_files(root_dir, max_depth=2):
     return sorted(mp4_files)
 
 
+def get_subdirectories(root_dir, max_depth=2):
+    directories = []
+    for root, dirs, _ in sorted(os.walk(root_dir)):
+        if root == root_dir:
+            continue  # Skip the root directory itself
+        depth = root[len(root_dir):].count(os.sep)
+        if depth < max_depth:
+            directories.append(root)
+        else:
+            del dirs[:]  # Stop descending further
+    return directories
 
 if __name__ == "__main__":
     
-    adress  = "/media/ubun25/DONT/MPI/S4S-ROF/drop/"
+    adress  = "/media/d2u25/Dont/S4S-ROF/drop"
     # processs("/media/ubun25/DONT/MPI/S4S-ROF/frame_Extracted/280/S2-SNr2.1_D/frame_Extracted20250621_203528_DropNumber_01")
     # experiments = []
     # for tilt in CaMeasurer.get_subdirectories(adress):
     #     for fluid in CaMeasurer.get_subdirectories(tilt):
     #         for experiment in CaMeasurer.get_subdirectories(fluid):
     #             experiments.append(experiment)  # Collect all experiments
-    experiments = sorted(get_mp4_files(adress, max_depth=5))
-    experiments = [experiment.replace("drop","frame_Extracted") for experiment in experiments]
-    experiments = [experiment.replace(".mp4","") for experiment in experiments]
-    experiments = [experiment.replace("frames","frame_Extracted") for experiment in experiments]
+
+    # experiments = sorted(get_mp4_files(adress, max_depth=5))
+    # experiments = [experiment.replace("drop","frame_Extracted") for experiment in experiments]
+    # experiments = [experiment.replace(".mp4","") for experiment in experiments]
+    # experiments = [experiment.replace("frames","frame_Extracted") for experiment in experiments]
+
+    root_folder_name = "/media/d2u25/Dont/S4S-ROF/frame_Extracted"
+    experiments = []
+    for tilt in get_subdirectories(root_folder_name):
+        for fluid in get_subdirectories(tilt):
+            experiments.extend(get_subdirectories(fluid))
 
     # Use multiprocessing pool
-    with multiprocessing.Pool(processes=int(multiprocessing.cpu_count()*0.7)) as pool: #
+    with multiprocessing.Pool(processes=int(multiprocessing.cpu_count()*0.65)) as pool: #
         list(tqdm.tqdm(pool.imap_unordered(processs, experiments), total=len(experiments)))
         # list(pool.imap_unordered(processs, experiments))
+
+    # dddd = "/media/d2u25/Dont/S4S-ROF/frame_Extracted/280/S2-SNr2.14_D/frame_Extracted20250620_222000_DropNumber_18"
+    # process_experiment(dddd)
