@@ -15,9 +15,9 @@ source_dirs = {
     'Devlog': 'doc/Devlog',
     'WebLog': 'doc/WebLog'
 }
-notes_dir = 'doc/notes'
-devlog_dir = 'doc/Devlog'
-weblog_dir = 'doc/WebLog'
+notes_dir       = 'doc/notes'
+devlog_dir      = 'doc/Devlog'
+weblog_dir      = 'doc/WebLog'
 output_base_dir = 'docs'
 
 def get_language_from_path(html_path, output_base_dir):
