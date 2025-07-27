@@ -219,13 +219,7 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
         footer {
             margin-top: 30px;
             font-size: 0.8em;
@@ -273,6 +267,25 @@
         } 
 
 
+
+
+
+
+
+
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1abc9c;
+            text-decoration: underline;
+        }
+
         p {
             text-align: justify;
             text-indent: 2em; /* Indent the first line */
@@ -312,6 +325,25 @@
         .keyword-ref:hover {
             background: linear-gradient(to right, #d6eaf8, #aed6f1);
             cursor: help;
+        }
+
+        .rel-link {
+            display: inline-block;
+            color: #61e98a;
+            
+            /* background: linear-gradient(135deg, #6a11cb, #2575fc); */
+            padding: 0px 0px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .rel-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -397,6 +429,8 @@
 <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
 <li><a href="Why.html">Why</a></li>
+<li><a href="Whats Next.html">Whats Next</a></li>
+<li><a href="WebDocy.html">WebDocy</a></li>
 <li><a href="21-07-27.html">21-07-27</a></li>
 </ul>
 </details></li>
@@ -406,60 +440,52 @@
     <div class="content">
         <h1></h1>
         
-        <h1>Why Docy?</h1>
-<p>I’ve always had the desire to document my work. Initially, I used MS Word. I wrote a few notes and thoughts, but as my ideas and projects grew larger, I found myself limited by the tool. It was difficult to import images, organize the document in different ways, and make my work as dynamic as I wanted it to be. This was during my high school years. At this stage I tried to build a wordpress website but lack of knowledge stopped me. Also I have amazed by x8.blogfa.com and other one witch provdied free VPN hpip.blogspot.com. But I knew how HTML could be powerfull. FYI wordpress was filtered. </p>
-<p>Later, I was introduced to LaTeX typesetting and <a href="https://www.youtube.com/@DrMesforushAcademy/playlists"><em>Dr. Ali Mesforoush</em></a>. His free courses on Matlab, LaTeX, and advocacy for GNU/free software had a profound impact on me. I sincerely hope Dr. Mesforoush thrives in this life and the next, if there is such a thing. I first learned the basics of LaTeX while working on a technical drawing book during the summer of my first year as a bachelor’s student. I vividly remember when my parents visited me in Tabriz. We stayed in a large house that my dad had reserved through his institution. I spent hours lying on the sofa, trying to create a simple LaTeX document in Persian—though, as you might know, language support for Persian, Arabic, and other non-Latin scripts was still quite limited back then. Surelly it didn't help that I was not familiar with English aswell.</p>
-<p>The idea of having a document that could be processed like code was, and still is, incredibly exciting to me. However, there was a catch: you still had to follow the rule of sequential document structure, stack structure. You couldn’t add pages at arbitrary points in the document, like you could with a tree structure, to be more concise HTML summary. This story takes place around 2018, a time when mighty ChatGPT wasn’t available, and ChatGPT-1 had just been introduced. Of course, it was possible to manipulate LaTeX to make documents more flexible, but it required more effort than I was willing to put in at the time.</p>
+        <h1><span class="rel-link"><a href="Why.html">Why</a></span> Docy?</h1>
+<p>This is Docky. A multipurpose documentation and simple word processor library. Now I need an HTML output, but it can also be expanded to TeX. </p>
+<p>For the reasons behind this library, read the following.</p>
+<p>I’ve always had the desire to document my work. Initially, I used MS Word. I wrote a few notes and thoughts, but as my ideas and projects grew larger, I found myself limited by the tool. It was difficult to import images, organize the document in different ways, and make my work as dynamic as I wanted it to be. This was during my high school years. At this stage, I tried to build a WordPress website, but a lack of knowledge stopped me. Also, I have been amazed by x8.blogfa.com and other one witch provdied free VPN hpip.blogspot.com. But I knew how HTML could be powerful. FYI, WordPress was filtered. </p>
+<p>Later, I was introduced to LaTeX typesetting and <a href="https://www.youtube.com/@DrMesforushAcademy/playlists"><em>Dr. Ali Mesforoush</em></a>. His free courses on MATLAB, LaTeX, and advocacy for GNU/free software had a profound impact on me. I sincerely hope Dr. Mesforoush thrives in this life and the next, if there is such a thing. I first learned the basics of LaTeX while working on a technical drawing book during the summer of my first year as a bachelor’s student. I vividly remember when my parents visited me in Tabriz. We stayed in a large house that my dad had reserved through his institution. I spent hours lying on the sofa, trying to create a simple LaTeX document in Persian—though, as you might know, language support for Persian, Arabic, and other non-Latin scripts was still quite limited back then. Surely it didn't help that I was not familiar with English as well.</p>
+<p>The idea of having a document that could be processed like code was, and still is, incredibly exciting to me. However, there was a catch: you still had to follow the rule of sequential document structure, stack structure. You couldn’t add pages at arbitrary points in the document, like you could with a tree structure, to be a more concise HTML summary. This story takes place around 2018, a time when mighty ChatGPT wasn’t available, and ChatGPT-1 had just been introduced. Of course, it was possible to manipulate LaTeX to make documents more flexible, but it required more effort than I was willing to put in at the time.</p>
 <p>Even if AI could have helped me achieve my goal of creating a flexible documentation system, I couldn’t—or to be more honest, I was too lazy—especially when it came to copying and pasting various elements, like code and additional information.</p>
-<p>Later, during the final months of my Master’s program, I encountered a bizarre issue with MS Word. The header wouldn’t display correctly, and I couldn’t figure out whether it was due to the Persian language support or an error in the university thesis template, which conveniently they have password protected it. Either way, I had enough. I decided to rewrite the entire thesis in LaTeX. It took a solid month, with the revisions from my supervisor. I had 25 plots with similar descriptions, which would have been a nightmare to handle manually, but importing them into LaTeX using Python's f-string was a breeze.</p>
-<p>Right now, it’s 2:30 AM, and I’m writing this weblog to remind myself why I’m investing so much time in WebDocy. I’ve rewritten this function over 40 F_ing times, always forgetting where the file is located.</p>
-<pre><code>def get_subdirectories(root_dir, max_depth=2):
-
-    directories = []
-
-    for root, dirs, _ in sorted(os.walk(root_dir)):
-
-        if root == root_dir:
-
-            continue  # Skip the root directory itself
-
-        depth = root[len(root_dir):].count(os.sep)
-
-        if depth &lt; max_depth:
-
-            directories.append(root)
-
-        else:
-
-            del dirs[:]  # Stop descending further
-
-    return directories
-</code></pre>
+<p>Later, during the final months of my Master’s program, I encountered a bizarre issue with MS Word. The header wouldn’t display correctly, and I couldn’t figure out whether it was due to the Persian language support or an error in the university thesis template, which conveniently they have  password-protected it. Either way, I had enough. I decided to rewrite the entire thesis in LaTeX. It took a solid month, with the revisions from my supervisor. I had 25 plots with similar descriptions, which would have been a nightmare to handle manually, but importing them into LaTeX using Python's f-string was a breeze.</p>
+<p>Right now, it’s 2:30 AM, and I’m writing this weblog to remind myself why I’m investing so much time in <span class="rel-link"><a href="WebDocy.html">WebDocy</a></span>. I’ve rewritten this function over 40 F-ing times, always forgetting where the file is located.</p>
+<p>def get_subdirectories(root_dir, max_depth=2):</p>
+<p>directories = []</p>
+<p>for root, dirs, _ in sorted(os.walk(root_dir)):</p>
+<p>if root == root_dir:</p>
+<p>continue  # Skip the root directory itself</p>
+<p>depth = root[len(root_dir):].count(os.sep)</p>
+<p>if depth &lt; max_depth:</p>
+<p>directories.append(root)</p>
+<p>else:</p>
+<p>del dirs[:]  # Stop descending further</p>
+<p>return directories</p>
 <p>By forcing myself to document my work, keeping track of important pitfalls, and reminding myself why I added that specific if statement, I hope to do myself a favor in the long run.</p>
 <h2>Word</h2>
 <p>It worth noting that MS Word is much better now, back then in 2012, if you had more that 80 pages, good luck with editing. </p>
 <h2>LaTex</h2>
 <p>Really great for PDF.</p>
 <ol>
-<li>Also I like the Label Ref style to link different hyperlinks. which is accessible with \ Label: and \ Ref: style text inside notes.</li>
+<li>Also, I like the Label Ref style to link different hyperlinks. Which is accessible with \ Label: and \ Ref: style text inside notes.</li>
 <li>Simple text editable source files.</li>
-<li>High quality graphics</li>
+<li>High-quality graphics</li>
 </ol>
-<h2>WebDocy</h2>
+<h2><span class="rel-link"><a href="WebDocy.html">WebDocy</a></span></h2>
 <ol>
-<li>General purposed documentation/diary.</li>
+<li>General-purpose documentation/diary.</li>
 <li>Organizing<ol>
 <li>toughs on my code</li>
 <li>Future plans (learning new skills)</li>
 <li>experiences</li>
 </ol>
 </li>
-<li>Doing compatibility checking between C, C++ and Python bindings. (Very basic compiler tasks)</li>
-<li>Helping other to use my codes.</li>
+<li>Doing compatibility checking between C, C++, and Python bindings. (Very basic compiler tasks)</li>
+<li>Helping others to use my code.</li>
+<li>Version control. GitHub</li>
 </ol>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-27 13:42:56</span></p>
+            <p>Documentation generated on <span>2025-07-27 16:10:58</span></p>
             <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Why/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Why/README.md</a></span></p>
         </footer>
     </div>

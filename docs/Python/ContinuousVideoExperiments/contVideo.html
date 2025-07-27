@@ -219,13 +219,7 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
         footer {
             margin-top: 30px;
             font-size: 0.8em;
@@ -273,6 +267,25 @@
         } 
 
 
+
+
+
+
+
+
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1abc9c;
+            text-decoration: underline;
+        }
+
         p {
             text-align: justify;
             text-indent: 2em; /* Indent the first line */
@@ -312,6 +325,25 @@
         .keyword-ref:hover {
             background: linear-gradient(to right, #d6eaf8, #aed6f1);
             cursor: help;
+        }
+
+        .rel-link {
+            display: inline-block;
+            color: #61e98a;
+            
+            /* background: linear-gradient(135deg, #6a11cb, #2575fc); */
+            padding: 0px 0px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .rel-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -397,6 +429,8 @@
 <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
 <li><a href="../../WebLog/Why.html">Why</a></li>
+<li><a href="../../WebLog/Whats Next.html">Whats Next</a></li>
+<li><a href="../../WebLog/WebDocy.html">WebDocy</a></li>
 <li><a href="../../WebLog/21-07-27.html">21-07-27</a></li>
 </ul>
 </details></li>
@@ -414,7 +448,7 @@
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>None</code>: None</div>
-<div class=section-title>raises:</div>
+<div class="section-title">raises:</div>
 <div>{'type': 'Exception', 'desc': 'If any unexpected error occurs while deleting the file.'}</div>
 </div>
 <div class="function">
@@ -428,7 +462,7 @@
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>None</code>: None</div>
-<div class=section-title>raises:</div>
+<div class="section-title">raises:</div>
 <div>{'type': 'Exception', 'desc': 'If any unexpected error occurs during file deletion.'}</div>
 </div>
 <div class="function">
@@ -447,12 +481,12 @@
 <li><code>yolo_conf</code> (float, optional): YOLO confidence threshold. Defaults to 0.6.</li>
 <li><code>num_workers</code> (int, optional): Number of parallel processes. Defaults to half of CPU cores.</li>
 </ul>
-<div class=section-title>examples:</div>
-<div>>>> Walker("extracted_frames", skip=30, yolo_conf=0.5)</div>
+<div class="section-title">examples:</div>
+<div>&gt;&gt;&gt; Walker("extracted_frames", skip=30, yolo_conf=0.5)</div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-27 13:42:56</span></p>
+            <p>Documentation generated on <span>2025-07-27 16:10:58</span></p>
             <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContinuousVideoExperiments/contVideo.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContinuousVideoExperiments/contVideo.py</a></span></p>
         </footer>
     </div>

@@ -219,13 +219,7 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
         footer {
             margin-top: 30px;
             font-size: 0.8em;
@@ -273,6 +267,25 @@
         } 
 
 
+
+
+
+
+
+
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1abc9c;
+            text-decoration: underline;
+        }
+
         p {
             text-align: justify;
             text-indent: 2em; /* Indent the first line */
@@ -312,6 +325,25 @@
         .keyword-ref:hover {
             background: linear-gradient(to right, #d6eaf8, #aed6f1);
             cursor: help;
+        }
+
+        .rel-link {
+            display: inline-block;
+            color: #61e98a;
+            
+            /* background: linear-gradient(135deg, #6a11cb, #2575fc); */
+            padding: 0px 0px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .rel-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -397,6 +429,8 @@
 <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
 <li><a href="../../WebLog/Why.html">Why</a></li>
+<li><a href="../../WebLog/Whats Next.html">Whats Next</a></li>
+<li><a href="../../WebLog/WebDocy.html">WebDocy</a></li>
 <li><a href="../../WebLog/21-07-27.html">21-07-27</a></li>
 </ul>
 </details></li>
@@ -414,8 +448,8 @@
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>float</code>: The area of the circle in square meters.</div>
-<div class=section-title>examples:</div>
-<div>>>> calculate_area(2.0)</div>
+<div class="section-title">examples:</div>
+<div>&gt;&gt;&gt; calculate_area(2.0)</div>
 <div>12.566370614359172</div>
 </div>
 <div class="function">
@@ -425,23 +459,23 @@
 <li><code>name</code> (str): The name to greet.</li>
 <li><code>times</code> (int): Number of times to repeat the greeting (default: 1).</li>
 </ul>
-<div class=section-title>raises:</div>
+<div class="section-title">raises:</div>
 <div>{'type': 'ValueError', 'desc': 'If times is negative.'}</div>
-<div class=section-title>examples:</div>
-<div>>>> greet("Alice", 3)</div>
-<div class=section-title>notes:</div>
+<div class="section-title">examples:</div>
+<div>&gt;&gt;&gt; greet("Alice", 3)</div>
+<div class="section-title">notes:</div>
 <div>This function is a simple demonstration of how to use docstrings.</div>
-<div class=section-title>see_also:</div>
+<div class="section-title">see_also:</div>
 <div>- `calculate_area`: A function that calculates the area of a circle.</div>
-<div class=section-title>caution:</div>
+<div class="section-title">caution:</div>
 <div>Ensure that the 'times' parameter is not negative.</div>
-<div class=section-title>warning:</div>
+<div class="section-title">warning:</div>
 <div>This function does not handle non-string names gracefully.</div>
 <div><p> <span class="keyword-ref"><a href="test 2.html#greet">greet</a></span> </p></div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-27 13:42:56</span></p>
+            <p>Documentation generated on <span>2025-07-27 16:10:58</span></p>
             <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Test/test.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Test/test.py</a></span></p>
         </footer>
     </div>

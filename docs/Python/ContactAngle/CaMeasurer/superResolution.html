@@ -219,13 +219,7 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+
         footer {
             margin-top: 30px;
             font-size: 0.8em;
@@ -273,6 +267,25 @@
         } 
 
 
+
+
+
+
+
+
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1abc9c;
+            text-decoration: underline;
+        }
+
         p {
             text-align: justify;
             text-indent: 2em; /* Indent the first line */
@@ -312,6 +325,25 @@
         .keyword-ref:hover {
             background: linear-gradient(to right, #d6eaf8, #aed6f1);
             cursor: help;
+        }
+
+        .rel-link {
+            display: inline-block;
+            color: #61e98a;
+            
+            /* background: linear-gradient(135deg, #6a11cb, #2575fc); */
+            padding: 0px 0px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: 'Segoe UI', sans-serif;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .rel-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
     </style>
 </head>
@@ -397,6 +429,8 @@
 <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
 <li><a href="../../../WebLog/Why.html">Why</a></li>
+<li><a href="../../../WebLog/Whats Next.html">Whats Next</a></li>
+<li><a href="../../../WebLog/WebDocy.html">WebDocy</a></li>
 <li><a href="../../../WebLog/21-07-27.html">21-07-27</a></li>
 </ul>
 </details></li>
@@ -419,7 +453,7 @@
 <div class="function">
 <div class="function-name">__init__()</div>
 <div class="description">A PyTorch convolutional neural network for single-channel image super-resolution. Architecture: - Conv2d(1 → 64) with kernel size 5 - Conv2d(64 → 64) with kernel size 3 - Conv2d(64 → 32) with kernel size 3 - Conv2d(32 → 9) with kernel size 3 - PixelShuffle with upscale factor 3 Activation: - ReLU is used after each convolution. Output: - A super-resolved image with spatial resolution increased by a factor of 3.</div>
-<div class=section-title>notes:</div>
+<div class="section-title">notes:</div>
 <div>- The final convolution outputs 9 channels, which are reshaped via PixelShuffle (3× upscaling).</div>
 </div>
 <div class="function">
@@ -430,10 +464,10 @@
 <li><code>sup_res_model</code> (torch.nn.Module): The loaded and ready-to-use super-resolution model.</li>
 <li><code>forward</code> (input_tensor): Apply the model to a given input image.</li>
 </ul>
-<div class=section-title>examples:</div>
-<div>>>> model = initiation()</div>
-<div>>>> output = model.forward(input_array)</div>
-<div class=section-title>notes:</div>
+<div class="section-title">examples:</div>
+<div>&gt;&gt;&gt; model = initiation()</div>
+<div>&gt;&gt;&gt; output = model.forward(input_array)</div>
+<div class="section-title">notes:</div>
 <div>- The input tensor must be a 2D NumPy array (grayscale image).</div>
 <div>- Output is a 2D uint8 NumPy array representing the upscaled image.</div>
 </div>
@@ -445,22 +479,22 @@
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>np.ndarray</code>: 2D uint8 NumPy array of the super-resolved image.</div>
-<div class=section-title>raises:</div>
+<div class="section-title">raises:</div>
 <div>{'type': 'ValueError', 'desc': 'If input_tensor is not a 2D array.'}</div>
-<div class=section-title>notes:</div>
+<div class="section-title">notes:</div>
 <div>- The model expects a (1, H, W) input with values normalized to [0, 1].</div>
 <div>- Output is rescaled to [0, 255] and clipped.</div>
 </div>
 <div class="function">
 <div class="function-name">initiate_torch()</div>
 <div class="description">Initialize the PyTorch model and load pre-trained weights from disk.</div>
-<div class=section-title>notes:</div>
+<div class="section-title">notes:</div>
 <div>- The model weights are loaded from '../models/converted_model.pt'</div>
 <div>- The model is set to evaluation mode to disable dropout/batchnorm updates.</div>
 </div>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-27 13:42:56</span></p>
+            <p>Documentation generated on <span>2025-07-27 16:10:58</span></p>
             <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/superResolution.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/superResolution.py</a></span></p>
         </footer>
     </div>

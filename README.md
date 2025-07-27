@@ -13,11 +13,13 @@
 >
 > Vanilla HTML which was automatically generated from [Source](./src)
 >
-> > - [ ] Adding tags to automatically connect relevant functions from different implementations.
+> > - [V] Adding tags to automatically connect relevant functions from different implementations.
 > > - [ ] Add unified method to add TODO
-> > - [ ] Add functionality to import read me description for each src file and folder, and including it in web doc
+> > - [V] Add functionality to import read me description for each src file and folder, and including it in web doc
 > > - [ ] Add support for Python classes
 > > - [V] Add a link in each doc page to include that module easily.
+> > - [ ] Add encription and decription code with java script for certain pages.
+> > - [ ] Move CSS to seperate folder
 
 ## Target:
 0. Doing a hell of a Ph.D.

@@ -4,6 +4,7 @@ from datetime import datetime
 import markdown
 import maker  # Assuming this module provides extract_python_functions and extract_c_functions
 import re
+from bs4 import BeautifulSoup
 
 # Define source directories
 source_dirs = {
@@ -142,6 +143,31 @@ def create_nav_menu(processed_files, current_file_path):
     nav_html.extend(['</ul>', '</nav>'])
     return '\n'.join(nav_html)
 
+def replace_file_names_in_html(html_content, file_name_to_html_path, current_html_path):
+    """Replace file names in HTML content with hyperlinks to their corresponding pages."""
+    if not file_name_to_html_path:
+        return html_content
+    soup = BeautifulSoup(html_content, 'html.parser')
+    pattern = r'\b(' + '|'.join(map(re.escape, file_name_to_html_path.keys())) + r')\b'
+    for text_node in soup.find_all(text=True):
+        
+        if not isinstance(text_node, str):
+            continue
+        parent = text_node.parent
+        if parent.name in ['code', 'pre', 'a'] or any(ancestor.name == 'a' for ancestor in parent.parents):
+            continue
+        def replace_match(match):
+            word = match.group(0)
+            if (word == 'notes'):
+                return f'{word}'
+            target_path = file_name_to_html_path[word]
+            rel_path = os.path.relpath(target_path, start=os.path.dirname(current_html_path))
+            rel_path = rel_path.replace('\\', '/')
+            return f'<span class="rel-link"><a href="{rel_path}">{word}</a></span>'
+        new_text = re.sub(pattern, replace_match, text_node)
+        text_node.replace_with(BeautifulSoup(new_text, 'html.parser'))
+    return str(soup)
+
 def GenerateMainPage(LangLists, processed_files):
     """Generate index.html with all sections."""
     index_content = ['<h1>Project Documentation</h1>', '<div class="overview">']
@@ -251,8 +277,25 @@ def main():
     Markdowns2HTML(processed_files, devlog_dir, 'Devlog')
     Markdowns2HTML(processed_files, weblog_dir, 'WebLog')
 
+    # Build file name to HTML path mapping
+    file_name_to_html_path = {}
+    for lang in LangLists + ['Devlog', 'WebLog']:
+        file_name_to_html_path[lang] = {}
+        for file in processed_files:
+            if file['lang'] == lang:
+                if file['type'] == 'source':
+                    base_name = os.path.splitext(os.path.basename(file['source_path']))[0]
+                    if base_name not in file_name_to_html_path[lang]:
+                        file_name_to_html_path[lang][base_name] = file['html_path']
+                    else:
+                        print(f"Warning: duplicate file name '{base_name}' in language {lang}")
+                elif file['type'] == 'notes':
+                    file_name_to_html_path[lang]['notes'] = file['html_path']
+                elif file['type'] in ['Devlog', 'WebLog']:
+                    file_name_to_html_path[lang][file['name']] = file['html_path']
+
     _tempWebAdress = "https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/"
-    # Generate HTML for all files
+    # Generate HTML for all files with file name hyperlinks
     for file in processed_files:
         with open('doc/template.html', 'r') as f:
             template = f.read()
@@ -265,9 +308,10 @@ def main():
             title = f""
         elif file['type'] == 'WebLog':
             title = f""
+        content_html = replace_file_names_in_html(file['content_html'], file_name_to_html_path.get(file['lang'], {}), file['html_path'])
         output = template.replace('<!-- TITLE -->', title)
         output = output.replace('<!-- NAVIGATION -->', nav_menu)
-        output = output.replace('<!-- CONTENT -->', file['content_html'])
+        output = output.replace('<!-- CONTENT -->', content_html)
         output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         output = output.replace('<!-- Adress -->', f'<a href="{_tempWebAdress}{file["source_path"]}">{_tempWebAdress}{file["source_path"]}</a>')
         with open(file['html_path'], 'w') as f:
