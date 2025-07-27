@@ -78,7 +78,7 @@ def processs(ad):
                                                                                                                                             j_poly_left,distance+np.array(i_poly_left),j_poly_right,distance+np.array(i_poly_right),x_cropped,
                                                                                                                                             distance+np.array(i_poly_left_rotated), j_poly_left_rotated, distance+np.array(i_poly_right_rotated),
                                                                                                                                             j_poly_right_rotated, cm_on_pixel=cm_on_pixel_ratio, middle_line_switch=1,
-                                                                                                                                            dpi = 300)
+                                                                                                                                            dpi = 100)
                 
                 processed_number_list.append(int(name_files[file_number].split(".")[0].split("S0001")[-1]))
                 adv_list.append(adv)
@@ -184,7 +184,7 @@ if __name__ == "__main__":
             experiments.extend(get_subdirectories(fluid))
 
     # Use multiprocessing pool
-    with multiprocessing.Pool(processes=int(multiprocessing.cpu_count()*0.35)) as pool: #
+    with multiprocessing.Pool(processes=int(multiprocessing.cpu_count()*0.65)) as pool: #
         list(tqdm.tqdm(pool.imap_unordered(processs, experiments), total=len(experiments)))
         # list(pool.imap_unordered(processs, experiments))
 

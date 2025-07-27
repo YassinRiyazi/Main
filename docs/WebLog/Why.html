@@ -101,6 +101,8 @@
         } */
 
         /* Content styling */
+        
+
         .content {
         margin-left: 280px;
         padding: 20px;
@@ -268,7 +270,49 @@
         }
         .token.parameter {
             color: #22863a;
-        } */
+        } 
+
+
+        p {
+            text-align: justify;
+            text-indent: 2em; /* Indent the first line */
+            line-height: 1.6;
+            font-size: 1.1em;
+            color: #2d3436;
+            font-family: 'Georgia', serif;
+            margin: 1em auto;
+            max-width: 800px;
+            padding: 0 1em;
+        }
+        /* For keyword only*/
+        .keyword {
+            font-weight: bold;
+            color: #e91e63; /* pink */
+            font-size: 1.2em;
+            background-color: #fce4ec;
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .keyword-ref {
+            display: inline-block;
+            font-weight: 600;
+            color: #2c3e50;
+            background: linear-gradient(to right, #ecf0f1, #dfe6e9);
+            border-left: 4px solid #3498db;
+            padding: 4px 10px;
+            margin: 2px;
+            border-radius: 6px;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 1em;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+            transition: background 0.3s ease;
+        }
+
+        .keyword-ref:hover {
+            background: linear-gradient(to right, #d6eaf8, #aed6f1);
+            cursor: help;
+        }
     </style>
 </head>
 <body>
@@ -323,6 +367,7 @@
 </ul></details></li>
 <li><details><summary>Test</summary><ul style="margin-left: 40px;">
 <li><a href="../Python/Test/test.html">test.py</a></li>
+<li><a href="../Python/Test/test 2.html">test 2.py</a></li>
 </ul></details></li>
 </ul>
 </details></li>
@@ -346,19 +391,13 @@
 </details></li>
 <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details><summary>Devlog</summary>
 <ul style="margin-left: 20px;">
-<li><details><summary>21-07-25</summary><ul style="margin-left: 40px;">
-<li><a href="../Devlog/21-07-25.html">README.md</a></li>
-</ul></details></li>
+<li><a href="../Devlog/21-07-25.html">21-07-25</a></li>
 </ul>
 </details></li>
 <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
-<li><details><summary>Why</summary><ul style="margin-left: 40px;">
-<li><a href="Why.html">README.md</a></li>
-</ul></details></li>
-<li><details><summary>21-07-27</summary><ul style="margin-left: 40px;">
-<li><a href="21-07-27.html">README.md</a></li>
-</ul></details></li>
+<li><a href="Why.html">Why</a></li>
+<li><a href="21-07-27.html">21-07-27</a></li>
 </ul>
 </details></li>
 </ul>
@@ -367,50 +406,60 @@
     <div class="content">
         <h1></h1>
         
-        <h1>Why?</h1>
-<p>I’ve always had the desire to document my work. Initially, I used MS Word. I wrote a few notes and thoughts, but as my ideas and projects grew larger, I found myself limited by the tool. It was difficult to import images, organize the document in different ways, and make my work as dynamic as I wanted it to be. This was during my high school years.</p>
-<p>Later, I was introduced to LaTeX typesetting and <a href="https://www.youtube.com/@DrMesforushAcademy/playlists"><em>Dr. Ali Mesforoush</em></a>. His free courses on Matlab, LaTeX, and advocacy for GNU/free software had a profound impact on me. I sincerely hope Dr. Mesforoush thrives in this life and the next, if there is such a thing.</p>
-<p>I first learned the basics of LaTeX while working on a technical drawing book during the summer of my first year as a bachelor’s student. I vividly remember when my parents visited me in Tabriz. We stayed in a large house that my dad had reserved through his institution. I spent hours lying on the sofa, trying to create a simple LaTeX document in Persian—though, as you might know, language support for Persian, Arabic, and other non-Latin scripts was still quite limited back then.</p>
+        <h1>Why Docy?</h1>
+<p>I’ve always had the desire to document my work. Initially, I used MS Word. I wrote a few notes and thoughts, but as my ideas and projects grew larger, I found myself limited by the tool. It was difficult to import images, organize the document in different ways, and make my work as dynamic as I wanted it to be. This was during my high school years. At this stage I tried to build a wordpress website but lack of knowledge stopped me. Also I have amazed by x8.blogfa.com and other one witch provdied free VPN hpip.blogspot.com. But I knew how HTML could be powerfull. FYI wordpress was filtered. </p>
+<p>Later, I was introduced to LaTeX typesetting and <a href="https://www.youtube.com/@DrMesforushAcademy/playlists"><em>Dr. Ali Mesforoush</em></a>. His free courses on Matlab, LaTeX, and advocacy for GNU/free software had a profound impact on me. I sincerely hope Dr. Mesforoush thrives in this life and the next, if there is such a thing. I first learned the basics of LaTeX while working on a technical drawing book during the summer of my first year as a bachelor’s student. I vividly remember when my parents visited me in Tabriz. We stayed in a large house that my dad had reserved through his institution. I spent hours lying on the sofa, trying to create a simple LaTeX document in Persian—though, as you might know, language support for Persian, Arabic, and other non-Latin scripts was still quite limited back then. Surelly it didn't help that I was not familiar with English aswell.</p>
 <p>The idea of having a document that could be processed like code was, and still is, incredibly exciting to me. However, there was a catch: you still had to follow the rule of sequential document structure, stack structure. You couldn’t add pages at arbitrary points in the document, like you could with a tree structure, to be more concise HTML summary. This story takes place around 2018, a time when mighty ChatGPT wasn’t available, and ChatGPT-1 had just been introduced. Of course, it was possible to manipulate LaTeX to make documents more flexible, but it required more effort than I was willing to put in at the time.</p>
 <p>Even if AI could have helped me achieve my goal of creating a flexible documentation system, I couldn’t—or to be more honest, I was too lazy—especially when it came to copying and pasting various elements, like code and additional information.</p>
 <p>Later, during the final months of my Master’s program, I encountered a bizarre issue with MS Word. The header wouldn’t display correctly, and I couldn’t figure out whether it was due to the Persian language support or an error in the university thesis template, which conveniently they have password protected it. Either way, I had enough. I decided to rewrite the entire thesis in LaTeX. It took a solid month, with the revisions from my supervisor. I had 25 plots with similar descriptions, which would have been a nightmare to handle manually, but importing them into LaTeX using Python's f-string was a breeze.</p>
 <p>Right now, it’s 2:30 AM, and I’m writing this weblog to remind myself why I’m investing so much time in WebDocy. I’ve rewritten this function over 40 F_ing times, always forgetting where the file is located.</p>
-<p>```</p>
-<p>def get_subdirectories(root_dir, max_depth=2):</p>
-<pre><code>directories = []
+<pre><code>def get_subdirectories(root_dir, max_depth=2):
 
-for root, dirs, _ in sorted(os.walk(root_dir)):
+    directories = []
 
-    if root == root_dir:
+    for root, dirs, _ in sorted(os.walk(root_dir)):
 
-        continue  # Skip the root directory itself
+        if root == root_dir:
 
-    depth = root[len(root_dir):].count(os.sep)
+            continue  # Skip the root directory itself
 
-    if depth &lt; max_depth:
+        depth = root[len(root_dir):].count(os.sep)
 
-        directories.append(root)
+        if depth &lt; max_depth:
 
-    else:
+            directories.append(root)
 
-        del dirs[:]  # Stop descending further
+        else:
 
-return directories
+            del dirs[:]  # Stop descending further
+
+    return directories
 </code></pre>
-<p>```
-By forcing myself to document my work, keeping track of important pitfalls, and reminding myself why I added that specific if statement, I hope to do myself a favor in the long run.</p>
+<p>By forcing myself to document my work, keeping track of important pitfalls, and reminding myself why I added that specific if statement, I hope to do myself a favor in the long run.</p>
 <h2>Word</h2>
 <p>It worth noting that MS Word is much better now, back then in 2012, if you had more that 80 pages, good luck with editing. </p>
 <h2>LaTex</h2>
-<p>Really great for PDF. </p>
+<p>Really great for PDF.</p>
+<ol>
+<li>Also I like the Label Ref style to link different hyperlinks. which is accessible with \ Label: and \ Ref: style text inside notes.</li>
+<li>Simple text editable source files.</li>
+<li>High quality graphics</li>
+</ol>
 <h2>WebDocy</h2>
-<p>General purposed documentation/diary.
-Organizing my toughs on my code, future plans (learning new skills), experiences.
-Doing compatibility checking between C, C++ and Python bindings.
-Helping other to use my codes.</p>
+<ol>
+<li>General purposed documentation/diary.</li>
+<li>Organizing<ol>
+<li>toughs on my code</li>
+<li>Future plans (learning new skills)</li>
+<li>experiences</li>
+</ol>
+</li>
+<li>Doing compatibility checking between C, C++ and Python bindings. (Very basic compiler tasks)</li>
+<li>Helping other to use my codes.</li>
+</ol>
         
         <footer>
-            <p>Documentation generated on <span>2025-07-27 02:47:48</span></p>
+            <p>Documentation generated on <span>2025-07-27 13:42:56</span></p>
             <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Why/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Why/README.md</a></span></p>
         </footer>
     </div>

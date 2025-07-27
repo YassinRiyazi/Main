@@ -31,7 +31,10 @@ def create_video_from_images(image_folder, output_video_path, fps=30):
         '-framerate', str(fps),
         '-pattern_type', 'glob', '-i', '*.jpg',
         '-c:v', 'libx264',
-        '-preset', 'fast',
+         # '-pix_fmt',     'yuv420p',              # Pixel format for compatibility
+        # '-crf',         '18',                   # Set Constant Rate Factor for high quality (lower values = higher quality, 18-23 is typical range)
+        '-preset',      'fast',                 # Use 'slow' preset for better compression and quality (other options: veryfast, fast, medium, slow, veryslow)
+        # '-tune',        'film',                 # Tune the encoding for film (preserves quality)
         '-threads', '1',                  # Limit ffmpeg to 2 threads
         '-y',
         output_video_path

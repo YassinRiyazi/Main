@@ -43,7 +43,7 @@ def greet(name, times=1):
     Warning:
         This function does not handle non-string names gracefully.
 
-    \Ref: greet
+    \Label: greet
     """
     if times < 0:
         raise ValueError("Times cannot be negative")
