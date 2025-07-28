@@ -1,5 +1,5 @@
 # Why Docy?
-This is Docky. A multipurpose documentation and simple word processor library. Now I need an HTML output, but it can also be expanded to TeX. 
+This is Docy. A multipurpose documentation and simple word processor library. Now I need an HTML output, but it can also be expanded to TeX. 
 
 For the reasons behind this library, read the following.
 

@@ -1,0 +1,55 @@
+/* ############# Type 1 refrence [Bare links] ############# */ */
+
+a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;}
+    
+a:hover {
+    color: #1abc9c;
+    text-decoration: underline;}
+
+/* ############# Type 2 refrence [Function name Manual] ############# */
+
+.keyword {
+    font-weight: bold;
+    color: #e91e63; /* pink */
+    font-size: 1.2em;
+    background-color: #fce4ec;
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-family: 'Segoe UI', sans-serif;}
+.keyword-ref {
+    display: inline-block;
+    font-weight: 600;
+    color: #2c3e50;
+    background: linear-gradient(to right, #ecf0f1, #dfe6e9);
+    border-left: 4px solid #3498db;
+    padding: 4px 10px;
+    margin: 2px;
+    border-radius: 6px;
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 1em;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.1);
+    transition: background 0.3s ease;}
+.keyword-ref:hover {
+    background: linear-gradient(to right, #d6eaf8, #aed6f1);
+    cursor: help;}
+
+/* ############# Type 3 refrence [File name] ############# */
+
+.rel-link {
+    display: inline-block;
+    color: #61e98a;    
+    /* background: linear-gradient(135deg, #6a11cb, #2575fc); */
+    padding: 0px 0px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-family: 'Segoe UI', sans-serif;
+    text-decoration: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;}
+.rel-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);}

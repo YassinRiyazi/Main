@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>21-07-25 Documentation</title>
+        <style>
+            /* Reset default margins and padding */
+            
+            details {
+                margin: 5px 0;
+            }
+            summary {
+                cursor: pointer;
+                padding: 5px;
+            }
+            .language-python { background-color: #3572A522; }
+            .language-c { background-color: #55555522; }
+            .language-c\\+\\+ { background-color: #F34B7D22; }
+            .language-cuda { background-color: #3A4E3A22; }
+            .language-devlog { background-color: #8B008B22; }
+            
+
+            /* Drop-down menu styling */
+
+            .content img {
+            max-width: 500px; /* Limits image size as requested */
+            height: auto; /* Maintains aspect ratio */
+            display: block;
+            margin: 10px 0;
+            }
+
+            /* Footer styling */
+            .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            }
+
+            .footer p {
+            margin: 5px 0;
+            }
+
+            /* Responsive design */
+            @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                float: none;
+                min-height: auto;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            .dropdown-menu {
+                position: static;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .dropdown-menu > ul > li {
+                display: block;
+            }
+
+            .dropdown-menu details ul {
+                position: static;
+                box-shadow: none;
+            }
+            }
+            body { 
+                font-family: Arial, sans-serif; 
+                line-height: 1.6; 
+                margin: 0; 
+                padding: 0; 
+                grid-template-columns: 250px 1fr;
+                display: flex;
+            }
+            
+            .content {
+                padding: 20px;
+                max-width: 900px;
+                margin: 0 auto;
+                margin-top: 20px;
+                margin-left: 280px;
+                background-color: white;
+                border-radius: 4px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                width: calc(100% - 270px);
+            }
+
+            h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+            h2 { color: #2980b9; margin-top: 30px; }
+            .function { 
+                background: #f9f9f9; 
+                border-left: 4px solid #3498db; 
+                padding: 15px; 
+                margin-bottom: 20px; 
+            }
+            .function-name { 
+                color: #2c3e50; 
+                font-weight: bold; 
+                font-size: 1.2em;
+                margin-bottom: 10px;
+            }
+            .section-title { 
+                font-weight: bold; 
+                color: #16a085; 
+                margin-top: 15px;
+            }
+            code { 
+                background: #eee; 
+                padding: 2px 5px; 
+                border-radius: 3px; 
+                font-family: monospace;
+            }
+            pre { 
+                background: #f5f5f5; 
+                padding: 10px; 
+                border-radius: 5px; 
+                overflow-x: auto; 
+            }
+            ul {
+                padding-left: 20px;
+            }
+            .language {
+                font-weight: bold;
+                margin-top: 10px;
+            }
+
+            footer {
+                margin-top: 30px;
+                font-size: 0.8em;
+                color: #7f8c8d;
+            }
+
+            pre[class*="language-"] {
+                background: #f5f2f0;
+                color: #000;
+                text-shadow: 0 1px #fff;
+                font-family: Consolas, Monaco, 'Andale Mono', monospace;
+                font-size: 1em;
+                text-align: left;
+                white-space: pre;
+                word-spacing: normal;
+                word-break: normal;
+                word-wrap: normal;
+                line-height: 1.5;
+                tab-width: 4;
+                hyphens: none;
+                padding: 1em;
+                margin: .5em 0;
+                overflow: auto;
+                border-radius: 0.3em;
+            }
+            code[class*="language-"] {
+                background: #f5f2f0;
+                color: #000;
+                font-family: Consolas, Monaco, 'Andale Mono', monospace;
+                font-size: 1em;
+                text-align: left;
+                white-space: pre;
+                word-spacing: normal;
+                word-break: normal;
+                word-wrap: normal;
+                line-height: 1.5;
+                tab-width: 4;
+                hyphens: none;
+            }
+            .token.command {
+                color: #005cc5;
+            }
+            .token.parameter {
+                color: #22863a;
+            } 
+        
+
+            p {
+                text-align: justify;
+                text-indent: 2em; /* Indent the first line */
+                line-height: 1.6;
+                font-size: 1.1em;
+                color: #2d3436;
+                font-family: 'Georgia', serif;
+                margin: 1em auto;
+                max-width: 800px;
+                padding: 0 1em;
+            }
+            /* For keyword only*/
+            
+            </style>
+
+            <link rel="stylesheet" href="../../styles/navigationMenu.css">
+            <link rel="stylesheet" href="../../styles/refs.css">
+
+    </head>
+
+    <body>
+            <!-- DROPDOWN_MENU -->
+
+            <nav class="sidebar">
+<h2>Navigation</h2>
+<ul>
+           <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../src/PyThon.html">PyThon</a></summary>
+<ul style="margin-left: 20px;">
+<li><details><summary>Test</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/Test/test.html">test.py</a></li>
+<li><a href="../../src/PyThon/Test/test 2.html">test 2.py</a></li>
+</ul></details></li>
+<li><a href="../../src/PyThon/READ.html">READ.md</a></li>
+<li><details><summary>Performance</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+</ul></details></li>
+<li><details><summary>FFMpeg</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+<li><a href="../../src/PyThon/FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
+</ul></details></li>
+<li><details><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
+<li><details><summary>load-remote-module</summary><ul style="margin-left: 60px;">
+<li><details><summary>load_remote_module</summary><ul style="margin-left: 80px;">
+<li><a href="../../src/PyThon/DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
+</ul></details></li>
+</ul></details></li>
+</ul></details></li>
+<li><details><summary>DropLowHighUnifier</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/DropLowHighUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+</ul></details></li>
+<li><details><summary>DropDetection</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/DropDetection/utils.html">utils.py</a></li>
+<li><a href="../../src/PyThon/DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+<li><a href="../../src/PyThon/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+</ul></details></li>
+<li><details><summary><a href="../../src/PyThon/Docy.html">Docy</a></summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/Docy/processing.html">processing.py</a></li>
+<li><a href="../../src/PyThon/Docy/hyperlinks.html">hyperlinks.py</a></li>
+<li><a href="../../src/PyThon/Docy/PyParser.html">PyParser.py</a></li>
+<li><a href="../../src/PyThon/Docy/CParser.html">CParser.py</a></li>
+<li><details><summary>.BK</summary><ul style="margin-left: 60px;">
+<li><a href="../../src/PyThon/Docy/.BK/MakeV1.html">MakeV1.py</a></li>
+</ul></details></li>
+</ul></details></li>
+<li><details><summary>ContinuousVideoExperiments</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/PyThon/ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+</ul></details></li>
+<li><details><summary>ContactAngle</summary><ul style="margin-left: 40px;">
+<li><details><summary>models</summary><ul style="margin-left: 60px;">
+<li><a href="../../src/PyThon/ContactAngle/models/h5toPt.html">h5toPt.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+</ul></details></li>
+<li><details><summary>CaMeasurer</summary><ul style="margin-left: 60px;">
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/visualization.html">visualization.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/superResolution.html">superResolution.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/processing.html">processing.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/preprocessing.html">preprocessing.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/main.html">main.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/imageloader.html">imageloader.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/edgeDetection.html">edgeDetection.py</a></li>
+<li><a href="../../src/PyThon/ContactAngle/CaMeasurer/criteria_definition.html">criteria_definition.py</a></li>
+</ul></details></li>
+</ul></details></li>
+</ul>
+</details></li>
+           <li class="language language-c" style="border-left: 4px solid #555555;"><details open><summary><a href="../../src/C.html">C</a></summary>
+<ul style="margin-left: 20px;">
+<li><details><summary>Test</summary><ul style="margin-left: 40px;">
+<li><a href="../../src/C/Test/temp.html">temp.c</a></li>
+</ul></details></li>
+</ul>
+</details></li>
+           <li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../src/CPP.html">C++</a></summary>
+<ul style="margin-left: 20px;">
+</ul>
+</details></li>
+           <li class="language language-cuda" style="border-left: 4px solid #3A4E3A;"><details open><summary><a href="../../src/CUDA.html">CUDA</a></summary>
+<ul style="margin-left: 20px;">
+</ul>
+</details></li>
+           <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
+<ul style="margin-left: 20px;">
+<li><details open><summary><a href="21-07-25.html">21-07-25</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+</ul>
+</details></li>
+           <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
+<ul style="margin-left: 20px;">
+<li><details><summary><a href="../WebLog/Why.html">Why</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
+</ul></details></li>
+<li><details><summary>Drop</summary><ul style="margin-left: 60px;">
+<li><details><summary><a href="../WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary><ul style="margin-left: 80px;">
+</ul></details></li>
+<li><details><summary><a href="../WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary><ul style="margin-left: 80px;">
+</ul></details></li>
+</ul></details></li>
+</ul></details></li>
+<li><details><summary><a href="../WebLog/Docy.html">Docy</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+</ul>
+</details></li>
+</ul>
+</nav>
+        
+        <div class="content">
+            <h1>21-07-25 Documentation</h1>
+            
+            <h1>Test</h1>
+<p><p> <span class="keyword-ref"><a href="../../src/PyThon/Test/test 2.html#greet">greet</a></span> </p></p>
+            
+            <footer>
+                <p>Documentation generated on <span>2025-07-28 17:02:52</span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/21-07-25/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/21-07-25/README.md</a></span></p>
+            </footer>
+        </div>
+    </body>
+</html>
