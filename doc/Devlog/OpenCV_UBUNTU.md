@@ -19,47 +19,63 @@
     ?libtbb2
 
 6. Git Clone
-    1. !git clone https://github.com/opencv/opencv_contrib.git
-    2. !cd opencv_contrib
-    3. !git checkout 4.10.0
-    4. !cd ..
+    git clone --branch 4.10.0 https://github.com/opencv/opencv.git /home/d2u25/opencv-4.10.0
+    git clone --branch 4.10.0 https://github.com/opencv/opencv_contrib.git /home/d2u25/opencv_contrib-4.10.0
 
-    5. !git clone https://github.com/opencv/opencv.git
-    6. !cd opencv
-    7. !git checkout 4.10.0
-    8. mkdir build
-    9. cd build
+
+7.1. Clear /home/d2u25/OCV_GPU for CMake attempt
 
 7. CMake
-  set CMAKE_BUILD_PARALLEL_LEVEL=16
+Achtung: nvcc is not compatible with gcc 12
+    export CC=/usr/bin/gcc-11
+    export CXX=/usr/bin/g++-11
 
-  "C:\Program Files\CMake\bin\cmake.exe" ^
-      -S "C:\Users\YSN-F\Desktop\opencv-4.10.0" ^
-      -B "C:\Users\YSN-F\Desktop\OCV_GPU" ^
-      -G "Ninja Multi-Config" ^
-      -DOPENCV_EXTRA_MODULES_PATH="C:/Users/YSN-F/Desktop/opencv_contrib-4.10.0/modules" ^
-      -DCMAKE_BUILD_TYPE=Release ^
-      -DCMAKE_INSTALL_PREFIX="C:/Users/YSN-F/Desktop/OCV_GPU/install" ^
+  cmake \
+  -S /home/d2u25/opencv-4.10.0 \
+  -B /home/d2u25/OCV_GPU \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/home/d2u25/OCV_GPU/install \
+  -DOPENCV_EXTRA_MODULES_PATH=/home/d2u25/opencv_contrib-4.10.0/modules \
+  -DWITH_CUDA=ON \
+  -DWITH_OPENGL=ON \
+  -DWITH_OPENCL=ON \
+  -DENABLE_FAST_MATH=ON \
+  -DCUDA_FAST_MATH=ON \
+  -DCUDA_ARCH_BIN=7.5;8.6 \
+  -DCUDA_ARCH_PTX=8.6 \
+  -DCUDA_GENERATION=Auto \
+  -DBUILD_opencv_world=ON \
+  -DBUILD_opencv_python3=ON \
+  -DINSTALL_PYTHON_EXAMPLES=ON \
+  -DINSTALL_C_EXAMPLES=OFF \
+  -DBUILD_EXAMPLES=ON \
+  -DINSTALL_TESTS=OFF \
+  -DPYTHON3_EXECUTABLE=/home/d2u25/anaconda3/envs/torch3.11/bin/python \
+  -DPYTHON3_INCLUDE_DIR=/home/d2u25/anaconda3/envs/torch3.11/include/python3.11 \
+  -DPYTHON3_LIBRARY=/home/d2u25/anaconda3/envs/torch3.11/lib/libpython3.11.so \
+  -DPYTHON3_PACKAGES_PATH=/home/d2u25/anaconda3/envs/torch3.11/lib/python3.11/site-packages \
+  -DPYTHON3_NUMPY_INCLUDE_DIRS=/home/d2u25/anaconda3/envs/torch3.11/lib/python3.11/site-packages/numpy/_core/include \
+  -DOPENCV_ENABLE_NONFREE=ON \
+  -DWITH_QT=OFF \
+  -DWITH_CUDNN=ON \
+  -DOPENCV_DNN_CUDA=ON \
+  -DOPENCV_GENERATE_PKGCONFIG=ON \
+  -DCMAKE_C_COMPILER=/usr/bin/gcc-11 \
+  -DCMAKE_CXX_COMPILER=/usr/bin/g++-11 \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_PERF_TESTS=OFF 
 
-      -DWITH_CUDA=ON ^
-      -DWITH_OPENGL=ON ^
-      -DWITH_OPENCL=ON ^
-      -DENABLE_FAST_MATH=ON ^
-      -DCUDA_FAST_MATH=ON ^
-      -DCUDA_ARCH_BIN=Auto ^
-      -DCUDA_GENERATION=Auto ^
+Compile OpenCV using all available CPU cores (replace $(nproc) with the number of cores if needed):
+8. make -j$(nproc)
 
-      -DBUILD_opencv_world=ON ^
-      -DBUILD_opencv_python3=ON ^
-      -DINSTALL_PYTHON_EXAMPLES=ON ^
-      -DINSTALL_C_EXAMPLES=OFF ^
-      -DBUILD_EXAMPLES=ON ^
-      -DINSTALL_TESTS=OFF ^
 
-      -DPYTHON3_EXECUTABLE="C:/Program Files/Python312/python.exe" ^
-      -DPYTHON3_INCLUDE_DIR="C:/Program Files/Python312/include" ^
-      -DPYTHON3_LIBRARY="C:/Program Files/Python312/libs/python312.lib" ^
-      -DPYTHON3_PACKAGES_PATH="C:/Program Files/Python312/Lib/site-packages" ^
-      -DPYTHON3_NUMPY_INCLUDE_DIRS="C:/Users/YSN-F/AppData/Roaming/Python/Python312/site-packages/numpy/_core/include" ^
-      -DOPENCV_ENABLE_NONFREE=ON ^
-      -DWITH_QT=OFF
+
+
+
+
+
+
+Problems:
+    -DCUDA_ARCH_BIN=6.0,8.9\ Comma is not accepted
+
+    -DOPENCV_EXTRA_MODULES_PATH= /home/d2u25/opencv_contrib-4.10.0/modules \  Correct it like this (no space after =):

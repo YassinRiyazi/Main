@@ -28,6 +28,7 @@
 </ul></details></li>
 <li><details><summary><a href="../WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
+<li><a href="../WebLog/ToWatchList.html">ToWatchList.md</a></li>
 <li><details><summary><a href="../WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
 <li><details><summary><a href="../WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
 </ul></details></li>
@@ -160,61 +161,61 @@ libtbb-dev libdc1394-dev</p>
 <p>?libtbb2</p>
 </li>
 <li>
-<p>Git Clone</p>
+<p>Git Clone
+    git clone --branch 4.10.0 https://github.com/opencv/opencv.git /home/d2u25/opencv-4.10.0
+    git clone --branch 4.10.0 https://github.com/opencv/opencv_contrib.git /home/d2u25/opencv_contrib-4.10.0</p>
+</li>
+</ol>
+<p>7.1. Clear /home/d2u25/OCV_GPU for CMake attempt</p>
 <ol>
-<li>!git clone https://github.com/opencv/opencv_contrib.git</li>
-<li>!cd opencv_contrib</li>
-<li>!git checkout 4.10.0</li>
-<li>
-<p>!cd ..</p>
-</li>
-<li>
-<p>!git clone https://github.com/opencv/opencv.git</p>
-</li>
-<li>!cd opencv</li>
-<li>!git checkout 4.10.0</li>
-<li>mkdir build</li>
-<li>cd build</li>
+<li>CMake
+Achtung: nvcc is not compatible with gcc 12
+    export CC=/usr/bin/gcc-11
+    export CXX=/usr/bin/g++-11</li>
 </ol>
-</li>
-<li>
-<p>CMake
-  set CMAKE_BUILD_PARALLEL_LEVEL=16</p>
-</li>
-</ol>
-<p>"<span class="rel-link"><a href="../../src/C.html">C</a></span>:\Program Files\CMake\bin\cmake.exe" ^
-      -S "<span class="rel-link"><a href="../../src/C.html">C</a></span>:\Users\YSN-F\Desktop\opencv-4.10.0" ^
-      -B "<span class="rel-link"><a href="../../src/C.html">C</a></span>:\Users\YSN-F\Desktop\OCV_GPU" ^
-      -G "Ninja Multi-Config" ^
-      -DOPENCV_EXTRA_MODULES_PATH="<span class="rel-link"><a href="../../src/C.html">C</a></span>:/Users/YSN-F/Desktop/opencv_contrib-4.10.0/modules" ^
-      -DCMAKE_BUILD_TYPE=Release ^
-      -DCMAKE_INSTALL_PREFIX="<span class="rel-link"><a href="../../src/C.html">C</a></span>:/Users/YSN-F/Desktop/OCV_GPU/install" ^</p>
-<pre><code>  -DWITH_CUDA=ON ^
-  -DWITH_OPENGL=ON ^
-  -DWITH_OPENCL=ON ^
-  -DENABLE_FAST_MATH=ON ^
-  -DCUDA_FAST_MATH=ON ^
-  -DCUDA_ARCH_BIN=Auto ^
-  -DCUDA_GENERATION=Auto ^
-
-  -DBUILD_opencv_world=ON ^
-  -DBUILD_opencv_python3=ON ^
-  -DINSTALL_PYTHON_EXAMPLES=ON ^
-  -DINSTALL_C_EXAMPLES=OFF ^
-  -DBUILD_EXAMPLES=ON ^
-  -DINSTALL_TESTS=OFF ^
-
-  -DPYTHON3_EXECUTABLE="C:/Program Files/Python312/python.exe" ^
-  -DPYTHON3_INCLUDE_DIR="C:/Program Files/Python312/include" ^
-  -DPYTHON3_LIBRARY="C:/Program Files/Python312/libs/python312.lib" ^
-  -DPYTHON3_PACKAGES_PATH="C:/Program Files/Python312/Lib/site-packages" ^
-  -DPYTHON3_NUMPY_INCLUDE_DIRS="C:/Users/YSN-F/AppData/Roaming/Python/Python312/site-packages/numpy/_core/include" ^
-  -DOPENCV_ENABLE_NONFREE=ON ^
-  -DWITH_QT=OFF
+<p>cmake \
+  -S /home/d2u25/opencv-4.10.0 \
+  -B /home/d2u25/OCV_GPU \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/home/d2u25/OCV_GPU/install \
+  -DOPENCV_EXTRA_MODULES_PATH=/home/d2u25/opencv_contrib-4.10.0/modules \
+  -DWITH_CUDA=ON \
+  -DWITH_OPENGL=ON \
+  -DWITH_OPENCL=ON \
+  -DENABLE_FAST_MATH=ON \
+  -DCUDA_FAST_MATH=ON \
+  -DCUDA_ARCH_BIN=7.5;8.6 \
+  -DCUDA_ARCH_PTX=8.6 \
+  -DCUDA_GENERATION=Auto \
+  -DBUILD_opencv_world=ON \
+  -DBUILD_opencv_python3=ON \
+  -DINSTALL_PYTHON_EXAMPLES=ON \
+  -DINSTALL_C_EXAMPLES=OFF \
+  -DBUILD_EXAMPLES=ON \
+  -DINSTALL_TESTS=OFF \
+  -DPYTHON3_EXECUTABLE=/home/d2u25/anaconda3/envs/torch3.11/bin/python \
+  -DPYTHON3_INCLUDE_DIR=/home/d2u25/anaconda3/envs/torch3.11/include/python3.11 \
+  -DPYTHON3_LIBRARY=/home/d2u25/anaconda3/envs/torch3.11/lib/libpython3.11.so \
+  -DPYTHON3_PACKAGES_PATH=/home/d2u25/anaconda3/envs/torch3.11/lib/python3.11/site-packages \
+  -DPYTHON3_NUMPY_INCLUDE_DIRS=/home/d2u25/anaconda3/envs/torch3.11/lib/python3.11/site-packages/numpy/_core/include \
+  -DOPENCV_ENABLE_NONFREE=ON \
+  -DWITH_QT=OFF \
+  -DWITH_CUDNN=ON \
+  -DOPENCV_DNN_CUDA=ON \
+  -DOPENCV_GENERATE_PKGCONFIG=ON \
+  -DCMAKE_C_COMPILER=/usr/bin/gcc-11 \
+  -DCMAKE_CXX_COMPILER=/usr/bin/g++-11 \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_PERF_TESTS=OFF </p>
+<p>Compile OpenCV using all available CPU cores (replace $(nproc) with the number of cores if needed):
+8. make -j$(nproc)</p>
+<p>Problems:
+    -DCUDA_ARCH_BIN=6.0,8.9\ Comma is not accepted</p>
+<pre><code>-DOPENCV_EXTRA_MODULES_PATH= /home/d2u25/opencv_contrib-4.10.0/modules \  Correct it like this (no space after =):
 </code></pre>
             
             <footer>
-                <p>Documentation generated on <span>2025-07-28 20:12:33</span></p>
+                <p>Documentation generated on <span>2025-07-29 00:51:26</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/OpenCV_UBUNTU.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/OpenCV_UBUNTU.md</a></span></p>
             </footer>
         </div>

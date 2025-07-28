@@ -28,6 +28,7 @@
 </ul></details></li>
 <li><details><summary><a href="../WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
+<li><a href="../WebLog/ToWatchList.html">ToWatchList.md</a></li>
 <li><details><summary><a href="../WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
 <li><details><summary><a href="../WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
 </ul></details></li>
@@ -135,13 +136,31 @@
             <h1>Devlog </h1>
             
             <ol>
-<li>!wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-ubuntu2204.pin</li>
-<li>!sudo mv cuda-ubuntu2204.pin /etc/apt/preferences.d/cuda-repository-pin-600</li>
-<li>s</li>
+<li>!wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb</li>
+<li>!sudo dpkg -i cuda-keyring_1.1-1_all.deb</li>
+<li>!sudo apt-get update</li>
+<li>!sudo apt-get -y install cudnn</li>
 </ol>
+<p>Can be checked with:
+    #include <cudnn.h>
+    #include <stdio.h>
+    int <span class="rel-link"><a href="../../src/PyThon/ContactAngle/CaMeasurer/main.html">main</a></span>() {
+        cudnnHandle_t handle;
+        cudnnStatus_t status = cudnnCreate(&amp;handle);
+        if (status == CUDNN_STATUS_SUCCESS) {
+            printf("cuDNN is installed and working!\n");
+            cudnnDestroy(handle);
+        } else {
+            printf("cuDNN error: %s\n", cudnnGetErrorString(status));
+        }
+        return 0;
+    }</stdio.h></cudnn.h></p>
+<pre><code>!gcc -I/usr/local/cuda/include -L/usr/local/cuda/lib64 -o check_cudnn check_cudnn.c -lcudnn 
+!./check_cudnn
+</code></pre>
             
             <footer>
-                <p>Documentation generated on <span>2025-07-28 20:12:33</span></p>
+                <p>Documentation generated on <span>2025-07-29 00:51:26</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/cuDNN_UBUNTU.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/cuDNN_UBUNTU.md</a></span></p>
             </footer>
         </div>
