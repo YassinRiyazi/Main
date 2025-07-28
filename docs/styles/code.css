@@ -1,0 +1,48 @@
+.language {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.language-python { background-color: #3572A522; }
+.language-c { background-color: #55555522; }
+.language-c\\+\\+ { background-color: #F34B7D22; }
+.language-cuda { background-color: #26c92622; }
+.language-devlog { background-color: #8B008B22; }
+            
+
+code[class*="language-"] {
+    background: #f5f2f0;
+    color: #000;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    tab-width: 4;
+    hyphens: none;
+    padding: 2px 5px; 
+    border-radius: 3px; 
+}
+
+pre[class*="language-"] {
+    background: #f5f2f0;
+    color: #000;
+    text-shadow: 0 1px #fff;
+    font-family: Consolas, Monaco, 'Andale Mono', monospace;
+    font-size: 1em;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+    tab-width: 4;
+    hyphens: none;
+    padding: 1em;
+    margin: .5em 0;
+    overflow: auto;
+    border-radius: 0.3em;
+}

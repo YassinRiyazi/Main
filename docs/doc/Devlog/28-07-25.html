@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            C vs. C++ 
+            Devlog 
         </title>
         <style>
             /* Reset default margins and padding */
@@ -24,30 +24,30 @@
 <ul>
            <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
-<li><details><summary><a href="Why.html">Why</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../WebLog/Why.html">Why</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
-<li><details><summary><a href="Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
-<li><details><summary><a href="Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
-<li><details><summary><a href="Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
+<li><details><summary><a href="../WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
 </ul></details></li>
 <li><details><summary>Drop</summary><ul style="margin-left: 60px;">
-<li><details><summary><a href="Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary><ul style="margin-left: 80px;">
+<li><details><summary><a href="../WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary><ul style="margin-left: 80px;">
 </ul></details></li>
-<li><details><summary><a href="Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary><ul style="margin-left: 80px;">
+<li><details><summary><a href="../WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary><ul style="margin-left: 80px;">
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
-<li><details open><summary><a href="C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
-<li><details><summary><a href="Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
 </ul>
 </details></li>
            <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
 <ul style="margin-left: 20px;">
-<li><a href="../Devlog/28-07-25.html">28-07-25.md</a></li>
-<li><details><summary><a href="../Devlog/21-07-25.html">21-07-25</a></summary><ul style="margin-left: 40px;">
+<li><a href="28-07-25.html">28-07-25.md</a></li>
+<li><details><summary><a href="21-07-25.html">21-07-25</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
 </ul>
 </details></li>
@@ -129,21 +129,32 @@
 </nav>
         
         <div class="content">
-            <h1>C vs. C++ </h1>
+            <h1>Devlog </h1>
             
-            <h1><span class="rel-link"><a href="../../src/C.html">C</a></span> vs. <span class="rel-link"><a href="../../src/C.html">C</a></span>++</h1>
-<p>Recently, I have bought the <em>A Tour of <span class="rel-link"><a href="../../src/C.html">C</a></span>++</em> to deepen my <span class="rel-link"><a href="../../src/C.html">C</a></span>++ knowledge and become more familiar with <span class="rel-link"><a href="../../src/C.html">C</a></span>++20. </p>
-<p>I have noticed a condescending tone toward <span class="rel-link"><a href="../../src/C.html">C</a></span>++ from <span class="rel-link"><a href="../../src/C.html">C</a></span> developers and vice versa [^1].</p>
-<p>[^1]: <a href="https://harmful.cat-v.org/software/c++/linus">Linus Torvalds</a></p>
-<p>To some degree, I agree that using <span class="rel-link"><a href="../../src/C.html">C</a></span>++ will introduce overheads, and exception handling can cause problems, but for my work, it is manageable. 
-I don't know anything about kernel development and debugging in kernels.</p>
-<p>My experience in the HighSpeedCamera project clearly shows that with bare single-thread <span class="rel-link"><a href="../../src/C.html">C</a></span>, I could get 189 fps, while bare <span class="rel-link"><a href="../../src/C.html">C</a></span>++ could achieve 122, and with multi-threading, it goes up to 168. With my experience, I agree that for real-time and demanding processes, <span class="rel-link"><a href="../../src/C.html">C</a></span> is better than <span class="rel-link"><a href="../../src/C.html">C</a></span>++, but I still personally struggle with appropriate, easy, multi-threaded <span class="rel-link"><a href="../../src/C.html">C</a></span> code.</p>
-<p><a href="https://www.youtube.com/@CppCon">CppCon</a></p>
-<p><a href="https://meetingcpp.com/">meetingcpp</a></p>
+            <h2>DevLog:</h2>
+<pre><code>09:00 am woke up
+09:55 am was @ MPIP
+12:03 pm lunch
+13:10 pm back work
+14:56 pm Andreas Best BDay
+    [V] Docy V2 18:51 &amp; ContactAngle in Parallel
+        Almost 7 hours I have spent on WebDocyV2. 
+        But I got some results and Finally can attent to
+
+[] Multi window opencv vide player 16 video at same time 
+    [] Sort videos bu lenght
+    [] Stop all with space
+    [] show vides addresses with "A"
+
+[] RayTracing
+
+[] C++
+</code></pre>
+<p><span class="rel-link"><a href="../../src/PyThon/ContactAngle.html">ContactAngle</a></span></p>
             
             <footer>
                 <p>Documentation generated on <span>2025-07-28 18:51:12</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/C vs. C++/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/C vs. C++/README.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/28-07-25.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/28-07-25.md</a></span></p>
             </footer>
         </div>
     </body>

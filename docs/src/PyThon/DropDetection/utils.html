@@ -3,193 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>utils Documentation</title>
+        <title>
+            utils 
+        </title>
         <style>
             /* Reset default margins and padding */
-            
-            details {
-                margin: 5px 0;
-            }
-            summary {
-                cursor: pointer;
-                padding: 5px;
-            }
-            .language-python { background-color: #3572A522; }
-            .language-c { background-color: #55555522; }
-            .language-c\\+\\+ { background-color: #F34B7D22; }
-            .language-cuda { background-color: #3A4E3A22; }
-            .language-devlog { background-color: #8B008B22; }
-            
-
-            /* Drop-down menu styling */
-
-            .content img {
-            max-width: 500px; /* Limits image size as requested */
-            height: auto; /* Maintains aspect ratio */
-            display: block;
-            margin: 10px 0;
-            }
-
-            /* Footer styling */
-            .footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #777;
-            font-size: 14px;
-            }
-
-            .footer p {
-            margin: 5px 0;
-            }
-
-            /* Responsive design */
-            @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                float: none;
-                min-height: auto;
-                border-right: none;
-                border-bottom: 1px solid #ddd;
-            }
-
-            .dropdown-menu {
-                position: static;
-                text-align: center;
-                margin-top: 10px;
-            }
-
-            .dropdown-menu > ul > li {
-                display: block;
-            }
-
-            .dropdown-menu details ul {
-                position: static;
-                box-shadow: none;
-            }
-            }
-            body { 
-                font-family: Arial, sans-serif; 
-                line-height: 1.6; 
-                margin: 0; 
-                padding: 0; 
-                grid-template-columns: 250px 1fr;
-                display: flex;
-            }
-            
-            .content {
-                padding: 20px;
-                max-width: 900px;
-                margin: 0 auto;
-                margin-top: 20px;
-                margin-left: 280px;
-                background-color: white;
-                border-radius: 4px;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-                width: calc(100% - 270px);
-            }
-
-            h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-            h2 { color: #2980b9; margin-top: 30px; }
-            .function { 
-                background: #f9f9f9; 
-                border-left: 4px solid #3498db; 
-                padding: 15px; 
-                margin-bottom: 20px; 
-            }
-            .function-name { 
-                color: #2c3e50; 
-                font-weight: bold; 
-                font-size: 1.2em;
-                margin-bottom: 10px;
-            }
-            .section-title { 
-                font-weight: bold; 
-                color: #16a085; 
-                margin-top: 15px;
-            }
-            code { 
-                background: #eee; 
-                padding: 2px 5px; 
-                border-radius: 3px; 
-                font-family: monospace;
-            }
-            pre { 
-                background: #f5f5f5; 
-                padding: 10px; 
-                border-radius: 5px; 
-                overflow-x: auto; 
-            }
-            ul {
-                padding-left: 20px;
-            }
-            .language {
-                font-weight: bold;
-                margin-top: 10px;
-            }
-
-            footer {
-                margin-top: 30px;
-                font-size: 0.8em;
-                color: #7f8c8d;
-            }
-
-            pre[class*="language-"] {
-                background: #f5f2f0;
-                color: #000;
-                text-shadow: 0 1px #fff;
-                font-family: Consolas, Monaco, 'Andale Mono', monospace;
-                font-size: 1em;
-                text-align: left;
-                white-space: pre;
-                word-spacing: normal;
-                word-break: normal;
-                word-wrap: normal;
-                line-height: 1.5;
-                tab-width: 4;
-                hyphens: none;
-                padding: 1em;
-                margin: .5em 0;
-                overflow: auto;
-                border-radius: 0.3em;
-            }
-            code[class*="language-"] {
-                background: #f5f2f0;
-                color: #000;
-                font-family: Consolas, Monaco, 'Andale Mono', monospace;
-                font-size: 1em;
-                text-align: left;
-                white-space: pre;
-                word-spacing: normal;
-                word-break: normal;
-                word-wrap: normal;
-                line-height: 1.5;
-                tab-width: 4;
-                hyphens: none;
-            }
-            .token.command {
-                color: #005cc5;
-            }
-            .token.parameter {
-                color: #22863a;
-            } 
-        
-
-            p {
-                text-align: justify;
-                text-indent: 2em; /* Indent the first line */
-                line-height: 1.6;
-                font-size: 1.1em;
-                color: #2d3436;
-                font-family: 'Georgia', serif;
-                margin: 1em auto;
-                max-width: 800px;
-                padding: 0 1em;
-            }
-            /* For keyword only*/
-            
-            </style>
-
+        </style>
             <link rel="stylesheet" href="../../../styles/navigationMenu.css">
+            <link rel="stylesheet" href="../../../styles/code.css">
+            <link rel="stylesheet" href="../../../styles/other.css">
             <link rel="stylesheet" href="../../../styles/refs.css">
 
     </head>
@@ -200,6 +22,35 @@
             <nav class="sidebar">
 <h2>Navigation</h2>
 <ul>
+           <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
+<ul style="margin-left: 20px;">
+<li><details><summary><a href="../../../doc/WebLog/Why.html">Why</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../../../doc/WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
+</ul></details></li>
+<li><details><summary>Drop</summary><ul style="margin-left: 60px;">
+<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary><ul style="margin-left: 80px;">
+</ul></details></li>
+<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary><ul style="margin-left: 80px;">
+</ul></details></li>
+</ul></details></li>
+</ul></details></li>
+<li><details><summary><a href="../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+<li><details><summary><a href="../../../doc/WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+</ul>
+</details></li>
+           <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
+<ul style="margin-left: 20px;">
+<li><a href="../../../doc/Devlog/28-07-25.html">28-07-25.md</a></li>
+<li><details><summary><a href="../../../doc/Devlog/21-07-25.html">21-07-25</a></summary><ul style="margin-left: 40px;">
+</ul></details></li>
+</ul>
+</details></li>
            <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../PyThon.html">PyThon</a></summary>
 <ul style="margin-left: 20px;">
 <li><details><summary>Test</summary><ul style="margin-left: 40px;">
@@ -241,7 +92,7 @@
 <li><details><summary>ContinuousVideoExperiments</summary><ul style="margin-left: 40px;">
 <li><a href="../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
 </ul></details></li>
-<li><details><summary>ContactAngle</summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="../ContactAngle.html">ContactAngle</a></summary><ul style="margin-left: 40px;">
 <li><details><summary>models</summary><ul style="margin-left: 60px;">
 <li><a href="../ContactAngle/models/h5toPt.html">h5toPt.py</a></li>
 <li><a href="../ContactAngle/models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
@@ -270,45 +121,15 @@
 <ul style="margin-left: 20px;">
 </ul>
 </details></li>
-           <li class="language language-cuda" style="border-left: 4px solid #3A4E3A;"><details open><summary><a href="../../CUDA.html">CUDA</a></summary>
+           <li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../CUDA.html">CUDA</a></summary>
 <ul style="margin-left: 20px;">
-</ul>
-</details></li>
-           <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
-<ul style="margin-left: 20px;">
-<li><details><summary><a href="../../../doc/Devlog/21-07-25.html">21-07-25</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-</ul>
-</details></li>
-           <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
-<ul style="margin-left: 20px;">
-<li><details><summary><a href="../../../doc/WebLog/Why.html">Why</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><details><summary><a href="../../../doc/WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><details><summary><a href="../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
-<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
-</ul></details></li>
-<li><details><summary>Drop</summary><ul style="margin-left: 60px;">
-<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary><ul style="margin-left: 80px;">
-</ul></details></li>
-<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary><ul style="margin-left: 80px;">
-</ul></details></li>
-</ul></details></li>
-</ul></details></li>
-<li><details><summary><a href="../../../doc/WebLog/Docy.html">Docy</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><details><summary><a href="../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><details><summary><a href="../../../doc/WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
 </ul>
 </details></li>
 </ul>
 </nav>
         
         <div class="content">
-            <h1>utils Documentation</h1>
+            <h1>utils </h1>
             
             <div class="function">
 <div class="function-name">crop_and_save_image(<span style="color:#94D6BFFF;"><b>input_path</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>output_path</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>x1</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>y1</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>x2</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>y2</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>,)</div>
@@ -328,7 +149,7 @@
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-07-28 17:02:52</span></p>
+                <p>Documentation generated on <span>2025-07-28 18:51:12</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DropDetection/utils.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DropDetection/utils.py</a></span></p>
             </footer>
         </div>

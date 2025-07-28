@@ -33,18 +33,19 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../'
 import Docy  # Assuming this module provides extract_python_functions and extract_c_functions
 
 source_dirs = {
+            'WebLog'    :   ['doc/WebLog'],
+            'Devlog'    :   ['doc/Devlog'], 
             'PyThon'    :   ['src/PyThon'],
             'C'         :   ['src/C'],
             'C++'       :   ['src/CPP'],
             'CUDA'      :   ['src/CUDA'],
-            'Devlog'    :   ['doc/Devlog'], 
-            'WebLog'    :   ['doc/WebLog'],}
+            }
 
 lang_colors = {
             'PyThon': '#3572A5',
             'C': '#555555',
             'C++': '#F34B7D',
-            'CUDA': '#3A4E3A',
+            'CUDA': "#318F8A",
             'Devlog': '#8B008B',
             'WebLog': '#076E75'
     }
@@ -66,7 +67,7 @@ def processor(lang, content_html,file_path, base_name, processed_files,  label_t
     else:
         content_html = '\n'.join(content_html) if content_html else '<p>No functions found.</p>'
         html_path = os.path.join(output_base_dir, lang, os.path.splitext(rel_path)[0] + '.html')
-        
+
     content_html, labels = Docy.process_html_for_labels(content_html)
 
     html_path = os.path.normpath(html_path)
@@ -177,8 +178,17 @@ def create_nav_menu(processed_files, current_file_path):
         else:
             nav_html.append(f'           <li class="language language-{lang.lower()}" style="border-left: 4px solid {lang_colors[lang]};"><details{open_attr}><summary>{lang}</summary>')
 
+        
         tree = build_tree(languages[lang], source_dirs[lang][0])
-        tree_html = generate_tree_html(tree, current_file_path, os.path.relpath(current_file['source_path'], source_dirs[lang][0]).split(os.sep))
+        # Build and render the subtree
+        if current_file and current_file['lang'] == lang:
+            rel_parts = os.path.relpath(current_file['source_path'],source_dirs[lang][0]).split(os.sep)
+        else:
+            rel_parts = []
+
+        # tree_html = generate_tree_html(tree, current_file_path, os.path.relpath(current_file['source_path'], source_dirs[lang][0]).split(os.sep))
+        tree_html = generate_tree_html(tree, current_file_path, rel_parts)
+
         nav_html.append(tree_html)
         nav_html.append('</details></li>')
     nav_html.extend(['</ul>', '</nav>'])
@@ -192,7 +202,7 @@ def GenerateMainPage(processed_files):
         for file in processed_files:
             rel_path = os.path.relpath(file['html_path'], start=output_base_dir)
             rel_path = rel_path.replace('\\', '/')
-            index_content.append(f'<li><a href="{rel_path}">{file["name"]}</a></li>')
+            # index_content.append(f'<li><a href="{rel_path}">{file["name"]}</a></li>')
         index_content.append('</ul>')
     index_content.append('</div>')
     index_content_html = '\n'.join(index_content)
@@ -200,6 +210,9 @@ def GenerateMainPage(processed_files):
     with open('doc/template.html', 'r') as f:
         template = f.read()
 
+    file = {}
+    file['html_path'] =  os.path.join(output_base_dir, 'index.html')
+    
     output = template.replace('<!-- TITLE -->', 'Project Documentation')
     output = output.replace('<!-- styles -->', Docy.css_styles(file))
     output = output.replace('<!-- NAVIGATION -->',  create_nav_menu(processed_files, file['html_path']))
@@ -230,7 +243,8 @@ def main(source_dirs):
                         file_path = os.path.join(root, file)
                         process_decider(lang, file_path, filename, file_extension, processed_files, label_to_file, output_base_dir)
 
-    file_name_to_html_path = Docy.fileNameExtractor(processed_files, source_dirs)
+    # file_name_to_html_path = Docy.fileNameExtractor(processed_files, source_dirs)
+    file_name_to_html_path = Docy.fileNameExtractor_Langless(processed_files, source_dirs)
 
     # Generate HTML for all files with file name hyperlinks
     _tempWebAdress = "https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/"
@@ -239,7 +253,7 @@ def main(source_dirs):
             template = f.read()
 
         if file['type'] == 'source':
-            title = f"{file['name']} Documentation"
+            title = f"{file['name']} "
         elif file['type'] == 'notes':
             title = f"{file['lang']} Notes"
         elif file['type'] == 'Devlog':
@@ -247,7 +261,8 @@ def main(source_dirs):
         elif file['type'] == 'WebLog':
             title = f""
 
-        content_html = Docy.replace_file_names_in_html(file['content_html'], file_name_to_html_path.get(file['lang'], {}), file['html_path'])
+        # content_html = Docy.replace_file_names_in_html(file['content_html'], file_name_to_html_path.get(file['lang'], {}), file['html_path'])
+        content_html = Docy.replace_file_names_in_html(file['content_html'], file_name_to_html_path, file['html_path'])
         output = template.replace('<!-- TITLE -->', title)
         output = output.replace('<!-- styles -->', Docy.css_styles(file))
         output = output.replace('<!-- NAVIGATION -->', create_nav_menu(processed_files, file['html_path']))
@@ -257,10 +272,10 @@ def main(source_dirs):
         with open(file['html_path'], 'w') as f:
             f.write(output)
 
-    # GenerateMainPage(processed_files)
     
     Docy.process_html_for_labels_replace(processed_files, label_to_file)
 
+    GenerateMainPage(processed_files)
             
 
 if __name__ == "__main__":

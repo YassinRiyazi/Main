@@ -2,7 +2,39 @@ import re
 
 
 def parse_c_comments(comment):
-    """Parse C-style Doxygen comments into a structured dictionary."""
+    """
+    Parse a Doxygen-style C comment block into structured documentation fields.
+
+    Supported tags:
+        @brief, @param, @return, @note, @warning
+
+    Args:
+        comment (str): Raw comment string from a C file, including Doxygen tags.
+
+    Returns:
+        dict: A dictionary with the following structure:
+            {
+                'brief': str,
+                'description': str,
+                'params': list of {'name': str, 'desc': str},
+                'returns': {'type': str, 'desc': str} or None,
+                'notes': str,
+                'warnings': str
+            }
+
+    Example:
+        >>> comment = '''
+        ... /**
+        ...  * @brief Adds two integers.
+        ...  * @param a First number
+        ...  * @param b Second number
+        ...  * @return int Sum of a and b
+        ...  */
+        ... '''
+        >>> parsed = parse_c_comments(comment)
+        >>> print(parsed['brief'])
+        Adds two integers.
+    """
     sections = {
         'brief': [],
         'description': [],
@@ -68,7 +100,27 @@ def parse_c_comments(comment):
     return sections
 
 def extract_c_functions(file_path):
-    """Extract functions and their comments from a C file."""
+    """
+    Extract C functions and their associated Doxygen comments from a C file.
+
+    Only functions with /** ... */ style comments immediately preceding them are extracted.
+
+    Args:
+        file_path (str): Path to the C source file (.c or .h).
+
+    Returns:
+        list of dict: Each function is represented as:
+            {
+                'name': str,
+                'return_type': str,
+                'doc': dict  # Parsed output from parse_c_comments()
+            }
+
+    Example:
+        >>> funcs = extract_c_functions("example.c")
+        >>> print(funcs[0]['name'])
+        my_function
+    """
     with open(file_path, 'r') as f:
         content = f.read()
     
@@ -94,7 +146,22 @@ def extract_c_functions(file_path):
 
 
 def generate_c_function_html(func):
-    """Generate HTML for a C function."""
+    """
+    Generate HTML documentation for a single C function.
+
+    Args:
+        func (dict): A function dictionary returned from `extract_c_functions`, with keys:
+            - 'name' (str): Function name.
+            - 'return_type' (str): Return type of the function.
+            - 'doc' (dict): Documentation sections from `parse_c_comments`.
+
+    Returns:
+        str: HTML string describing the function in a structured format.
+
+    Example:
+        >>> html = generate_c_function_html(funcs[0])
+        >>> print(html)
+    """
     doc = func['doc']
     html = [
         '<div class="function">',

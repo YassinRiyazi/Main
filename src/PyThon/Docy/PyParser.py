@@ -3,8 +3,39 @@ import ast
 
 def parse_python_docstring(docstring):
     """
-        Parse a Python docstring into a structured dictionary.
+    Parse a Google-style Python docstring into a structured dictionary.
+
+    Recognized sections include: Args, Returns, Raises, Examples, Notes, See Also, Caution, and Warning.
+
+    Args:
+        docstring (str): A raw docstring from a Python function.
+
+    Returns:
+        dict: Structured documentation with keys:
+            {
+                'description': str,
+                'args': list of {'name': str, 'type': str, 'desc': str},
+                'returns': {'type': str, 'desc': str} or None,
+                'raises': list of {'type': str, 'desc': str},
+                'examples': list of str,
+                'notes': list of str,
+                'see_also': list of str,
+                'caution': list of str,
+                'warning': list of str,
+            }
+
+    Example:
+        >>> doc = '''
+        ...     Adds two numbers.
+        ...     Args:
+        ...         a (int): First number.
+        ...         b (int): Second number.
+        ...     Returns:
+        ...         int: Sum of the numbers.
+        ...     '''
+        >>> parse_python_docstring(doc)
     """
+
     sections = {
         'description': [],
         'args': [],
@@ -100,7 +131,25 @@ def parse_python_docstring(docstring):
 
 
 def extract_python_functions(file_path):
-    """Extract functions and their docstrings from a Python file using AST."""
+    """Extract top-level Python functions and their docstrings from a source file.
+
+    Uses the AST (Abstract Syntax Tree) module to safely parse function names and docstrings.
+
+    Args:
+        file_path (str): Path to the Python source file (.py).
+
+    Returns:
+        list of dict: Each function is represented as:
+            {
+                'name': str,
+                'doc': dict  # Parsed result from parse_python_docstring()
+            }
+
+    Example:
+        >>> extract_python_functions("my_script.py")
+        [{'name': 'foo', 'doc': {...}}, ...]
+    """
+
     with open(file_path, 'r', encoding='utf-8') as f:
         tree = ast.parse(f.read(), filename=file_path)
     
@@ -117,7 +166,22 @@ def extract_python_functions(file_path):
     return functions
 
 def generate_python_function_html(func):
-    """Generate HTML for a Python function."""
+    """Generate HTML representation of a Python function’s documentation.
+
+    Args:
+        func (dict): Function object from `extract_python_functions()` with keys:
+            - 'name' (str): Function name.
+            - 'doc' (dict): Parsed docstring data from `parse_python_docstring()`.
+
+    Returns:
+        str: HTML markup representing the function’s name, parameters, return type,
+             and additional sections like notes, examples, and warnings.
+
+    Example:
+        >>> html = generate_python_function_html({'name': 'add', 'doc': {...}})
+        >>> print(html)
+    """
+
     doc = func['doc']
 
     vv = ""

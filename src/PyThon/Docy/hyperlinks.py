@@ -3,6 +3,14 @@ import re
 from bs4 import BeautifulSoup
 
 ############# Type 3 refrence [File name] #############
+def fileNameExtractor_Langless(processed_files, source_dirs):
+    file_name_to_html_path = {}
+
+    # Populate file name to HTML path mapping for each language
+    for file in processed_files:
+        file_name_to_html_path[file['name']] = file['html_path']
+
+    return file_name_to_html_path
 
 def fileNameExtractor(processed_files, source_dirs):
     """
