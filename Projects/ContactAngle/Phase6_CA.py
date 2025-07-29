@@ -36,7 +36,7 @@ def processs(ad):
     
     """
     
-    if os.path.isfile(os.path.join(ad,'SR_result','result.csv')):
+    if os.path.isfile(os.path.join(ad,'SR_result','result.csv')) and os.path.isfile(os.path.join(ad,'SR_edge','result.mp4')):
         return None
     
     _ad_csv = ad.replace("frame_Extracted","frame_Extracted_xx")
