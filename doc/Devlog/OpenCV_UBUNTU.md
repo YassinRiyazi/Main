@@ -65,13 +65,15 @@ Achtung: nvcc is not compatible with gcc 12
   -DBUILD_TESTS=OFF \
   -DBUILD_PERF_TESTS=OFF 
 
-Compile OpenCV using all available CPU cores (replace $(nproc) with the number of cores if needed):
+### Compile OpenCV using all available CPU cores (replace $(nproc) with the number of cores if needed):
 8. make -j$(nproc)
 
+### Instaliing
+9. sudo make install
+10. sudo ldconfig
 
-
-
-
+### Uninstalling
+11. sudo make uninstall
 
 
 

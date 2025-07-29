@@ -24,6 +24,7 @@
 <ul>
            <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
 <ul style="margin-left: 20px;">
+<li><a href="../WebLog/cuDNN.html">cuDNN.md</a></li>
 <li><details><summary><a href="../WebLog/Why.html">Why</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
 <li><details><summary><a href="../WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
@@ -48,6 +49,7 @@
            <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
 <ul style="margin-left: 20px;">
 <li><a href="cuDNN_UBUNTU.html">cuDNN_UBUNTU.md</a></li>
+<li><a href="Ubuntu.html">Ubuntu.md</a></li>
 <li><a href="OpenCV_Window.html">OpenCV_Window.md</a></li>
 <li><a href="OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
 <li><a href="28-07-25.html">28-07-25.md</a></li>
@@ -207,15 +209,26 @@ Achtung: nvcc is not compatible with gcc 12
   -DCMAKE_CXX_COMPILER=/usr/bin/g++-11 \
   -DBUILD_TESTS=OFF \
   -DBUILD_PERF_TESTS=OFF </p>
-<p>Compile OpenCV using all available CPU cores (replace $(nproc) with the number of cores if needed):
-8. make -j$(nproc)</p>
+<h3>Compile OpenCV using all available CPU cores (replace $(nproc) with the number of cores if needed):</h3>
+<ol>
+<li>make -j$(nproc)</li>
+</ol>
+<h3>Instaliing</h3>
+<ol>
+<li>sudo make install</li>
+<li>sudo ldconfig</li>
+</ol>
+<h3>Uninstalling</h3>
+<ol>
+<li>sudo make uninstall</li>
+</ol>
 <p>Problems:
     -DCUDA_ARCH_BIN=6.0,8.9\ Comma is not accepted</p>
 <pre><code>-DOPENCV_EXTRA_MODULES_PATH= /home/d2u25/opencv_contrib-4.10.0/modules \  Correct it like this (no space after =):
 </code></pre>
             
             <footer>
-                <p>Documentation generated on <span>2025-07-29 00:51:26</span></p>
+                <p>Documentation generated on <span>2025-07-29 11:34:38</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/OpenCV_UBUNTU.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/OpenCV_UBUNTU.md</a></span></p>
             </footer>
         </div>
