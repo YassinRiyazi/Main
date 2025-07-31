@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            DLoader 
+            SupperRes 
         </title>
         <style>
             /* Reset default margins and padding */
@@ -64,16 +64,16 @@
 </details></li>
            <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../../PyThon.html">PyThon</a></summary>
 <ul style="margin-left: 20px;">
-<li><details><summary>Viscosity</summary><ul style="margin-left: 40px;">
-<li><details><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
-<li><a href="../../../Viscosity/PositionalEncoding/main.html">main.py</a></li>
-<li><a href="../../../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
-<li><details><summary>.BK</summary><ul style="margin-left: 80px;">
+<li><details open><summary>Viscosity</summary><ul style="margin-left: 40px;">
+<li><details open><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
+<li><a href="../main.html">main.py</a></li>
+<li><a href="../PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+<li><details open><summary>.BK</summary><ul style="margin-left: 80px;">
 <li><details><summary>Weights</summary><ul style="margin-left: 100px;">
-<li><a href="../../../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+<li><a href="Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
 </ul></details></li>
-<li><a href="../../../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
-<li><a href="../../../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+<li><a href="SupperRes.html">SupperRes.py</a></li>
+<li><a href="Adding.html">Adding.py</a></li>
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
@@ -89,10 +89,10 @@
 <li><a href="../../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 <li><a href="../../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
 </ul></details></li>
-<li><details open><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
-<li><details open><summary>load-remote-module</summary><ul style="margin-left: 60px;">
-<li><details open><summary>load_remote_module</summary><ul style="margin-left: 80px;">
-<li><a href="DLoader.html">DLoader.py</a></li>
+<li><details><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
+<li><details><summary>load-remote-module</summary><ul style="margin-left: 60px;">
+<li><details><summary>load_remote_module</summary><ul style="margin-left: 80px;">
+<li><a href="../../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
@@ -153,23 +153,65 @@
 </nav>
         
         <div class="content">
-            <h1>DLoader </h1>
+            <h1>SupperRes </h1>
             
             <div class="function">
-<div class="function-name">load_remote_module_to_temp(<span style="color:#94D6BFFF;"><b>url</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>module_name</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>timeout</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>,)</div>
-<div class="description">Downloads a Python module from GitHub into a <span class="rel-link"><a href="../../../../C/Test/temp.html">temp</a></span> folder relative to this script, and imports it. <h3>Install Python Package</h3> <pre><code class="language-bash">pip install load-remote-module</code></pre></div>
+<div class="function-name">upscale_image(<span style="color:#94D6BFFF;"><b>img</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>kernel</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>,)</div>
+<div class="description">Apply super-resolution and postprocessing to an input RGB image.</div>
 <div class="section-title">Parameters:</div><ul>
-<li><code>url</code> (str): Raw GitHub URL of the Python module.</li>
-<li><code>module_name</code> (str): Name to use when importing the module.</li>
-<li><code>timeout</code> (int): Timeout in seconds for the internet connectivity check.</li>
+<li><code>img</code> (np.ndarray): RGB input image.</li>
+<li><code>kernel</code> (np.ndarray): Morphological kernel (e.g., cv2.getStructuringElement).</li>
 </ul>
 <div class="section-title">Returns:</div>
-<div><code>module</code>: The dynamically imported module.</div>
+<div><code>np.ndarray</code>: Grayscale post-processed image.</div>
+</div>
+<div class="function">
+<div class="function-name">__init__()</div>
+<div class="description">A PyTorch convolutional neural network for single-channel image super-resolution. Architecture: - Conv2d(1 → 64) with kernel size 5 - Conv2d(64 → 64) with kernel size 3 - Conv2d(64 → 32) with kernel size 3 - Conv2d(32 → 9) with kernel size 3 - PixelShuffle with upscale factor 3 Activation: - ReLU is used after each convolution. Output: - A super-resolved image with spatial resolution increased by a factor of 3.</div>
+<div class="section-title">notes:</div>
+<div>- The final convolution outputs 9 channels, which are reshaped via PixelShuffle (3× upscaling).</div>
+</div>
+<div class="function">
+<div class="function-name">__init__(<span style="color:#94D6BFFF;"><b>_cuda</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>, <span style="color:#94D6BFFF;"><b>sup_res_model</b></span>:<span style="color:#42C39DFF;"><b>torch.nn.Module</b></span>, <span style="color:#94D6BFFF;"><b>forward</b></span>:<span style="color:#42C39DFF;"><b>input_tensor</b></span>,)</div>
+<div class="description">Wrapper class for initializing and using a pre-trained PyTorch super-resolution model. This class loads a pre-trained model from disk and provides a `forward` method to apply super-resolution to a single-channel input image represented as a NumPy array.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>_cuda</code> (bool): Whether to run inference on GPU (default: True).</li>
+<li><code>sup_res_model</code> (torch.nn.Module): The loaded and ready-to-use super-resolution model.</li>
+<li><code>forward</code> (input_tensor): Apply the model to a given input image.</li>
+</ul>
+<div class="section-title">examples:</div>
+<div>&gt;&gt;&gt; model = initiation()</div>
+<div>&gt;&gt;&gt; output = model.forward(input_array)</div>
+<div class="section-title">notes:</div>
+<div>- The input tensor must be a 2D NumPy array (grayscale image).</div>
+<div>- Output is a 2D uint8 NumPy array representing the upscaled image.</div>
+</div>
+<div class="function">
+<div class="function-name">forward(<span style="color:#94D6BFFF;"><b>input_tensor</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>,)</div>
+<div class="description">Apply the super-resolution model to the input image.</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>input_tensor</code> (np.ndarray): 2D NumPy array representing a grayscale image.</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>np.ndarray</code>: 2D uint8 NumPy array of the super-resolved image.</div>
+<div class="section-title">raises:</div><ul>
+<li><code style="color:red;">ValueError</code>: If input_tensor is not a 2D array.</li>
+</ul>
+<div class="section-title">notes:</div>
+<div>- The model expects a (1, H, W) input with values normalized to [0, 1].</div>
+<div>- Output is rescaled to [0, 255] and clipped.</div>
+</div>
+<div class="function">
+<div class="function-name">initiate_torch()</div>
+<div class="description">Initialize the PyTorch model and load pre-trained weights from disk.</div>
+<div class="section-title">notes:</div>
+<div>- The model weights are loaded from '../models/converted_model.pt'</div>
+<div>- The model is set to evaluation mode to disable dropout/batchnorm updates.</div>
 </div>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DynamicLoader/load-remote-module/load_remote_module/DLoader.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DynamicLoader/load-remote-module/load_remote_module/DLoader.py</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/.BK/SupperRes.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/.BK/SupperRes.py</a></span></p>
             </footer>
         </div>
     </body>

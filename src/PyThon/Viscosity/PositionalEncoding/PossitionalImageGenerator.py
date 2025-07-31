@@ -5,8 +5,10 @@ from    PIL                 import Image
 
 def sinusoidal_positional_encoding(max_position, d_model):
     """
-    Task:       This is a part of viscosity estimation project.
-    Sub-Task:   Implement positional encoding for the Markov chain model.
+    Task:       
+        This is a part of viscosity estimation project.
+    Sub-Task:  
+        Implement positional encoding for the Markov chain model.
 
     Description:
         Probably I am going to use CNN and Transformer for this project. I will treat each frame of the video as

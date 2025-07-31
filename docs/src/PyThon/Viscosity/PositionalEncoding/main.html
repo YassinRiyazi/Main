@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            load-remote-module 
+            main 
         </title>
         <style>
             /* Reset default margins and padding */
@@ -64,16 +64,16 @@
 </details></li>
            <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../PyThon.html">PyThon</a></summary>
 <ul style="margin-left: 20px;">
-<li><details><summary>Viscosity</summary><ul style="margin-left: 40px;">
-<li><details><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
-<li><a href="../../Viscosity/PositionalEncoding/main.html">main.py</a></li>
-<li><a href="../../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+<li><details open><summary>Viscosity</summary><ul style="margin-left: 40px;">
+<li><details open><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
+<li><a href="main.html">main.py</a></li>
+<li><a href="PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
 <li><details><summary>.BK</summary><ul style="margin-left: 80px;">
 <li><details><summary>Weights</summary><ul style="margin-left: 100px;">
-<li><a href="../../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+<li><a href=".BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
 </ul></details></li>
-<li><a href="../../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
-<li><a href="../../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+<li><a href=".BK/SupperRes.html">SupperRes.py</a></li>
+<li><a href=".BK/Adding.html">Adding.py</a></li>
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
@@ -89,10 +89,10 @@
 <li><a href="../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 <li><a href="../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
 </ul></details></li>
-<li><details open><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
-<li><details open><summary>load-remote-module</summary><ul style="margin-left: 60px;">
+<li><details><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
+<li><details><summary>load-remote-module</summary><ul style="margin-left: 60px;">
 <li><details><summary>load_remote_module</summary><ul style="margin-left: 80px;">
-<li><a href="load_remote_module/DLoader.html">DLoader.py</a></li>
+<li><a href="../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
@@ -153,22 +153,56 @@
 </nav>
         
         <div class="content">
-            <h1>load-remote-module </h1>
+            <h1>main </h1>
             
-            <p>To Dynamically laod the src modules. </p>
-<p>TODO:
-    For laoding the library build them and install them with Pip</p>
-<p><code>$   pip install build twine</code></p>
-<h1><span class="rel-link"><a href="ReadMe.html">load-remote-module</a></span></h1>
-<p>Download and import remote Python modules (e.g., from GitHub) into a temporary folder.</p>
-<h2>Usage</h2>
-<p>```python
-from load_remote_module import load_remote_module_to_temp</p>
-<p>mod = load_remote_module_to_temp("https://raw.githubusercontent.com/user/repo/branch/path/module.py")</p>
+            <div class="function">
+<div class="function-name">PE_Generator(<span style="color:#94D6BFFF;"><b>numberOfImages</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>save_address</b></span>:<span style="color:#42C39DFF;"><b>os.PathLike</b></span>, <span style="color:#94D6BFFF;"><b>PE_height</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>velocity_encoding</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>, <span style="color:#94D6BFFF;"><b>PositionalEncoding</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>, <span style="color:#94D6BFFF;"><b>default_image_size</b></span>:<span style="color:#42C39DFF;"><b>tuple</b></span>,)</div>
+<div class="description"></div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>numberOfImages</code> (int): Number of images to generate positional encodings for. Basically the width of the image.</li>
+<li><code>save_address</code> (os.PathLike): Path to save the positional encoding image.</li>
+<li><code>PE_height</code> (int): Height of the positional encoding image. I used 530 to move embedding a little up to avoid losing it after placing the drop. Later PE resized to (130, 1248) to match the image size.</li>
+<li><code>velocity_encoding</code> (bool): If True, use velocity encoding. Default is False.</li>
+<li><code>PositionalEncoding</code> (bool): If True, use positional encoding. Default is True.</li>
+<li><code>default_image_size</code> (tuple): Default size of the image to resize the positional encoding to. Default is (1245, 130).</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>pe_norm (cv2.Mat)</code>: Normalized positional encoding image.</div>
+<div class="section-title">raises:</div><ul>
+<li><code style="color:red;">ValueError</code>: If the number of images is less than 1.</li>
+<li><code style="color:red;">ValueError</code>: If both velocity_encoding and PositionalEncoding are True.</li>
+</ul>
+<div class="section-title">TODO:</div>
+<div>Check position encoding yields a better results or velocity encoding.</div>
+<div>Position encoding is to fix the width of the PE to 1246 and Velocity encoding it to calculate the length of the images and then resize width to 1245.</div>
+<div>Generate positional encodings for a set of images.</div>
+</div>
+<div class="function">
+<div class="function-name">make_PE_image()</div>
+<div class="description">Generates a fill image based on the source image by replacing pixels in the fill image with those from the source image where the source image is below a certain threshold. This function modifies the fill image in place.</div>
+<div class="section-title">Returns:</div>
+<div><code>fill_img</code>: The function modifies the fill image in place.</div>
+<div class="section-title">raises:</div><ul>
+<li><code style="color:red;">ValueError</code>: If the source and fill images do not have the same dimensions.</li>
+<li><code style="color:red;">ValueError</code>: If no dark regions are found in the source image.</li>
+</ul>
+</div>
+<div class="function">
+<div class="function-name">make_PE_image_Folder()</div>
+<div class="description"></div>
+<div class="section-title">raises:</div><ul>
+<li><code style="color:red;">ValueError</code>: If the address does not contain any images.</li>
+<li><code style="color:red;">ValueError</code>: If the index in the CSV file is NaN for any image.</li>
+</ul>
+<div class="section-title">TODO:</div>
+<div>- [ ] Test with super resolution images.</div>
+<div>- [ ] Test with padding images. Right now I'm gonna prototype with resizing the result image and feed it to the model.</div>
+<div>Generate positional encoding images for a folder of images.</div>
+</div>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DynamicLoader/load-remote-module/ReadMe.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DynamicLoader/load-remote-module/ReadMe.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/main.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/main.py</a></span></p>
             </footer>
         </div>
     </body>

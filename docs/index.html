@@ -9,10 +9,10 @@
         <style>
             /* Reset default margins and padding */
         </style>
-            <link rel="stylesheet" href="styles/navigationMenu.css">
-            <link rel="stylesheet" href="styles/code.css">
             <link rel="stylesheet" href="styles/other.css">
+            <link rel="stylesheet" href="styles/code.css">
             <link rel="stylesheet" href="styles/refs.css">
+            <link rel="stylesheet" href="styles/navigationMenu.css">
 
     </head>
 
@@ -46,6 +46,7 @@
 </ul></details></li>
 <li><details><summary><a href="doc/WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
+<li><a href="doc/WebLog/Books.html">Books.md</a></li>
 <li><details><summary><a href="doc/WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
 </ul>
@@ -63,6 +64,19 @@
 </details></li>
            <li class="language language-python" style="border-left: 4px solid #3572A5;"><details><summary><a href="src/PyThon.html">PyThon</a></summary>
 <ul style="margin-left: 20px;">
+<li><details><summary>Viscosity</summary><ul style="margin-left: 40px;">
+<li><details><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
+<li><a href="src/PyThon/Viscosity/PositionalEncoding/main.html">main.py</a></li>
+<li><a href="src/PyThon/Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+<li><details><summary>.BK</summary><ul style="margin-left: 80px;">
+<li><details><summary>Weights</summary><ul style="margin-left: 100px;">
+<li><a href="src/PyThon/Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+</ul></details></li>
+<li><a href="src/PyThon/Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
+<li><a href="src/PyThon/Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+</ul></details></li>
+</ul></details></li>
+</ul></details></li>
 <li><details><summary>Test</summary><ul style="margin-left: 40px;">
 <li><a href="src/PyThon/Test/test.html">test.py</a></li>
 <li><a href="src/PyThon/Test/test 2.html">test 2.py</a></li>
@@ -141,24 +155,98 @@
         <div class="content">
             <h1>Project Documentation</h1>
             
-            <h1>Project Documentation</h1>
+            
+<h2>TODOs</h2><ul><li>    <div class="todo-block" id="PE_Generator">
+        <h2><a href="#PE_Generator" class="function-link">PE_Generator</a></h2>
+        <ul>
+            <li>Check position encoding yields a better results or velocity encoding.</li>
+            <li>Position encoding is to fix the width of the PE to 1246 and Velocity encoding it to calculate the length of the images and then resize width to 1245.</li>
+            <li>Generate positional encodings for a set of images.</li>
+        </ul>
+    </div>
+    <div class="todo-block" id="make_PE_image_Folder">
+        <h2><a href="#make_PE_image_Folder" class="function-link">make_PE_image_Folder</a></h2>
+        <ul>
+            <li><input type="checkbox" class="checkbox" disabled>Test with super resolution images.</li>
+            <li><input type="checkbox" class="checkbox" disabled>Test with padding images. Right now I'm gonna prototype with resizing the result image and feed it to the model.</li>
+            <li>Generate positional encoding images for a folder of images.</li>
+        </ul>
+    </div>
+</li><li>    <div class="todo-block" id="extract_tag_section">
+        <h2><a href="#extract_tag_section" class="function-link">extract_tag_section</a></h2>
+        <ul>
+            <li>Finish the implementation to extract the section based on the tag.</li>
+            <li>Add hyperlink to functions</li>
+            <li>Extend it to bug fix and HACK</li>
+        </ul>
+    </div>
+</li></ul><h1>Project Documentation</h1>
 <div class="overview">
-<h2>WebLog Files</h2><ul>
+<h2>All Files</h2><ul>
 </ul>
-<h2>Devlog Files</h2><ul>
 </ul>
-<h2>PyThon Files</h2><ul>
 </ul>
-<h2>C Files</h2><ul>
 </ul>
-<h2>C++ Files</h2><ul>
 </ul>
-<h2>CUDA Files</h2><ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
+</ul>
 </ul>
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-07-30 15:55:51</span></p>
+                <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
                 <p>Raw access: <span><a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a></span></p>
             </footer>
         </div>

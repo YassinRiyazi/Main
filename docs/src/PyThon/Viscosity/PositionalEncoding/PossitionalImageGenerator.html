@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            load-remote-module 
+            PossitionalImageGenerator 
         </title>
         <style>
             /* Reset default margins and padding */
@@ -64,16 +64,16 @@
 </details></li>
            <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../PyThon.html">PyThon</a></summary>
 <ul style="margin-left: 20px;">
-<li><details><summary>Viscosity</summary><ul style="margin-left: 40px;">
-<li><details><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
-<li><a href="../../Viscosity/PositionalEncoding/main.html">main.py</a></li>
-<li><a href="../../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+<li><details open><summary>Viscosity</summary><ul style="margin-left: 40px;">
+<li><details open><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
+<li><a href="main.html">main.py</a></li>
+<li><a href="PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
 <li><details><summary>.BK</summary><ul style="margin-left: 80px;">
 <li><details><summary>Weights</summary><ul style="margin-left: 100px;">
-<li><a href="../../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+<li><a href=".BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
 </ul></details></li>
-<li><a href="../../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
-<li><a href="../../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+<li><a href=".BK/SupperRes.html">SupperRes.py</a></li>
+<li><a href=".BK/Adding.html">Adding.py</a></li>
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
@@ -89,10 +89,10 @@
 <li><a href="../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 <li><a href="../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
 </ul></details></li>
-<li><details open><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
-<li><details open><summary>load-remote-module</summary><ul style="margin-left: 60px;">
+<li><details><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
+<li><details><summary>load-remote-module</summary><ul style="margin-left: 60px;">
 <li><details><summary>load_remote_module</summary><ul style="margin-left: 80px;">
-<li><a href="load_remote_module/DLoader.html">DLoader.py</a></li>
+<li><a href="../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
 </ul></details></li>
 </ul></details></li>
 </ul></details></li>
@@ -153,22 +153,78 @@
 </nav>
         
         <div class="content">
-            <h1>load-remote-module </h1>
+            <h1>PossitionalImageGenerator </h1>
             
-            <p>To Dynamically laod the src modules. </p>
-<p>TODO:
-    For laoding the library build them and install them with Pip</p>
-<p><code>$   pip install build twine</code></p>
-<h1><span class="rel-link"><a href="ReadMe.html">load-remote-module</a></span></h1>
-<p>Download and import remote Python modules (e.g., from GitHub) into a temporary folder.</p>
-<h2>Usage</h2>
-<p>```python
-from load_remote_module import load_remote_module_to_temp</p>
-<p>mod = load_remote_module_to_temp("https://raw.githubusercontent.com/user/repo/branch/path/module.py")</p>
+            <div class="function">
+<div class="function-name">sinusoidal_positional_encoding()</div>
+<div class="description"></div>
+<div class="section-title">Task:</div>
+<div>This is a part of viscosity estimation project.</div>
+<div class="section-title">sub-task:</div>
+<div>Implement positional encoding for the Markov chain model.</div>
+<div>Description:</div>
+<div>Probably I am going to use CNN and Transformer for this project. I will treat each frame of the video as</div>
+<div>a Markov state and the video as a Markov chain.</div>
+<div>But I need to provide position of the object and its velocity as input features to the model.</div>
+<div>I want to use positional encoding to encode the position and velocity of the object in the video.</div>
+<div>Before I have used padding to keep the scale of objects in frames.</div>
+<div>I was thinking about by adding polar/arc like positional encoding maybe I could keep the scale of objects in frames.</div>
+<div>But I am not sure if it is a good idea.</div>
+<div>I will try to implement it and see how it works. Worst case I will use padding again.</div>
+<div><span class="rel-link"><a href="../../../../doc/WebLog/Why.html">Why</a></span> positional encoding?</div>
+<div>In the context of transformers, every word in a sentence is mapped to a vector through embeddings. The transformer then uses these vectors to generate keys and queries for its self-attention mechanism.</div>
+<div>The effectiveness of this process hinges on how well the positional encoding adapts to shifts in position., which do not inherently understand the order of input data.</div>
+<div>In a Markov chain model, especially when dealing with time series or sequential data, positional encoding helps the model to:</div>
+<div>- Understand the temporal relationships between states.</div>
+<div>- Capture the dynamics of the system over time.</div>
+<div>- Maintain the order of states in the Markov chain, which is essential for accurate predictions</div>
+<div>- Facilitate the model's ability to generalize from seen to unseen positions in the sequence</div>
+<div>Steps:</div>
+<div>1. Deciding on the positional encoding scheme.</div>
+<div>one of the most important concepts of a transformer model — positional encoding.</div>
+<div>The authors of “Attention is all you need” chose a combination of sinusoidal curves for the positional encoding vectors.</div>
+<div>Encoding must be able to identified the position of a data in a timeseries uniquely.</div>
+<div>It should be able to expand to arbitrary number of data in a time series.</div>
+<div>It should be compact and efficient. [Not one-hot encoding]</div>
+<div>Binary encoding is not good because it is not smooth and does not generalize well.</div>
+<div>Meaningful encoding:</div>
+<div>we want small changes in position to correspond to small changes in representation.</div>
+<div>The binary method, however, leads to large jumps in encoding for adjacent positions, which can confuse the model as it tries to interpret these as meaningful patterns.</div>
+<div>Continuity:</div>
+<div>Continuity in positional encoding helps the model to generalize better to positions it hasn’t seen. A continuous encoding scheme means that positions that are numerically close will receive similar representations, and this would aid the model in understanding patterns that span across multiple positions. Lack of smooth transitions also means that the model’s ability to interpolate and extract useful positional information is limited</div>
+<div>Encoding scheme should not blow up the size of the input data. So a periodic function is a good choice.</div>
+<div>To extend the encoding to arbitrary number of data in a time series, we can add a perpendicular sine wave with different frequency component to the encoding.</div>
+<div>The first sine wave provides a base positional signal, and by adding a second sine wave at a different frequency, we allow the encoding to oscillate differently as we move along the sequence.</div>
+<div>This additional dimension effectively creates a more complex positional landscape.</div>
+<div>Each position is now represented by a point in this two-dimensional space, where each dimension corresponds to a sine wave of a different frequency.</div>
+<div>* My initial thought was to use the row as the position but I think its better to include time or a dimensionless number of time as the position.</div>
+<div>For a small positional shift δx, the change in positional encoding P should be a linear function.</div>
+<div>Such a transformation ensures that the relationship captured between different parts of the sentence remains consistent, even as inputs vary slightly.</div>
+<div>This consistency is vital for the transformer to maintain syntactic relationships within a sentence across different positions.</div>
+<div>x: Length/ Embedding dimension</div>
+<div>y: Speed / Position</div>
+<div>Finding maximum and minimum values of the frame lengths and speeds.</div>
+<div>2. Implement positional encoding for the Markov chain model.</div>
+<div>3. Test the positional encoding with a simple model.</div>
+<div>Analogies to LNP:</div>
+<div>A sentence:                 A frame of video</div>
+<div>A Token embedding vector:   A row of pixels in a frame</div>
+<div class="section-title">references:</div>
+<div>https://medium.com/@gunjassingh/positional-encoding-in-transformers-a-visual-and-intuitive-guide-0761e655cea7</div>
+<div>https://medium.com/data-science/master-positional-encoding-part-i-63c05d90a0c3</div>
+</div>
+<div class="function">
+<div class="function-name">cropped_position_encoding()</div>
+<div class="description">Assumptions: Images are unified in size ex. (130, 1248) <span class="rel-link"><a href=".BK/Adding.html">Adding</a></span> position encoding to the images For erode results <img alt="Italian Trulli" src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/doc/WithErode.png"/> And without erode results see the images below. <img alt="Italian Trulli" src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/doc/WithoutErode.png"/></div>
+</div>
+<div class="function">
+<div class="function-name"><span class="rel-link"><a href="../../ContactAngle/CaMeasurer/main.html">main</a></span>()</div>
+<div class="description">Main function to generate sinusoidal positional encoding.</div>
+</div>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DynamicLoader/load-remote-module/ReadMe.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/DynamicLoader/load-remote-module/ReadMe.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/PossitionalImageGenerator.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/PossitionalImageGenerator.py</a></span></p>
             </footer>
         </div>
     </body>

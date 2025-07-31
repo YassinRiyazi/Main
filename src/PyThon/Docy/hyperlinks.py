@@ -2,7 +2,58 @@ import os
 import re
 from bs4 import BeautifulSoup
 
-############# Type 3 refrence [File name] #############
+############# Type 4 reference [TODOs] #############
+def extract_tag_section(html: str, tag: str, verbose=False) -> str:
+    """
+    \Label: CertainTagFinder
+
+    Extracts the HTML section corresponding to a given tag (e.g., 'TODO').
+
+    Args:
+        html (str): The HTML content as a string.
+        tag (str): The tag to extract (e.g., 'TODO').
+
+    TODO:
+        Finish the implementation to extract the section based on the tag.
+        Add hyperlink to functions
+        Extend it to bug fix and HACK
+
+    Returns:
+        str: The HTML string of the section corresponding to the tag, or
+             an empty string if the tag is not found.
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+    result = {}
+
+    for func_div in soup.find_all('div', class_='function'):
+        # Get the function name
+        name_div = func_div.find('div', class_='function-name')
+        func_name = name_div.get_text(strip=True) if name_div else 'Unnamed Function'
+        #finds ( in function name
+        func_name = func_name.split('(')[0].strip()
+
+        # Find TODO section title
+        todos = []
+        for section in func_div.find_all('div', class_='section-title'):
+            if section.text.strip().upper().startswith('TODO'):
+                # Collect all sibling divs until next section-title or end
+                for sibling in section.find_next_siblings():
+                    if sibling.name == 'div' and 'section-title' in sibling.get('class', []):
+                        break
+                    todos.append(sibling.get_text(strip=True))
+                    if verbose:
+                        # Print each TODO found in the function block
+                        print(f"Found TODO in {func_name}: {sibling.get_text(strip=True)}")
+                break  # Assume only one TODO per function block
+
+        if todos:
+            result[func_name] = '\n'.join(todos)
+
+    return result
+
+
+
+############# Type 3 reference [File name] #############
 def fileNameExtractor_Langless(processed_files, source_dirs):
     file_name_to_html_path = {}
 
@@ -97,9 +148,7 @@ def replace_file_names_in_html(html_content, file_name_to_html_path, current_htm
 
     return str(soup)
 
-############# Type 2 refrence [Function name Manual] #############
- 
-
+############# Type 2 reference [Function name Manual] #############
 def process_html_for_labels(html_content):
     """
     Process HTML content to replace \Label tags with HTML anchors and collect all labels.
@@ -170,3 +219,12 @@ def process_html_for_labels_replace(processed_files: list, label_to_file: dict):
         # Write the modified content back to the file
         with open(html_path, 'w') as f:
             f.write(content)
+
+if __name__ == "__main__":
+    # Example usage
+    with open('docs/src/PyThon/Viscosity/PositionalEncoding/main.html', 'r') as f:
+        html_content = f.read()
+
+    processed_html = extract_tag_section(html_content,'function')
+    print("Processed HTML:", processed_html)
+    

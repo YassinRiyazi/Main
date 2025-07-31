@@ -22,11 +22,14 @@ def PE_Generator(numberOfImages:int,
 
     Generate positional encodings for a set of images.
     args:
-        numberOfImages: Number of images to generate positional encodings for. Basically the width of the image.
-        save_address: Path to save the positional encoding image.
-        PE_height: Height of the positional encoding image. I used 530 to move embedding a little up to avoid losing it after placing the drop. Later PE resized to (130, 1248) to match the image size.
+        numberOfImages (int): Number of images to generate positional encodings for. Basically the width of the image.
+        save_address (os.PathLike): Path to save the positional encoding image.
+        PE_height (int): Height of the positional encoding image. I used 530 to move embedding a little up to avoid losing it after placing the drop. Later PE resized to (130, 1248) to match the image size.
+        velocity_encoding (bool): If True, use velocity encoding. Default is False.
+        PositionalEncoding (bool): If True, use positional encoding. Default is True.
+        default_image_size (tuple): Default size of the image to resize the positional encoding to. Default is (1245, 130).
     returns:
-        pe_norm: Normalized positional encoding image.
+        pe_norm (cv2.Mat): Normalized positional encoding image.
     raises:
         ValueError: If the number of images is less than 1.
         ValueError: If both velocity_encoding and PositionalEncoding are True.

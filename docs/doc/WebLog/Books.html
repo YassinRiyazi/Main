@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            Whats Next 
+            WebLog 
         </title>
         <style>
             /* Reset default margins and padding */
@@ -27,7 +27,7 @@
 <li><a href="cuDNN.html">cuDNN.md</a></li>
 <li><details><summary><a href="Why.html">Why</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
-<li><details open><summary><a href="Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
+<li><details><summary><a href="Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
 <li><a href="UBUNTU.html">UBUNTU.md</a></li>
 <li><a href="ToWatchList.html">ToWatchList.md</a></li>
@@ -153,16 +153,56 @@
 </nav>
         
         <div class="content">
-            <h1>Whats Next </h1>
+            <h1>WebLog </h1>
             
-            <h1>What's Next?</h1>
-<p>With the Help of WebDocy and an organized way of re-learning computer programming, I want to attend to mathematics to understand the real world, if real, better. </p>
-<p>There are many beautiful mathematical concepts, and I need a new way of writing my notes. With computers to <span class="rel-link"><a href="../../src/PyThon/Test/test.html">test</a></span>, develop, and make them immortal.</p>
-<p><a href="https://www.youtube.com/watch?v=iv-5mZ_9CPY">Diffusion models</a></p>
+            <h2>Suggested Reading Order</h2>
+<ol>
+<li>A Tour of <span class="rel-link"><a href="../../src/C.html">C</a></span>++ – builds the foundation quickly
+    <span class="rel-link"><a href="Why.html">Why</a></span>: Best modern <span class="rel-link"><a href="../../src/C.html">C</a></span>++ overview, concise but complete (<span class="rel-link"><a href="../../src/C.html">C</a></span>++11–17).
+    Covers classes, templates, smart pointers, and STL fundamentals – everything you need for clean design in your raytracer and parser.
+    Read first, then go deeper with Effective <span class="rel-link"><a href="../../src/C.html">C</a></span>++ and STL books.</li>
+<li>Effective <span class="rel-link"><a href="../../src/C.html">C</a></span>++ – learn best practices
+    <span class="rel-link"><a href="Why.html">Why</a></span>: Shows you how to write clean, bug-free, performant code with idiomatic <span class="rel-link"><a href="../../src/C.html">C</a></span>++.
+    Covers memory management, resource handling, class design, operator overloading, and more – critical for a raytracer engine.</li>
+<li>Effective STL – master STL containers for parser/raytracer
+    <span class="rel-link"><a href="Why.html">Why</a></span>: The parser tool will involve containers, iterators, and algorithms heavily.
+    Helps you avoid STL pitfalls and teaches performance-conscious patterns for maps, vectors, strings, etc.</li>
+<li>Design Patterns (GoF) – structure components properly
+    <span class="rel-link"><a href="Why.html">Why</a></span>: The parser/doc tool is essentially a framework, not a small project.
+    This book is about modularization, dependencies, and layering in large <span class="rel-link"><a href="../../src/C.html">C</a></span>++ codebases – invaluable for your tool.</li>
+<li>Large-Scale <span class="rel-link"><a href="../../src/C.html">C</a></span>++ Software Design – for the parser/doc framework
+    <span class="rel-link"><a href="Why.html">Why</a></span>: The raytracer and parser will benefit from patterns like Visitor, Factory, Composite, Observer.
+    The parser in particular will require AST visitors and extensible components – this book will help you design those cleanly.</li>
+<li>(Optional) <span class="rel-link"><a href="../../src/C.html">C</a></span> Traps and Pitfalls for low-level pitfalls
+    Great for understanding subtle <span class="rel-link"><a href="../../src/C.html">C</a></span> mistakes, but less critical if you focus on modern <span class="rel-link"><a href="../../src/C.html">C</a></span>++.</li>
+<li>The <span class="rel-link"><a href="../../src/C.html">C</a></span> Programming Language (K&amp;R)
+    Classic reference; good if you want to deepen raw <span class="rel-link"><a href="../../src/C.html">C</a></span> fundamentals. But "A Tour of <span class="rel-link"><a href="../../src/C.html">C</a></span>++" and "Effective <span class="rel-link"><a href="../../src/C.html">C</a></span>++" are higher priority.</li>
+</ol>
+<p>Not Needed for Now (for These Projects)
+    <span class="rel-link"><a href="../../src/CUDA.html">CUDA</a></span> / GPU Books (Programming Massively Parallel Processors, Professional <span class="rel-link"><a href="../../src/CUDA.html">CUDA</a></span> <span class="rel-link"><a href="../../src/C.html">C</a></span> Programming): These are more relevant for CFD solvers or GPU-accelerated projects, not a CPU-based raytracer or parser.</p>
+<pre><code>Parallel Programming (MPI, Patterns): Parallelization is not your primary bottleneck yet; get your single-threaded implementations working first.
+
+Introductory C Books (The Joy of C, Problem Solving and Program Design in C, The Art of C Programming): You’re past this level.
+</code></pre>
+<h2>Books in my custody</h2>
+<p><span class="rel-link"><a href="../../src/C.html">C</a></span> Traps and Pitfalls from Andrew Koenig</p>
+<p>Patterns for parallel programming from Timothy G. Mattson</p>
+<p>Programming Massively Parallel Processors: A Hands-on Approach edition 4 from  Wen-mei W. Hwu David B. Kirk </p>
+<p>Professional <span class="rel-link"><a href="../../src/CUDA.html">CUDA</a></span> <span class="rel-link"><a href="../../src/C.html">C</a></span> Programming</p>
+<p>Problem Solving and Program Design in <span class="rel-link"><a href="../../src/C.html">C</a></span> from Elliot Koffman</p>
+<p>The Art of <span class="rel-link"><a href="../../src/C.html">C</a></span> Pro­gram­ming from Robin Jones</p>
+<p>Design Patterns. Elements of Reusable Object-Oriented Software. </p>
+<p>Large-scale <span class="rel-link"><a href="../../src/C.html">C</a></span>++ Software Design from John Lakos</p>
+<p>Effective STL: 50 Specific Ways to Improve Your Use of the Standard Template Library 1st Edition</p>
+<p>Effective <span class="rel-link"><a href="../../src/C.html">C</a></span>++: 55 Specific Ways to Improve Your Programs and Designs (Addison-Wesley Professional Computing) Paperback – 12 May 2005</p>
+<p>Parallel Programming with MPI Paperback – 1 Oct. 1996</p>
+<p>The Joy of <span class="rel-link"><a href="../../src/C.html">C</a></span>: Programming in <span class="rel-link"><a href="../../src/C.html">C</a></span> Paperback – 4 Feb. 1993</p>
+<p>The <span class="rel-link"><a href="../../src/C.html">C</a></span> Programming Language. (Prentice Hall Software) Paperback – 22 Mar. 1988
+A Tour of <span class="rel-link"><a href="../../src/C.html">C</a></span>++ (<span class="rel-link"><a href="../../src/C.html">C</a></span>++ In Depth SERIES)</p>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Whats Next/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Whats Next/README.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Books.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/Books.md</a></span></p>
             </footer>
         </div>
     </body>

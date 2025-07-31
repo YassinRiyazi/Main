@@ -22,6 +22,10 @@ def parse_python_docstring(docstring):
                 'see_also': list of str,
                 'caution': list of str,
                 'warning': list of str,
+                'TODO': list of str,
+                'FIXME': list of str,
+                'HACK': list of str,
+                'XXX': list of str
             }
 
     Example:
@@ -46,6 +50,16 @@ def parse_python_docstring(docstring):
         'see_also': [],
         'caution': [],
         'warning': [],
+        'TODO': [],
+        'FIXME': [],
+        'HACK': [],
+        'XXX': [],
+        'Task': [],
+        'sub-task': [],
+        'sub-sub-task': [],
+        'sub-sub-sub-task': [],
+        'sub-sub-sub-sub-task': [],
+        'references': []    
     }
     current_section = 'description'
     
@@ -79,7 +93,38 @@ def parse_python_docstring(docstring):
             continue 
         elif line.lower().startswith('warning:'):
             current_section = 'warning'
+            continue   
+        elif line.lower().startswith('todo:'):
+            current_section = 'TODO'
+            continue
+        elif line.lower().startswith('fixme:'):
+            current_section = 'FIXME'
             continue    
+        elif line.lower().startswith('hack:'):
+            current_section = 'HACK'
+            continue    
+        elif line.lower().startswith('xxx:'):
+            current_section = 'XXX'
+            continue 
+        elif line.lower().startswith('task:'):
+            current_section = 'Task'
+            continue
+        elif line.lower().startswith('sub-task:'):
+            current_section = 'sub-task'
+            continue    
+        elif line.lower().startswith('sub-sub-task:'):
+            current_section = 'sub-sub-task'
+            continue
+        elif line.lower().startswith('sub-sub-sub-task:'):
+            current_section = 'sub-sub-sub-task'
+            continue    
+        elif line.lower().startswith('sub-sub-sub-sub-task:'):
+            current_section = 'sub-sub-sub-sub-task'
+            continue
+        elif line.lower().startswith('references:'):
+            current_section = 'references'
+            continue
+
             
         # Parse args section
         if current_section == 'args':
@@ -95,7 +140,7 @@ def parse_python_docstring(docstring):
             match = re.match(r'([^:]+):\s*(.*)', line)
             if match:
                 sections['returns'] = {
-                    'type': match.group(1).strip(),
+                    'name': match.group(1).strip(),
                     'desc': match.group(2).strip()
                 }
         # Parse raises section
@@ -103,7 +148,7 @@ def parse_python_docstring(docstring):
             match = re.match(r'(\w+):\s*(.*)', line)
             if match:
                 sections['raises'].append({
-                    'type': match.group(1),
+                    'name': match.group(1),
                     'desc': match.group(2)
                 })
         # Parse examples section
@@ -121,6 +166,38 @@ def parse_python_docstring(docstring):
 
         elif current_section == 'warning':
             sections['warning'].append(line)
+
+        elif current_section == 'TODO':
+            sections['TODO'].append(line)
+
+        elif current_section == 'FIXME':
+            sections['FIXME'].append(line)
+
+        elif current_section == 'HACK':
+            sections['HACK'].append(line)
+
+        elif current_section == 'XXX':
+            sections['XXX'].append(line)
+        
+        elif current_section == 'Task':
+            sections['Task'].append(line)
+
+        elif current_section == 'sub-task':
+            sections['sub-task'].append(line)
+
+        elif current_section == 'sub-sub-task':
+            sections['sub-sub-task'].append(line)
+
+        elif current_section == 'sub-sub-sub-task':
+            sections['sub-sub-sub-task'].append(line)
+
+        elif current_section == 'sub-sub-sub-sub-task':
+            sections['sub-sub-sub-sub-task'].append(line)
+        
+        elif current_section == 'references':
+            sections['references'].append(line)
+
+
 
         else:
             sections['description'].append(line)
@@ -202,10 +279,16 @@ def generate_python_function_html(func):
 
     if doc['returns']:
         html.append('<div class="section-title">Returns:</div>')
-        html.append(f'<div><code>{doc["returns"]["type"]}</code>: {doc["returns"]["desc"]}</div>')
+        html.append(f'<div><code>{doc["returns"]["name"]}</code>: {doc["returns"]["desc"]}</div>')
+
+    if doc['raises']:
+        html.append('<div class="section-title">raises:</div><ul>')
+        for exc in doc['raises']:
+            html.append(f'<li><code style="color:red;">{exc["name"]}</code>: {exc["desc"]}</li>')
+        html.append('</ul>')
 
     for kk in doc:
-        if doc[kk] != [] and kk != 'args' and kk != 'description' and kk != 'returns':
+        if doc[kk] != [] and kk != 'args' and kk != 'description' and kk != 'returns' and kk != 'raises':
             html.append(f'<div class=section-title>{kk}:</div>')
             for i in doc[kk]:
                 html.append(f'<div>{i}</div>')

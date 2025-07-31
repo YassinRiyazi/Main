@@ -197,15 +197,44 @@ def create_nav_menu(processed_files, current_file_path):
 def GenerateMainPage(processed_files):
     """Generate index.html with all sections."""
     index_content = ['<h1>Project Documentation</h1>', '<div class="overview">']
-    for lang in source_dirs.keys():
-        index_content.append(f'<h2>{lang} Files</h2><ul>')
-        for file in processed_files:
-            rel_path = os.path.relpath(file['html_path'], start=output_base_dir)
-            rel_path = rel_path.replace('\\', '/')
-            # index_content.append(f'<li><a href="{rel_path}">{file["name"]}</a></li>')
+    _TODOs = []
+    index_content.append(f'<h2>All Files</h2><ul>')
+    for file in processed_files:
+        _TODOs.append(Docy.extract_tag_section(file['content_html'],'TODO'))
+
+
+        rel_path = os.path.relpath(file['html_path'], start=output_base_dir)
+        rel_path = rel_path.replace('\\', '/')
+        # index_content.append(f'<li><a href="{rel_path}">{file["name"]}</a></li>')
         index_content.append('</ul>')
     index_content.append('</div>')
-    index_content_html = '\n'.join(index_content)
+
+    index_content_html = '\n<h2>TODOs</h2><ul>'
+    for todo in _TODOs:
+        if todo:
+            html = ''
+            for func_name, content in todo.items():
+                anchor = func_name.replace(' ', '_')  # simple anchor generation
+                html += f'    <div class="todo-block" id="{anchor}">\n'
+                html += f'        <h2><a href="#{anchor}" class="function-link">{func_name}</a></h2>\n'
+                html += f'        <ul>\n'
+                for line in content.strip().splitlines():
+                    line = line.strip()
+                    if not line:
+                        continue
+                    if line.startswith('- [ ]'):
+                        html += f'            <li><input type="checkbox" class="checkbox" disabled>{line[5:].strip()}</li>\n'
+                    else:
+                        html += f'            <li>{line}</li>\n'
+                html += f'        </ul>\n'
+                html += f'    </div>\n'
+
+
+
+            index_content_html += f'<li>{html}</li>'
+    index_content_html += '</ul>'
+
+    index_content_html +='\n'.join(index_content)
 
     with open('doc/template.html', 'r') as f:
         template = f.read()

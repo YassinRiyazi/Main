@@ -9,10 +9,10 @@
         <style>
             /* Reset default margins and padding */
         </style>
-            <link rel="stylesheet" href="../../../styles/navigationMenu.css">
-            <link rel="stylesheet" href="../../../styles/code.css">
             <link rel="stylesheet" href="../../../styles/other.css">
+            <link rel="stylesheet" href="../../../styles/code.css">
             <link rel="stylesheet" href="../../../styles/refs.css">
+            <link rel="stylesheet" href="../../../styles/navigationMenu.css">
 
     </head>
 
@@ -46,6 +46,7 @@
 </ul></details></li>
 <li><details><summary><a href="../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
+<li><a href="../../../doc/WebLog/Books.html">Books.md</a></li>
 <li><details><summary><a href="../../../doc/WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
 </ul></details></li>
 </ul>
@@ -63,6 +64,19 @@
 </details></li>
            <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../PyThon.html">PyThon</a></summary>
 <ul style="margin-left: 20px;">
+<li><details><summary>Viscosity</summary><ul style="margin-left: 40px;">
+<li><details><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
+<li><a href="../Viscosity/PositionalEncoding/main.html">main.py</a></li>
+<li><a href="../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+<li><details><summary>.BK</summary><ul style="margin-left: 80px;">
+<li><details><summary>Weights</summary><ul style="margin-left: 100px;">
+<li><a href="../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+</ul></details></li>
+<li><a href="../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
+<li><a href="../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+</ul></details></li>
+</ul></details></li>
+</ul></details></li>
 <li><details><summary>Test</summary><ul style="margin-left: 40px;">
 <li><a href="../Test/test.html">test.py</a></li>
 <li><a href="../Test/test 2.html">test 2.py</a></li>
@@ -142,6 +156,20 @@
             <h1>hyperlinks </h1>
             
             <div class="function">
+<div class="function-name">extract_tag_section(<span style="color:#94D6BFFF;"><b>html</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>tag</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>,)</div>
+<div class="description"><p> <span class="keyword">CertainTagFinder</span></p><span id="CertainTagFinder"></span> Extracts the HTML section corresponding to a given tag (e.g., 'TODO').</div>
+<div class="section-title">Parameters:</div><ul>
+<li><code>html</code> (str): The HTML content as a string.</li>
+<li><code>tag</code> (str): The tag to extract (e.g., 'TODO').</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>str</code>: The HTML string of the section corresponding to the tag, or</div>
+<div class="section-title">TODO:</div>
+<div>Finish the implementation to extract the section based on the tag.</div>
+<div>Add hyperlink to functions</div>
+<div>Extend it to bug fix and HACK</div>
+</div>
+<div class="function">
 <div class="function-name">fileNameExtractor(<span style="color:#94D6BFFF;"><b>processed_files</b></span>:<span style="color:#42C39DFF;"><b>list[dict]</b></span>, <span style="color:#94D6BFFF;"><b>source_dirs</b></span>:<span style="color:#42C39DFF;"><b>dict</b></span>,)</div>
 <div class="description"><p> <span class="keyword">fileNameExtractor</span></p><span id="fileNameExtractor"></span> Builds a mapping from file names to their corresponding HTML paths, grouped by language. This is later used by <p> <span class="keyword-ref"><a href="hyperlinks.html#replace_file_names_in_html">replace_file_names_in_html</a></span> </p> to hyperlink file name mentions in HTML content.</div>
 <div class="section-title">Parameters:</div><ul>
@@ -181,7 +209,7 @@
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-07-30 15:55:51</span></p>
+                <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Docy/hyperlinks.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Docy/hyperlinks.py</a></span></p>
             </footer>
         </div>
