@@ -12,7 +12,10 @@
 > For documentation please visit [Here](https://yassinriyazi.github.io/Main/).
 >
 > Vanilla HTML which was automatically generated from [Source](./src)
->
+> [ ] Adding support for aliases of \label
+> [ ] Adding keyword TODO to the function sectiion and list all TODOs in the main page
+
+
 > > - [V] Adding tags to automatically connect relevant functions from different implementations.
 > > - [ ] Add unified method to add TODO
 > > - [V] Add functionality to import read me description for each src file and folder, and including it in web doc

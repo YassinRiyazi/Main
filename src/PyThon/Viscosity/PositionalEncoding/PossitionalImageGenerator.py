@@ -1,4 +1,10 @@
-"""
+import  cv2
+import  numpy               as  np
+import  matplotlib.pyplot   as  plt
+from    PIL                 import Image
+
+def sinusoidal_positional_encoding(max_position, d_model):
+    """
     Task:       This is a part of viscosity estimation project.
     Sub-Task:   Implement positional encoding for the Markov chain model.
 
@@ -67,16 +73,8 @@
     References:
         https://medium.com/@gunjassingh/positional-encoding-in-transformers-a-visual-and-intuitive-guide-0761e655cea7
         https://medium.com/data-science/master-positional-encoding-part-i-63c05d90a0c3
-"""
+    """
 
-
-
-import  cv2
-import  numpy               as  np
-import  matplotlib.pyplot   as  plt
-from    PIL                 import Image
-
-def sinusoidal_positional_encoding(max_position, d_model):
     position = np.arange(max_position)[:, np.newaxis]
     # The original formula pos / 10000^(2i/d_model) is equivalent to pos * (1 / 10000^(2i/d_model)).
     # I use the below version for numerical stability
@@ -88,9 +86,43 @@ def sinusoidal_positional_encoding(max_position, d_model):
     
     return pe
 
+def cropped_position_encoding(  x1,x2,
+                                max_position = 1245,  # Maximum sequence length
+                                d_model = 530  ,      # Embedding dimension:
+                            ):
+    """
+    Assumptions:
+        Images are unified in size ex. (130, 1248)
+    
+    Adding position encoding to the images
+
+    For erode results
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/doc/WithErode.png" alt="Italian Trulli">
+
+    And without erode results see the images below.
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Viscosity/PositionalEncoding/doc/WithoutErode.png" alt="Italian Trulli">
+
+    """
+    
+    pe = sinusoidal_positional_encoding(max_position, d_model).T
+    pe = cv2.resize(pe[:, x1:x2], (x2-x1-1, 130), interpolation=cv2.INTER_LINEAR)
+    pe_norm = cv2.normalize(pe, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
+
+    # Create a red-black RGB image
+    red_img = np.zeros((pe_norm.shape[0], pe_norm.shape[1], 3), dtype=np.uint8)
+    red_img[..., 0] = pe_norm  # Red channel
+    red_img[..., 1] = pe_norm  # green channel
+
+    result_img = Image.fromarray(red_img)
+    result_img.save('Projects/Viscosity/Markov/fsgfg.png')
+    return pe
+
 def main(max_position = 1245,  # Maximum sequence length
          d_model = 530,        # Embedding dimension
          _plot:bool = False):
+    """
+    Main function to generate sinusoidal positional encoding.
+    """
 
     # Generate positional encoding
     pe = sinusoidal_positional_encoding(max_position, d_model).T
@@ -106,30 +138,6 @@ def main(max_position = 1245,  # Maximum sequence length
         plt.ylabel('Embedding Dimension')
         plt.show()
 
-    return pe
-
-def cropped_position_encoding(  x1,x2,
-                                max_position = 1245,  # Maximum sequence length
-                                d_model = 530  ,      # Embedding dimension:
-                            ):
-    """
-    Assumptions:
-        Images are unified in size ex. (130, 1248)
-    
-    Adding position encoding to the images
-    """
-    
-    pe = sinusoidal_positional_encoding(max_position, d_model).T
-    pe = cv2.resize(pe[:, x1:x2], (x2-x1-1, 130), interpolation=cv2.INTER_LINEAR)
-    pe_norm = cv2.normalize(pe, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
-
-    # Create a red-black RGB image
-    red_img = np.zeros((pe_norm.shape[0], pe_norm.shape[1], 3), dtype=np.uint8)
-    red_img[..., 0] = pe_norm  # Red channel
-    red_img[..., 1] = pe_norm  # green channel
-
-    result_img = Image.fromarray(red_img)
-    result_img.save('Projects/Viscosity/Markov/fsgfg.png')
     return pe
 
 if __name__ == "__main__":
