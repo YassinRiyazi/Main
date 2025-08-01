@@ -1,7 +1,7 @@
 import re
 import ast
 
-def parse_python_docstring(docstring):
+def parse_python_docstring(docstring: str) -> dict:
     """
     Parse a Google-style Python docstring into a structured dictionary.
 
@@ -206,96 +206,151 @@ def parse_python_docstring(docstring):
     sections['description'] = ' '.join(sections['description'])
     return sections
 
+def generate_python_function_html(obj: dict, indent: int = 1) -> str:
+    """
+    Generate indented HTML for a Python function or class’s documentation.
+    Args:
+        obj (dict): A dictionary representing a Python function or class with its docstring.
+        indent (int): The indentation level for the HTML output.
+    Returns:
+        str: The generated HTML string.
+    """
+    def indent_line(line, level):
+        return '      ' * level + line
 
-def extract_python_functions(file_path):
-    """Extract top-level Python functions and their docstrings from a source file.
+    lines = []
+    level = indent
 
-    Uses the AST (Abstract Syntax Tree) module to safely parse function names and docstrings.
+    if obj['type'] == 'function':
+        doc = obj['doc']
+        args_string = ', '.join(
+            f'<span style="color:#94D6BFFF;"><b>{arg["name"]}</b></span>:<span style="color:#42C39DFF;"><b>{arg["type"]}</b></span>'
+            for arg in doc['args']
+        )
+
+        lines.append(indent_line('<div class="function">', level))
+        lines.append(indent_line(f'<div class="function-name">{obj["name"]}({args_string})</div>', level + 1))
+        lines.append(indent_line(f'<div class="description">{doc["description"]}</div>', level + 1))
+
+        if doc['args']:
+            lines.append(indent_line('<div class="section-title">Parameters:</div>', level + 1))
+            lines.append(indent_line('<ul>', level + 1))
+            for arg in doc['args']:
+                lines.append(indent_line(f'<li><code>{arg["name"]}</code> ({arg["type"]}): {arg["desc"]}</li>', level + 2))
+            lines.append(indent_line('</ul>', level + 1))
+
+        if doc['returns']:
+            lines.append(indent_line('<div class="section-title">Returns:</div>', level + 1))
+            lines.append(indent_line(f'<div><code>{doc["returns"]["name"]}</code>: {doc["returns"]["desc"]}</div>', level + 2))
+
+        if doc['raises']:
+            lines.append(indent_line('<div class="section-title">Raises:</div>', level + 1))
+            lines.append(indent_line('<ul>', level + 1))
+            for exc in doc['raises']:
+                lines.append(indent_line(f'<li><code style="color:red;">{exc["name"]}</code>: {exc["desc"]}</li>', level + 2))
+            lines.append(indent_line('</ul>', level + 1))
+
+        for key in doc:
+            if key not in ['args', 'description', 'returns', 'raises'] and doc[key]:
+                lines.append(indent_line(f'<div class="section-title" id="{obj["name"]}-{key}">{key.capitalize()}:</div>', level + 1))
+                for item in doc[key]:
+                    lines.append(indent_line(f'<div>{item}</div>', level + 2))
+
+        lines.append(indent_line('</div>', level))  # end function
+
+    #########################################################################################################
+    elif obj['type'] == 'class':
+        doc = obj['doc']
+        lines.append(indent_line('<div class="class">', level))
+        lines.append(indent_line(f'<div class="class-name">class <b>{obj["name"]}</b></div>', level + 1))
+        lines.append(indent_line(f'<div class="description">{doc.get("description", "")}</div>', level + 1))
+
+        for key in doc:
+            if key != 'description' and doc[key]:
+                lines.append(indent_line(f'<div class="section-title">{key.capitalize()}:</div>', level + 1))
+                for item in doc[key]:
+                    lines.append(indent_line(f'<div>{item}</div>', level + 2))
+
+        if obj.get('methods'):
+            lines.append(indent_line('<div class="section-title">Methods:</div>', level + 1))
+            for method in obj['methods']:
+                lines.append(indent_line('<div class="method">', level + 1))
+                lines.append(generate_python_function_html({
+                    'type': 'function',
+                    'name': method['name'],
+                    'doc': method['doc']
+                }, indent=level + 2))
+                lines.append(indent_line('</div>', level + 1))
+
+        lines.append(indent_line('</div>', level))  # end class
+
+    return '\n'.join(lines)
+
+
+
+def extract_python_objects(file_path):
+    """Extract Python functions and classes (with methods) and their docstrings from a source file.
 
     Args:
         file_path (str): Path to the Python source file (.py).
 
     Returns:
-        list of dict: Each function is represented as:
+        list of dict: Each object is either a function or class represented as:
             {
+                'type': 'function' or 'class',
                 'name': str,
-                'doc': dict  # Parsed result from parse_python_docstring()
+                'doc': dict,  # Parsed docstring
+                'methods': list (only for class): [
+                    {
+                        'name': str,
+                        'doc': dict  # Parsed method docstring
+                    }
+                ]
             }
-
-    Example:
-        >>> extract_python_functions("my_script.py")
-        [{'name': 'foo', 'doc': {...}}, ...]
     """
-
     with open(file_path, 'r', encoding='utf-8') as f:
         tree = ast.parse(f.read(), filename=file_path)
-    
-    functions = []
-    for node in ast.walk(tree):
+
+    objects = []
+
+    for node in ast.iter_child_nodes(tree):
         if isinstance(node, ast.FunctionDef):
             docstring = ast.get_docstring(node)
             if docstring:
                 doc_sections = parse_python_docstring(docstring)
-                functions.append({
+                objects.append({
+                    'type': 'function',
                     'name': node.name,
                     'doc': doc_sections
                 })
-    return functions
+        elif isinstance(node, ast.ClassDef):
+            class_doc = ast.get_docstring(node)
+            class_info = {
+                'type': 'class',
+                'name': node.name,
+                'doc': parse_python_docstring(class_doc) if class_doc else {},
+                'methods': []
+            }
+            for body_item in node.body:
+                if isinstance(body_item, ast.FunctionDef):
+                    method_doc = ast.get_docstring(body_item)
+                    if method_doc:
+                        class_info['methods'].append({
+                            'name': body_item.name,
+                            'doc': parse_python_docstring(method_doc)
+                        })
+            objects.append(class_info)
 
-def generate_python_function_html(func):
-    """Generate HTML representation of a Python function’s documentation.
-
-    Args:
-        func (dict): Function object from `extract_python_functions()` with keys:
-            - 'name' (str): Function name.
-            - 'doc' (dict): Parsed docstring data from `parse_python_docstring()`.
-
-    Returns:
-        str: HTML markup representing the function’s name, parameters, return type,
-             and additional sections like notes, examples, and warnings.
-
-    Example:
-        >>> html = generate_python_function_html({'name': 'add', 'doc': {...}})
-        >>> print(html)
-    """
-
-    doc = func['doc']
-
-    vv = ""
-    for arg in doc['args']:
-            vv += f'<span style="color:#94D6BFFF;"><b>{arg["name"]}</b></span>:<span style="color:#42C39DFF;"><b>{arg["type"]}</b></span>, '
-
-    html = [
-        '<div class="function">',
-        f'<div class="function-name">{func["name"]}({vv[:-1]})</div>',
-        f'<div class="description">{doc["description"]}</div>'
-    ]
-
-    if doc['args']:
-        html.append('<div class="section-title">Parameters:</div><ul>')
-        for arg in doc['args']:
-            html.append(f'<li><code>{arg["name"]}</code> ({arg["type"]}): {arg["desc"]}</li>')
-        html.append('</ul>')
-
-    if doc['returns']:
-        html.append('<div class="section-title">Returns:</div>')
-        html.append(f'<div><code>{doc["returns"]["name"]}</code>: {doc["returns"]["desc"]}</div>')
-
-    if doc['raises']:
-        html.append('<div class="section-title">raises:</div><ul>')
-        for exc in doc['raises']:
-            html.append(f'<li><code style="color:red;">{exc["name"]}</code>: {exc["desc"]}</li>')
-        html.append('</ul>')
-
-    for kk in doc:
-        if doc[kk] != [] and kk != 'args' and kk != 'description' and kk != 'returns' and kk != 'raises':
-            html.append(f'<div class=section-title>{kk}:</div>')
-            for i in doc[kk]:
-                html.append(f'<div>{i}</div>')
-
-    html.append('</div>')
-    return '\n'.join(html)
-
+    return objects
 
 if __name__ == "__main__":
-    print(extract_python_functions("src/PyThon/Test/test.py"))
+    items = extract_python_objects("src/PyThon/Test/test.py")
+    for obj in items:
+        if obj['type'] == 'function':
+            # print(generate_python_function_html(obj))
+            pass
+        elif obj['type'] == 'class':
+            print(f"<h2>Class: {obj['name']}</h2>")
+            print(f"<p>{obj['doc']['description']}</p>")
+            for method in obj['methods']:
+                print(generate_python_function_html(method))

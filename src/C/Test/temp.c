@@ -13,8 +13,17 @@ unsigned long factorial(unsigned int n) {
     return n * factorial(n - 1);
 }
 
-/**
+/*
+ *
  * @brief Reverses a string in place.
+ * <pre><code class="language-c">
+ * #include <stdio.h> \n
+ * 
+ * int main() {
+ *     printf("Hello, world!\n");
+ *     return 0;
+ * }
+ * </code></pre>
  * 
  * @param str The string to reverse.
  * @return void

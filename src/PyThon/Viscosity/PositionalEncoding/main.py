@@ -182,7 +182,7 @@ if __name__ == "__main__":
                 if _ind > 3:
                     break
 
-    num_workers = min(cpu_count(), 8)  # Use all CPUs or limit to 8 if too many
+    num_workers = min(cpu_count(), 16)  # Use all CPUs or limit to 16 if too many
     with Pool(processes=num_workers) as pool:
         pool.map(init_address, addresses)
 

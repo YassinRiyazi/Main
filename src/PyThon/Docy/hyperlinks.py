@@ -35,15 +35,14 @@ def extract_tag_section(html: str, tag: str, verbose=False) -> str:
         # Find TODO section title
         todos = []
         for section in func_div.find_all('div', class_='section-title'):
-            if section.text.strip().upper().startswith('TODO'):
+            if section.text.strip().upper().startswith(tag.upper()):
                 # Collect all sibling divs until next section-title or end
                 for sibling in section.find_next_siblings():
                     if sibling.name == 'div' and 'section-title' in sibling.get('class', []):
                         break
                     todos.append(sibling.get_text(strip=True))
                     if verbose:
-                        # Print each TODO found in the function block
-                        print(f"Found TODO in {func_name}: {sibling.get_text(strip=True)}")
+                        print(f"Found {tag} in {func_name}: {sibling.get_text(strip=True)}")
                 break  # Assume only one TODO per function block
 
         if todos:
@@ -51,7 +50,63 @@ def extract_tag_section(html: str, tag: str, verbose=False) -> str:
 
     return result
 
+def create_todo_html(tag:list, rel_path, key='TODO'):
+    """
+    \Label: create_todo_html
+    
+    Generates HTML for a list of TODOs, each linked to its function.
+    
+    Args:
+        tag (dict): A dictionary where keys are function names and values are TODO content.
+        rel_path (str): The relative path to the HTML file for linking.
+    Returns:
+        str: HTML string containing the TODO sections.
+        
+    Example:
+        >>> todo = {'calculate_area': 'Fix the calculation for negative radius', 'greet': 'Add support for multiple languages'}
+        >>> rel_path = 'docs/functions.html'
+        >>> create_todo_html(todo, rel_path)
+    """        
+    if tag:
+        html = ''
+        for func_name, content in tag.items():
+            anchor = func_name.replace(' ', '_')  # simple anchor generation
+            html += f'  <div class="todo-block" id="{anchor}">\n'
+            html += f'      <h2><span class="rel-link"><a href="{rel_path}#{func_name}-{key}" class="function-link">{func_name}(...)</a></span></h2>\n'
+            html += f'      <ul>\n'
+            for line in content.strip().splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                if line.startswith('- [ ]'):
+                    html += f'          <li><input type="checkbox" class="checkbox" disabled>{line[5:].strip()}</li>\n'
+                else:
+                    html += f'          <li>{line}</li>\n'
+            html += f'      </ul>\n'
+            html += f'  </div>\n'
+        return html
+    else:
+        return None
+    
+def create_Blue_tags(tag, tags):
+    """
+    \Label: create_Blue_tags
 
+    Generates HTML for a list of tags, each linked to its function.
+    Args:
+        tag (str): The tag type (e.g., 'TODO', 'BUG', 'HACK').
+        tags (list): A list of tuples where each tuple contains the item name and its relative path.
+    Returns:
+        str: HTML string containing the tag sections.
+
+    """
+    index_content_html = f'\n<h2>{tag.upper()}s</h2><ul>'
+    for item, rel_path in tags:
+        res = create_todo_html(item, rel_path, tag.upper())
+        if res:
+            index_content_html += f'<li>{res}</li>'
+    index_content_html += '</ul>'
+    return index_content_html
 
 ############# Type 3 reference [File name] #############
 def fileNameExtractor_Langless(processed_files, source_dirs):

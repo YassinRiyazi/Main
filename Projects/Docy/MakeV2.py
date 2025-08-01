@@ -1,7 +1,6 @@
 """
-    * Each folder should have an entry md file to desctibe its content and functions
-    * A loop over All valid first level folders
-
+    * Each folder should have an entry MD file to describe its content and functions
+    * A loop over all valid first-level folders
 
     Navigation panel: 
         Src [1st level]
@@ -89,17 +88,17 @@ def processor(lang, content_html,file_path, base_name, processed_files,  label_t
 
 def process_decider(lang,file_path, base_name, file_extension, processed_files, label_to_file, output_base_dir):
     if file_extension == ".c":
-        functions = Docy.extract_c_functions(file_path)
-        content = [Docy.generate_c_function_html(func) for func in functions]
+        functions   =  Docy.extract_c_functions(file_path)
+        content     = [Docy.generate_c_function_html(func) for func in functions]
         return processor(lang, content,file_path, base_name, processed_files,  label_to_file)
     
     elif file_extension == ".py" and not file_path.endswith("__init__.py"):
-        functions   = Docy.extract_python_functions(file_path)
+        functions   =  Docy.extract_python_objects(file_path)
         content     = [Docy.generate_python_function_html(func) for func in functions] 
         return processor(lang, content,file_path, base_name, processed_files,  label_to_file)
 
     elif file_extension == ".md":
-        content = Docy.markdown2HTML(file_path)
+        content     =  Docy.markdown2HTML(file_path)
         return processor(lang, content,file_path, base_name, processed_files,  label_to_file)
 
 def build_tree(files, source_dir):
@@ -121,7 +120,7 @@ def generate_tree_html(tree, current_file_path, current_path_parts=None, indent_
     if current_path_parts is None:
         current_path_parts = []
 
-    html = ['<ul style="margin-left: {}px;">'.format(indent_level * 20)]
+    html = [f'{"\t"*indent_level}<ul style="margin-left: {indent_level * 2}px; padding-left: 8px;">']
 
     for name in sorted(tree.keys(), reverse=(tree.get('Notes') is None)):
         value = tree[name]
@@ -144,17 +143,17 @@ def generate_tree_html(tree, current_file_path, current_path_parts=None, indent_
 
             if readme_path:
                 rel_path = os.path.relpath(readme_path, start=os.path.dirname(current_file_path)).replace('\\', '/')
-                html.append(f'<li><details{open_attr}><summary><a href="{rel_path}">{name}</a></summary>{sub_html}</details></li>')
+                html.append(f'{"\t"*(indent_level+1)}<li><details{open_attr}><summary><a href="{rel_path}">{name}</a></summary>{sub_html}</details></li>')
             else:
-                html.append(f'<li><details{open_attr}><summary>{name}</summary>{sub_html}</details></li>')
+                html.append(f'{"\t"*(indent_level+1)}<li><details{open_attr}><summary>{name}</summary>{sub_html}</details></li>')
         else:
             rel_path = os.path.relpath(value, start=os.path.dirname(current_file_path)).replace('\\', '/')
-            html.append(f'<li><a href="{rel_path}">{name}</a></li>')
+            html.append(f'{"\t"*(indent_level+1)}<li><a href="{rel_path}">{name}</a></li>')
 
-    html.append('</ul>')
+    html.append(f'{"\t"*indent_level}</ul>')
     return '\n'.join(html)
 
-def create_nav_menu(processed_files, current_file_path):
+def create_nav_menu(processed_files, current_file_path, indent_level=3):
     """Create navigation menu with language and devlog sections, applying distinct colors."""
     current_file = next((f for f in processed_files if f['html_path'] == current_file_path), None)
     languages = {}
@@ -164,7 +163,9 @@ def create_nav_menu(processed_files, current_file_path):
             languages[lang] = []
         languages[lang].append(file)
     
-    nav_html = ['<nav class="sidebar">', '<h2>Navigation</h2>', '<ul>'] #First line 
+    nav_html = [f'<nav class="sidebar">',
+                f'{"\t"*(indent_level+1)}<h2>Navigation</h2>',
+                f'{"\t"*(indent_level+2)}<ul>'] #First line 
     for lang in source_dirs.keys():
         open_attr = ' open' if current_file  else ''
 
@@ -173,10 +174,10 @@ def create_nav_menu(processed_files, current_file_path):
             rel_path = os.path.relpath(_readmeMD, start=lang)
             MFile = os.path.join(output_base_dir, lang, os.path.split(rel_path)[0] + '.html')
             rel_path = os.path.relpath(MFile, start=os.path.dirname(current_file_path))
-            
-            nav_html.append(f'           <li class="language language-{lang.lower()}" style="border-left: 4px solid {lang_colors[lang]};"><details{open_attr}><summary><a href="{rel_path}">{lang}</a></summary>')
+
+            nav_html.append(f'{"\t"*(indent_level+3)}<li class="language language-{lang.lower()}" style="border-left: 4px solid {lang_colors[lang]};"><details{open_attr}><summary><a href="{rel_path}">{lang}</a></summary>')
         else:
-            nav_html.append(f'           <li class="language language-{lang.lower()}" style="border-left: 4px solid {lang_colors[lang]};"><details{open_attr}><summary>{lang}</summary>')
+            nav_html.append(f'{"\t"*(indent_level+3)}<li class="language language-{lang.lower()}" style="border-left: 4px solid {lang_colors[lang]};"><details{open_attr}><summary>{lang}</summary>')
 
         
         tree = build_tree(languages[lang], source_dirs[lang][0])
@@ -187,54 +188,43 @@ def create_nav_menu(processed_files, current_file_path):
             rel_parts = []
 
         # tree_html = generate_tree_html(tree, current_file_path, os.path.relpath(current_file['source_path'], source_dirs[lang][0]).split(os.sep))
-        tree_html = generate_tree_html(tree, current_file_path, rel_parts)
+        tree_html = generate_tree_html(tree, current_file_path, rel_parts, indent_level=indent_level+4)
 
         nav_html.append(tree_html)
-        nav_html.append('</details></li>')
-    nav_html.extend(['</ul>', '</nav>'])
+        nav_html.append(f'{"\t"*(indent_level+2)}</details></li>')
+    nav_html.extend([f'{"\t"*(indent_level+1)}</ul>',
+                     f'{"\t"*(indent_level)}</nav>'])
     return '\n'.join(nav_html)
 
 def GenerateMainPage(processed_files):
     """Generate index.html with all sections."""
-    index_content = ['<h1>Project Documentation</h1>', '<div class="overview">']
     _TODOs = []
+    _FIXMEs = []
+    _HACKs = []
+    _XXXs = []
+    
+    index_content = ['<h1>Project Documentation</h1>', '<div class="overview">']
     index_content.append(f'<h2>All Files</h2><ul>')
     for file in processed_files:
-        _TODOs.append(Docy.extract_tag_section(file['content_html'],'TODO'))
-
-
         rel_path = os.path.relpath(file['html_path'], start=output_base_dir)
-        rel_path = rel_path.replace('\\', '/')
+
+        _TODOs.append((Docy.extract_tag_section(file['content_html'],'TODO'), rel_path))
+        _FIXMEs.append((Docy.extract_tag_section(file['content_html'],'FIXME'), rel_path))
+        _HACKs.append((Docy.extract_tag_section(file['content_html'],'HACK'), rel_path))
+        _XXXs.append((Docy.extract_tag_section(file['content_html'],'XXX'), rel_path))
+
+        # rel_path = rel_path.replace('\\', '/')
         # index_content.append(f'<li><a href="{rel_path}">{file["name"]}</a></li>')
-        index_content.append('</ul>')
+        # index_content.append('</ul>')
     index_content.append('</div>')
 
-    index_content_html = '\n<h2>TODOs</h2><ul>'
-    for todo in _TODOs:
-        if todo:
-            html = ''
-            for func_name, content in todo.items():
-                anchor = func_name.replace(' ', '_')  # simple anchor generation
-                html += f'    <div class="todo-block" id="{anchor}">\n'
-                html += f'        <h2><a href="#{anchor}" class="function-link">{func_name}</a></h2>\n'
-                html += f'        <ul>\n'
-                for line in content.strip().splitlines():
-                    line = line.strip()
-                    if not line:
-                        continue
-                    if line.startswith('- [ ]'):
-                        html += f'            <li><input type="checkbox" class="checkbox" disabled>{line[5:].strip()}</li>\n'
-                    else:
-                        html += f'            <li>{line}</li>\n'
-                html += f'        </ul>\n'
-                html += f'    </div>\n'
+    index_content_html = ''
+    index_content_html += Docy.create_Blue_tags('TODO', _TODOs)
+    index_content_html += Docy.create_Blue_tags('FIXME',_FIXMEs)
+    index_content_html += Docy.create_Blue_tags('HACK', _HACKs)
+    index_content_html += Docy.create_Blue_tags('XXX',  _XXXs)
 
-
-
-            index_content_html += f'<li>{html}</li>'
-    index_content_html += '</ul>'
-
-    index_content_html +='\n'.join(index_content)
+    index_content_html += '\n'.join(index_content)
 
     with open('doc/template.html', 'r') as f:
         template = f.read()
@@ -247,7 +237,7 @@ def GenerateMainPage(processed_files):
     output = output.replace('<!-- NAVIGATION -->',  create_nav_menu(processed_files, file['html_path']))
     output = output.replace('<!-- CONTENT -->', index_content_html)
     output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    output = output.replace('<!-- Adress -->', '<a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a>')
+    output = output.replace('<!-- Address -->', '<a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a>')
 
     with open(os.path.join(output_base_dir, 'index.html'), 'w') as f:
         f.write(output)
@@ -297,7 +287,7 @@ def main(source_dirs):
         output = output.replace('<!-- NAVIGATION -->', create_nav_menu(processed_files, file['html_path']))
         output = output.replace('<!-- CONTENT -->', content_html)#content_html
         output = output.replace('<!-- GENERATION_DATE -->', datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-        output = output.replace('<!-- Adress -->', f'<a href="{_tempWebAdress}{file["source_path"]}">{_tempWebAdress}{file["source_path"]}</a>')
+        output = output.replace('<!-- Address -->', f'<a href="{_tempWebAdress}{file["source_path"]}">{_tempWebAdress}{file["source_path"]}</a>')
         with open(file['html_path'], 'w') as f:
             f.write(output)
 

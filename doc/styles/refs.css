@@ -1,4 +1,4 @@
-/* ############# Type 1 refrence [Bare links] ############# */ */
+/* ############# Type 1 reference [Bare links] ############# */ */
 
 a {
     color: #2980b9;
@@ -10,7 +10,7 @@ a:hover {
     color: #1abc9c;
     text-decoration: underline;}
 
-/* ############# Type 2 refrence [Function name Manual] ############# */
+/* ############# Type 2 reference [Function name Manual] ############# */
 
 .keyword {
     font-weight: bold;
@@ -37,7 +37,7 @@ a:hover {
     background: linear-gradient(to right, #d6eaf8, #aed6f1);
     cursor: help;}
 
-/* ############# Type 3 refrence [File name] ############# */
+/* ############# Type 3 reference [File name] ############# */
 
 .rel-link {
     display: inline-block;
@@ -53,3 +53,33 @@ a:hover {
 .rel-link:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);}
+
+/* ############# Type 4 reference [Class/Functions] ############# */
+.function, .class {
+        border: 1px solid #444;
+        /* background-color: #ceff8e80; */
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .function-name, .class-name {
+        font-size: 1.2em;
+        color: #82AAFF;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+
+    .function .function-name,
+    .class .class-name {
+        border-left: 4px solid #941223;
+        padding-left: 8px;
+    }
+
+    .class .method {
+        margin-top: 10px;
+        padding-left: 12px;
+        border-left: 2px dashed #666;
+    }

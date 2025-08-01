@@ -1,4 +1,5 @@
-# TO check the automatic documentation 
+        
+
 def calculate_area(radius):
     """
     Calculate the area of a circle.
@@ -49,3 +50,46 @@ def greet(name, times=1):
         raise ValueError("Times cannot be negative")
     for _ in range(times):
         print(f"Hello, {name}!")
+
+# TO check the automatic documentation 
+class test:
+    """
+    A simple test class to demonstrate docstring usage.
+    
+    Attributes:
+        name (str): The name of the test.
+        value (int): An integer value associated with the test.
+        
+    Methods:
+        run(): Executes the test and prints a message.
+    """
+    
+    def __init__(self, name, value):
+        """
+        Initialize the test with a name and value.
+        
+        Args:
+            name (str): The name of the test.
+            value (int): An integer value for the test.
+
+        Raises:
+            TypeError: If name is not a string or value is not an integer.
+
+        TODO:
+            - Add more attributes to the test class.
+            - Implement more complex test logic.
+        
+        FIXME:
+            - Handle cases where name is empty.
+        
+        Hack:
+            - Use a default value for value if not provided.
+        XXX:
+            - Consider renaming the class to something more descriptive.
+        """
+        self.name = name
+        self.value = value
+
+    def run(self):
+        """Run the test and print a message."""
+        print(f"Running test: {self.name} with value {self.value}")

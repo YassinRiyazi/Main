@@ -6,13 +6,17 @@
         <title>
             superResolution 
         </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+        
+        <!-- Include the stylesheet -->
         <style>
             /* Reset default margins and padding */
         </style>
-            <link rel="stylesheet" href="../../../../styles/other.css">
-            <link rel="stylesheet" href="../../../../styles/code.css">
-            <link rel="stylesheet" href="../../../../styles/refs.css">
+        
             <link rel="stylesheet" href="../../../../styles/navigationMenu.css">
+            <link rel="stylesheet" href="../../../../styles/code.css">
+            <link rel="stylesheet" href="../../../../styles/other.css">
+            <link rel="stylesheet" href="../../../../styles/refs.css">
 
     </head>
 
@@ -20,197 +24,220 @@
             <!-- DROPDOWN_MENU -->
 
             <nav class="sidebar">
-<h2>Navigation</h2>
-<ul>
-           <li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
-<ul style="margin-left: 20px;">
-<li><a href="../../../../doc/WebLog/cuDNN.html">cuDNN.md</a></li>
-<li><details><summary><a href="../../../../doc/WebLog/Why.html">Why</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><details><summary><a href="../../../../doc/WebLog/Whats Next.html">Whats Next</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><a href="../../../../doc/WebLog/UBUNTU.html">UBUNTU.md</a></li>
-<li><a href="../../../../doc/WebLog/ToWatchList.html">ToWatchList.md</a></li>
-<li><details><summary>People</summary><ul style="margin-left: 40px;">
-<li><a href="../../../../doc/WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
-</ul></details></li>
-<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary><ul style="margin-left: 40px;">
-<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/HSC.html">HSC</a></summary><ul style="margin-left: 60px;">
-</ul></details></li>
-<li><details><summary>Drop</summary><ul style="margin-left: 60px;">
-<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary><ul style="margin-left: 80px;">
-</ul></details></li>
-<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary><ul style="margin-left: 80px;">
-</ul></details></li>
-</ul></details></li>
-</ul></details></li>
-<li><details><summary><a href="../../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-<li><a href="../../../../doc/WebLog/Books.html">Books.md</a></li>
-<li><details><summary><a href="../../../../doc/WebLog/Actress.html">Actress</a></summary><ul style="margin-left: 40px;">
-</ul></details></li>
-</ul>
-</details></li>
-           <li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
-<ul style="margin-left: 20px;">
-<li><a href="../../../../doc/Devlog/cuDNN_UBUNTU.html">cuDNN_UBUNTU.md</a></li>
-<li><a href="../../../../doc/Devlog/Ubuntu.html">Ubuntu.md</a></li>
-<li><a href="../../../../doc/Devlog/OpenCV_Window.html">OpenCV_Window.md</a></li>
-<li><a href="../../../../doc/Devlog/OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
-<li><a href="../../../../doc/Devlog/30-07-25.html">30-07-25.md</a></li>
-<li><a href="../../../../doc/Devlog/28-07-25.html">28-07-25.md</a></li>
-<li><a href="../../../../doc/Devlog/21-07-25.html">21-07-25.md</a></li>
-</ul>
-</details></li>
-           <li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../PyThon.html">PyThon</a></summary>
-<ul style="margin-left: 20px;">
-<li><details><summary>Viscosity</summary><ul style="margin-left: 40px;">
-<li><details><summary>PositionalEncoding</summary><ul style="margin-left: 60px;">
-<li><a href="../../Viscosity/PositionalEncoding/main.html">main.py</a></li>
-<li><a href="../../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
-<li><details><summary>.BK</summary><ul style="margin-left: 80px;">
-<li><details><summary>Weights</summary><ul style="margin-left: 100px;">
-<li><a href="../../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
-</ul></details></li>
-<li><a href="../../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
-<li><a href="../../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
-</ul></details></li>
-</ul></details></li>
-</ul></details></li>
-<li><details><summary>Test</summary><ul style="margin-left: 40px;">
-<li><a href="../../Test/test.html">test.py</a></li>
-<li><a href="../../Test/test 2.html">test 2.py</a></li>
-</ul></details></li>
-<li><a href="../../READ.html">READ.md</a></li>
-<li><details><summary>Performance</summary><ul style="margin-left: 40px;">
-<li><a href="../../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
-</ul></details></li>
-<li><details><summary>FFMpeg</summary><ul style="margin-left: 40px;">
-<li><a href="../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
-<li><a href="../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
-</ul></details></li>
-<li><details><summary>DynamicLoader</summary><ul style="margin-left: 40px;">
-<li><details><summary>load-remote-module</summary><ul style="margin-left: 60px;">
-<li><details><summary>load_remote_module</summary><ul style="margin-left: 80px;">
-<li><a href="../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
-</ul></details></li>
-</ul></details></li>
-</ul></details></li>
-<li><details><summary>DropLowHighUnifier</summary><ul style="margin-left: 40px;">
-<li><a href="../../DropLowHighUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
-</ul></details></li>
-<li><details><summary>DropDetection</summary><ul style="margin-left: 40px;">
-<li><a href="../../DropDetection/utils.html">utils.py</a></li>
-<li><a href="../../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-<li><a href="../../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
-</ul></details></li>
-<li><details><summary><a href="../../Docy.html">Docy</a></summary><ul style="margin-left: 40px;">
-<li><a href="../../Docy/processing.html">processing.py</a></li>
-<li><a href="../../Docy/hyperlinks.html">hyperlinks.py</a></li>
-<li><a href="../../Docy/PyParser.html">PyParser.py</a></li>
-<li><a href="../../Docy/CParser.html">CParser.py</a></li>
-<li><details><summary>.BK</summary><ul style="margin-left: 60px;">
-<li><a href="../../Docy/.BK/MakeV1.html">MakeV1.py</a></li>
-</ul></details></li>
-</ul></details></li>
-<li><details><summary>ContinuousVideoExperiments</summary><ul style="margin-left: 40px;">
-<li><a href="../../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
-</ul></details></li>
-<li><details open><summary><a href="../../ContactAngle.html">ContactAngle</a></summary><ul style="margin-left: 40px;">
-<li><details><summary>models</summary><ul style="margin-left: 60px;">
-<li><a href="../models/h5toPt.html">h5toPt.py</a></li>
-<li><a href="../models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
-</ul></details></li>
-<li><details open><summary>CaMeasurer</summary><ul style="margin-left: 60px;">
-<li><a href="visualization.html">visualization.py</a></li>
-<li><a href="superResolution.html">superResolution.py</a></li>
-<li><a href="processing.html">processing.py</a></li>
-<li><a href="preprocessing.html">preprocessing.py</a></li>
-<li><a href="main.html">main.py</a></li>
-<li><a href="imageloader.html">imageloader.py</a></li>
-<li><a href="edgeDetection.html">edgeDetection.py</a></li>
-<li><a href="criteria_definition.html">criteria_definition.py</a></li>
-</ul></details></li>
-</ul></details></li>
-</ul>
-</details></li>
-           <li class="language language-c" style="border-left: 4px solid #555555;"><details open><summary><a href="../../../C.html">C</a></summary>
-<ul style="margin-left: 20px;">
-<li><details><summary>Test</summary><ul style="margin-left: 40px;">
-<li><a href="../../../C/Test/temp.html">temp.c</a></li>
-</ul></details></li>
-</ul>
-</details></li>
-           <li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../../CPP.html">C++</a></summary>
-<ul style="margin-left: 20px;">
-</ul>
-</details></li>
-           <li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../../CUDA.html">CUDA</a></summary>
-<ul style="margin-left: 20px;">
-</ul>
-</details></li>
-</ul>
-</nav>
+				<h2>Navigation</h2>
+					<ul>
+						<li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><a href="../../../../doc/WebLog/cuDNN.html">cuDNN.md</a></li>
+								<li><details><summary><a href="../../../../doc/WebLog/Why.html">Why</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><details><summary><a href="../../../../doc/WebLog/Whats Next.html">Whats Next</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><a href="../../../../doc/WebLog/UBUNTU.html">UBUNTU.md</a></li>
+								<li><a href="../../../../doc/WebLog/ToWatchList.html">ToWatchList.md</a></li>
+								<li><details><summary>People</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../../doc/WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
+									<li><a href="../../../../doc/WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/HSC.html">HSC</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
+									<li><details><summary>Drop</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+										</ul></details></li>
+										<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><a href="../../../../doc/WebLog/Books.html">Books.md</a></li>
+								<li><details><summary><a href="../../../../doc/WebLog/Actress.html">Actress</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><a href="../../../../doc/Devlog/cuDNN_UBUNTU.html">cuDNN_UBUNTU.md</a></li>
+								<li><a href="../../../../doc/Devlog/Ubuntu.html">Ubuntu.md</a></li>
+								<li><a href="../../../../doc/Devlog/OpenCV_Window.html">OpenCV_Window.md</a></li>
+								<li><a href="../../../../doc/Devlog/OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
+								<li><a href="../../../../doc/Devlog/30-07-25.html">30-07-25.md</a></li>
+								<li><a href="../../../../doc/Devlog/28-07-25.html">28-07-25.md</a></li>
+								<li><a href="../../../../doc/Devlog/21-07-25.html">21-07-25.md</a></li>
+							</ul>
+					</details></li>
+						<li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../PyThon.html">PyThon</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>Viscosity</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>PositionalEncoding</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../Viscosity/PositionalEncoding/main.html">main.py</a></li>
+										<li><a href="../../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+										<li><details><summary>.BK</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><details><summary>Weights</summary>											<ul style="margin-left: 22px; padding-left: 8px;">
+												<li><a href="../../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+											</ul></details></li>
+											<li><a href="../../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
+											<li><a href="../../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../Test/test.html">test.py</a></li>
+									<li><a href="../../Test/test 2.html">test 2.py</a></li>
+								</ul></details></li>
+								<li><a href="../../READ.html">READ.md</a></li>
+								<li><details><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+								</ul></details></li>
+								<li><details><summary>FFMpeg</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+									<li><a href="../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
+								</ul></details></li>
+								<li><details><summary>DynamicLoader</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>load-remote-module</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><details><summary>load_remote_module</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary>DropLowHighUnifier</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../DropLowHighUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+								</ul></details></li>
+								<li><details><summary>DropDetection</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../DropDetection/utils.html">utils.py</a></li>
+									<li><a href="../../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+									<li><a href="../../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../Docy.html">Docy</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../Docy/processing.html">processing.py</a></li>
+									<li><a href="../../Docy/hyperlinks.html">hyperlinks.py</a></li>
+									<li><a href="../../Docy/PyParser.html">PyParser.py</a></li>
+									<li><a href="../../Docy/CParser.html">CParser.py</a></li>
+									<li><details><summary>.BK</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../Docy/.BK/MakeV1.html">MakeV1.py</a></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary>ContinuousVideoExperiments</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
+								</ul></details></li>
+								<li><details open><summary><a href="../../ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>models</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../models/h5toPt.html">h5toPt.py</a></li>
+										<li><a href="../models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+									</ul></details></li>
+									<li><details open><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="visualization.html">visualization.py</a></li>
+										<li><a href="superResolution.html">superResolution.py</a></li>
+										<li><a href="processing.html">processing.py</a></li>
+										<li><a href="preprocessing.html">preprocessing.py</a></li>
+										<li><a href="main.html">main.py</a></li>
+										<li><a href="imageloader.html">imageloader.py</a></li>
+										<li><a href="edgeDetection.html">edgeDetection.py</a></li>
+										<li><a href="criteria_definition.html">criteria_definition.py</a></li>
+									</ul></details></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-c" style="border-left: 4px solid #555555;"><details open><summary><a href="../../../C.html">C</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../C/Test/temp.html">temp.c</a></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../../CPP.html">C++</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+							</ul>
+					</details></li>
+						<li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../../CUDA.html">CUDA</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+							</ul>
+					</details></li>
+				</ul>
+			</nav>
         
         <div class="content">
             <h1>superResolution </h1>
             
-            <div class="function">
-<div class="function-name">upscale_image(<span style="color:#94D6BFFF;"><b>img</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>kernel</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>,)</div>
+             <div class="class">
+<div class="class-name">class <b>PyTorchModel</b></div>
+<div class="description"></div>
+<div class="section-title">Methods:</div>
+<div class="method">
+<div class="function">
+<div class="function-name">__init__()</div>
+<div class="description">A PyTorch convolutional neural network for single-channel image super-resolution. Architecture: - Conv2d(1 → 64) with kernel size 5 - Conv2d(64 → 64) with kernel size 3 - Conv2d(64 → 32) with kernel size 3 - Conv2d(32 → 9) with kernel size 3 - PixelShuffle with upscale factor 3 Activation: - ReLU is used after each convolution. Output: - A super-resolved image with spatial resolution increased by a factor of 3.</div>
+<div class="section-title" id="__init__-notes">Notes:</div>
+<div>- The final convolution outputs 9 channels, which are reshaped via PixelShuffle (3× upscaling).</div>
+</div>
+</div>
+</div>
+<div class="class">
+<div class="class-name">class <b>initiation</b></div>
+<div class="description"></div>
+<div class="section-title">Methods:</div>
+<div class="method">
+<div class="function">
+<div class="function-name">__init__(<span style="color:#94D6BFFF;"><b>_cuda</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>, <span style="color:#94D6BFFF;"><b>sup_res_model</b></span>:<span style="color:#42C39DFF;"><b>torch.nn.Module</b></span>, <span style="color:#94D6BFFF;"><b>forward</b></span>:<span style="color:#42C39DFF;"><b>input_tensor</b></span>)</div>
+<div class="description">Wrapper class for initializing and using a pre-trained PyTorch super-resolution model. This class loads a pre-trained model from disk and provides a `forward` method to apply super-resolution to a single-channel input image represented as a NumPy array.</div>
+<div class="section-title">Parameters:</div>
+<ul>
+<li><code>_cuda</code> (bool): Whether to run inference on GPU (default: True).</li>
+<li><code>sup_res_model</code> (torch.nn.Module): The loaded and ready-to-use super-resolution model.</li>
+<li><code>forward</code> (input_tensor): Apply the model to a given input image.</li>
+</ul>
+<div class="section-title" id="__init__-examples">Examples:</div>
+<div>&gt;&gt;&gt; model = initiation()</div>
+<div>&gt;&gt;&gt; output = model.forward(input_array)</div>
+<div class="section-title" id="__init__-notes">Notes:</div>
+<div>- The input tensor must be a 2D NumPy array (grayscale image).</div>
+<div>- Output is a 2D uint8 NumPy array representing the upscaled image.</div>
+</div>
+</div>
+<div class="method">
+<div class="function">
+<div class="function-name">forward(<span style="color:#94D6BFFF;"><b>input_tensor</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>)</div>
+<div class="description">Apply the super-resolution model to the input image.</div>
+<div class="section-title">Parameters:</div>
+<ul>
+<li><code>input_tensor</code> (np.ndarray): 2D NumPy array representing a grayscale image.</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>np.ndarray</code>: 2D uint8 NumPy array of the super-resolved image.</div>
+<div class="section-title">Raises:</div>
+<ul>
+<li><code style="color:red;">ValueError</code>: If input_tensor is not a 2D array.</li>
+</ul>
+<div class="section-title" id="forward-notes">Notes:</div>
+<div>- The model expects a (1, H, W) input with values normalized to [0, 1].</div>
+<div>- Output is rescaled to [0, 255] and clipped.</div>
+</div>
+</div>
+<div class="method">
+<div class="function">
+<div class="function-name">initiate_torch()</div>
+<div class="description">Initialize the PyTorch model and load pre-trained weights from disk.</div>
+<div class="section-title" id="initiate_torch-notes">Notes:</div>
+<div>- The model weights are loaded from '../models/converted_model.pt'</div>
+<div>- The model is set to evaluation mode to disable dropout/batchnorm updates.</div>
+</div>
+</div>
+</div>
+<div class="function">
+<div class="function-name">upscale_image(<span style="color:#94D6BFFF;"><b>img</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>kernel</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>)</div>
 <div class="description">Apply super-resolution and postprocessing to an input RGB image.</div>
-<div class="section-title">Parameters:</div><ul>
+<div class="section-title">Parameters:</div>
+<ul>
 <li><code>img</code> (np.ndarray): RGB input image.</li>
 <li><code>kernel</code> (np.ndarray): Morphological kernel (e.g., cv2.getStructuringElement).</li>
 </ul>
 <div class="section-title">Returns:</div>
 <div><code>np.ndarray</code>: Grayscale post-processed image.</div>
 </div>
-<div class="function">
-<div class="function-name">__init__()</div>
-<div class="description">A PyTorch convolutional neural network for single-channel image super-resolution. Architecture: - Conv2d(1 → 64) with kernel size 5 - Conv2d(64 → 64) with kernel size 3 - Conv2d(64 → 32) with kernel size 3 - Conv2d(32 → 9) with kernel size 3 - PixelShuffle with upscale factor 3 Activation: - ReLU is used after each convolution. Output: - A super-resolved image with spatial resolution increased by a factor of 3.</div>
-<div class="section-title">notes:</div>
-<div>- The final convolution outputs 9 channels, which are reshaped via PixelShuffle (3× upscaling).</div>
-</div>
-<div class="function">
-<div class="function-name">__init__(<span style="color:#94D6BFFF;"><b>_cuda</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>, <span style="color:#94D6BFFF;"><b>sup_res_model</b></span>:<span style="color:#42C39DFF;"><b>torch.nn.Module</b></span>, <span style="color:#94D6BFFF;"><b>forward</b></span>:<span style="color:#42C39DFF;"><b>input_tensor</b></span>,)</div>
-<div class="description">Wrapper class for initializing and using a pre-trained PyTorch super-resolution model. This class loads a pre-trained model from disk and provides a `forward` method to apply super-resolution to a single-channel input image represented as a NumPy array.</div>
-<div class="section-title">Parameters:</div><ul>
-<li><code>_cuda</code> (bool): Whether to run inference on GPU (default: True).</li>
-<li><code>sup_res_model</code> (torch.nn.Module): The loaded and ready-to-use super-resolution model.</li>
-<li><code>forward</code> (input_tensor): Apply the model to a given input image.</li>
-</ul>
-<div class="section-title">examples:</div>
-<div>&gt;&gt;&gt; model = initiation()</div>
-<div>&gt;&gt;&gt; output = model.forward(input_array)</div>
-<div class="section-title">notes:</div>
-<div>- The input tensor must be a 2D NumPy array (grayscale image).</div>
-<div>- Output is a 2D uint8 NumPy array representing the upscaled image.</div>
-</div>
-<div class="function">
-<div class="function-name">forward(<span style="color:#94D6BFFF;"><b>input_tensor</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>,)</div>
-<div class="description">Apply the super-resolution model to the input image.</div>
-<div class="section-title">Parameters:</div><ul>
-<li><code>input_tensor</code> (np.ndarray): 2D NumPy array representing a grayscale image.</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>np.ndarray</code>: 2D uint8 NumPy array of the super-resolved image.</div>
-<div class="section-title">raises:</div><ul>
-<li><code style="color:red;">ValueError</code>: If input_tensor is not a 2D array.</li>
-</ul>
-<div class="section-title">notes:</div>
-<div>- The model expects a (1, H, W) input with values normalized to [0, 1].</div>
-<div>- Output is rescaled to [0, 255] and clipped.</div>
-</div>
-<div class="function">
-<div class="function-name">initiate_torch()</div>
-<div class="description">Initialize the PyTorch model and load pre-trained weights from disk.</div>
-<div class="section-title">notes:</div>
-<div>- The model weights are loaded from '../models/converted_model.pt'</div>
-<div>- The model is set to evaluation mode to disable dropout/batchnorm updates.</div>
-</div>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-01 00:09:23</span></p>
+                <p>Documentation generated on <span>2025-08-01 17:48:15</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/superResolution.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/superResolution.py</a></span></p>
             </footer>
         </div>
