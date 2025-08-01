@@ -95,6 +95,9 @@ def make_folders(ad):
 
     Warning:
         Any existing data in 'SR_edge' and 'SR_result' will be permanently lost if present.
+
+    Author:
+        - Sajjad Shumaly
     """
     NewFolder2 = os.path.join(ad, "SR_edge")
     try:

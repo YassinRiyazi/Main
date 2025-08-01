@@ -1,3 +1,9 @@
+"""
+    Author: Yassin Riyazi
+    Date: 01-07-2025
+    Description: This script exports YOLO models to TensorRT format.
+
+"""
 from ultralytics import YOLO
 
 # Load the YOLO11 model

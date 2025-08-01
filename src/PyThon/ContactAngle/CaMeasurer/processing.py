@@ -1,18 +1,22 @@
 import warnings
 import numpy as np
 
-def poly_fitting(i, j, polynomial_degree=3, line_space=100):
+def poly_fitting(i, j, polynomial_degree=3, line_space=100) -> tuple[np.ndarray, np.ndarray]:
     """
     Fit a polynomial to data and generate interpolated points.
 
     Parameters:
-    i (array-like): Input x-coordinates.
-    j (array-like): Input y-coordinates.
-    polynomial_degree (int): Degree of the polynomial to fit (default: 3).
-    line_space (int): Number of points for interpolation (default: 100).
+        i (array-like): Input x-coordinates.
+        j (array-like): Input y-coordinates.
+        polynomial_degree (int): Degree of the polynomial to fit (default: 3).
+        line_space (int): Number of points for interpolation (default: 100).
 
     Returns:
-    tuple: (x_poly, y_poly) Interpolated x and y values.
+        tuple[np.ndarray, np.ndarray]: Interpolated x and y values.
+
+    Authors:
+        - Yassin Riyazi (Improved polynomial fitting and interpolation)
+        - Sajjad Shumaly
     """
     # Convert inputs to NumPy arrays
     i = np.asarray(i)

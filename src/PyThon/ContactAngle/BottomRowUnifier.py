@@ -1,24 +1,34 @@
-
 """
-    [V] 1. Openning an image
-    [ ] 2. counting resizing - Nont necessary
+    Author: Yassin Riyazi
+    Date: 01-07-2025
+    Description: This script unifies the bottom rows of an image to a specified target height.
+
+
+    [V] 1. Opening an image
+    [ ] 2. counting resizing - Not necessary
     [ ] 3. finding sum of row - Not necessary
-    [ ] 4. starting from buttom to top to find the number of black rows
+    [ ] 4. starting from bottom to top to find the number of black rows
     [V] 5. padding the image if needed
-    [V] 6. retturing the image
+    [V] 6. returning the image
 """
 
 import cv2
 import numpy as np
 
 def bottom_row_unifier(image, 
-                       target_height=100):
+                       target_height=100) -> cv2.Mat:
     """
     Unifies the bottom rows of an image to a specified target height.
-    
-    :param image_path: Path to the input image.
-    :param target_height: Desired height of the output image.
-    :return: Processed image with unified bottom rows.
+    args:
+        image (cv2.Mat): Input image to process.
+        target_height (int): Desired height of the output image. Default is 100 pixels.
+
+    Returns:
+        Processed image with unified bottom rows.
+
+    caution:
+        Resizing is mistake. 
+        Do the summation in loop and stop when sum is more than one
     """
     ## Step 1: Resize the image if necessary
     image           = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)

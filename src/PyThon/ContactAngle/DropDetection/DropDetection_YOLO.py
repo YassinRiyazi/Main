@@ -1,3 +1,8 @@
+"""
+    Author: Yassin Riyazi
+    Date: 01-07-2025
+    Description: Detects drops in video frames using YOLO.
+"""
 import os
 import cv2
 import glob
@@ -7,7 +12,7 @@ from multiprocessing import Pool, cpu_count
 from tqdm import tqdm
 from concurrent.futures import ThreadPoolExecutor
 
-def safe_delete(file)->None:
+def safe_delete(file: str) -> None:
     """
     Safely deletes a file if it exists.
 
@@ -87,7 +92,7 @@ def Walker(image_folder,
            skip: int = 90,
            yolo_conf: float = 0.6,
            num_workers: int = cpu_count() // 2,
-           ):
+           ) -> None:
     """
     Walk through all images in a folder in steps of `skip` frames.
     Uses multiprocessing to detect drops with YOLO and deletes frame ranges without drops.
@@ -97,6 +102,9 @@ def Walker(image_folder,
         skip (int, optional): Frame step size. Defaults to 90.
         yolo_conf (float, optional): YOLO confidence threshold. Defaults to 0.6.
         num_workers (int, optional): Number of parallel processes. Defaults to half of CPU cores.
+        
+    Returns:
+        None: None
 
     Example:
         >>> Walker("extracted_frames", skip=30, yolo_conf=0.5)

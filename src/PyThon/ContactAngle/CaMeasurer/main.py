@@ -1,20 +1,22 @@
 import os
 import cv2
 import CaMeasurer
+import pandas as pd
 import numpy as np
 from .criteria_definition   import *
 
-# # USE one in CaMeasure
-# def read_four_integers(file_path):
-#     with open(file_path, 'r') as file:
-#         line = file.readline()
-#         numbers = list(map(int, line.strip().split()))
-#         if len(numbers) != 2:
-#             raise ValueError("The file does not contain exactly four integers.")
-#         return numbers
+def read_four_integers(file_path:str) -> list[int]:
+    """
+        Legacy code to read YOLO x1 x2 position from a text file.
+    """
+    with open(file_path, 'r') as file:
+        line = file.readline()
+        numbers = list(map(int, line.strip().split()))
+        if len(numbers) != 2:
+            raise ValueError("The file does not contain exactly four integers.")
+        return numbers
 
 
-import pandas as pd
 
 def read_csv_for_endpoint_beginning(df, image_name):
     """
@@ -30,6 +32,9 @@ def read_csv_for_endpoint_beginning(df, image_name):
     Raises:
         FileNotFoundError: If the CSV file doesn't exist.
         ValueError: If the image is not found or the row does not contain exactly two integers.
+    
+    Author:
+        - Yassin Riyazi
     """
     # try:
     #     # df = pd.read_csv(csv_path)
@@ -69,14 +74,17 @@ def base_function_process(df,ad,name_files,file_number, model, kernel, num_px_ra
         1.1.Loading the image
         1.2.cropping the base line
         1.3.loading the x1, x2 positions
-        2.  Supper resulotion
+        2.  Super-resolution
         3.  Extracting whole edge points
         4.  Extracting advancing and receding points
 
         Test:
             Removing two layer polynomial 
-            Removing superresolution from this section
+            Removing super-resolution from this section
 
+    Authors:
+        - Yassin Riyazi (Removing two layer polynomial and adaptive pixel selection, because Euclidean distance is not working well for all images)
+        - Sajjad Shumaly
     """
     # 1. Loading data
     just_drop       = cv2.imread(os.path.join(ad,name_files[file_number]))

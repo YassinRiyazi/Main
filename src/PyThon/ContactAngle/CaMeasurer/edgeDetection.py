@@ -1,3 +1,12 @@
+"""
+    Edited by: Yassin Riyazi
+    Main Author: Sajjad Shumaly
+    Date: 01-07-2025
+    Description: This module provides functions for edge extraction from images,
+
+    Changelog:
+        1.  improve on the edge_extraction function, refer to the docstring for details.
+"""
 import os
 import numpy as np
 from collections import defaultdict
@@ -23,6 +32,9 @@ def edge_extraction(gray, thr=40):
     Returns:
         Tuple[List[int], List[int]]: Tuple of (i_list, j_list) representing the x and y
                                      coordinates of edge points (with vertical flip on y).
+    Author:
+        - Yassin Riyazi (Using SIMD for speedup)
+        - Sajjad Shumaly
     """
     height, width = gray.shape
 
@@ -156,6 +168,8 @@ def advancing_pixel_selection(i_list, j_list, left_number_of_pixels=150):
     Returns:
         Tuple[List[int], List[int]]: Selected advancing edge pixels (x, y).
 
+    Author:
+        - Sajjad Shumaly
     
     """
     i_list = np.array(i_list)
@@ -221,7 +235,8 @@ def Advancing_pixel_selection_Euclidean(i_list, j_list, left_number_of_pixels=15
     Returns:
         Tuple[List[int], List[int]]: Selected advancing edge pixels (x, y).
 
-    
+    Author:
+        - Yassin Riyazi (Norm2 based selection)
     """
     # Convert to numpy arrays once
     i_array = np.array(i_list, dtype=np.float32)
@@ -265,6 +280,9 @@ def Receding_pixel_selection_Euclidean(i_list, j_list, right_number_of_pixels=15
 
     Returns:
         Tuple[List[int], List[int]]: Selected receding edge pixels (x, y).
+
+    Author:
+        - Yassin Riyazi (Norm2 based selection)
     """
     # Convert to numpy arrays once
     i_array = np.array(i_list, dtype=np.float32)

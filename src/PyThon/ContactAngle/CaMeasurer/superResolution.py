@@ -1,3 +1,12 @@
+"""
+    Edited by: Yassin Riyazi
+    Main Author: Sajjad Shumaly
+    Date: 01-07-2025
+    Description: This script implements a PyTorch model for single-channel image super-resolution.
+
+    Changelog:
+        - Converted the Tensorflow model to PyTorch format.
+"""
 import os
 import cv2
 import torch
@@ -130,6 +139,10 @@ def upscale_image(model, img, kernel):
 
     Returns:
         np.ndarray: Grayscale post-processed image.
+
+    Authors:
+        - Yassin Riyazi (edited for clarity and structure)
+        - Sajjad Shumaly
     """
     # Convert to YCrCb and split channels
     img_y_cr_cb     = cv2.cvtColor(img, cv2.COLOR_RGB2YCrCb)

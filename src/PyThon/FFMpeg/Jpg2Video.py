@@ -80,27 +80,7 @@ def process_experiment(_adress):
                 print(f"⚠️ Error deleting {img_path}: {e}")
 
 
-def get_mp4_files(root_dir, max_depth=2):
-    mp4_files = []
-    
-    def scan_directory(path, current_depth=0):
-        if current_depth >= max_depth:
-            return
-        try:
-            with os.scandir(path) as entries:
-                for entry in entries:
-                    try:
-                        if entry.is_file(follow_symlinks=False) and entry.name.lower().endswith('.mp4'):
-                            mp4_files.append(entry.path)  # Store full path
-                        elif entry.is_dir(follow_symlinks=False) and current_depth + 1 < max_depth:
-                            scan_directory(entry.path, current_depth + 1)
-                    except (PermissionError, OSError):
-                        continue  # Skip entries with access issues
-        except (PermissionError, OSError) as e:
-            print(f"Error accessing {path}: {e}")
 
-    scan_directory(root_dir)
-    return sorted(mp4_files)
 
 def process_experiment_frames(_adress):
     outputpath = os.path.join(_adress, "result.mp4")

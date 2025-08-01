@@ -29,6 +29,9 @@ def load_files(ad,_natsort=False):
 
     Warning:
         Only file names are returned (not full paths). You must join with `ad` if you need full paths.
+
+    Aurhor:
+        - Sajjad Shumaly
     """
     valid_extensions = {"tiff", "tif", "png", "jpg", "jpeg", "bmp", "gif", "webp"}  # Common image formats
     FileNames = []

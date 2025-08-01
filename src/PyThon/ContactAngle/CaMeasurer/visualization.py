@@ -1,3 +1,9 @@
+"""
+    Editor: Yassin Riyazi
+    Main author: Sajjad Shumaly
+    Date: 01-07-2025
+    Description: Visualization functions for the CaMeasurer module.
+"""
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +17,7 @@ import matplotlib
 matplotlib.use('Agg')
 
 
-def horizontal_center(i_list, j_list, intersection_margin=4):
+def horizontal_center(i_list: list, j_list: list, intersection_margin: int = 4) -> tuple:
     """
     Calculate the horizontal center of a shape defined by i_list and j_list coordinates.
     The intersection margin is a margin from the top edge to prevent errors in special cases.
@@ -23,6 +29,10 @@ def horizontal_center(i_list, j_list, intersection_margin=4):
 
     Returns:
         tuple: (horizontal_center, mean_list, j_location_list)
+
+    Authors:
+        - Yassin Riyazi (Improved horizontal center calculation)
+        - Sajjad Shumaly
     """
     # Convert inputs to numpy arrays
     i_list, j_list = np.array(i_list), np.array(j_list)
@@ -95,6 +105,10 @@ def vertical_center(i_list, j_list, intersection_margin=4):
 
     Returns:
         tuple: (vertical_center, i_location_list, mean_list)
+
+    Authors:
+        - Yassin Riyazi (Improved vertical center calculation)
+        - Sajjad Shumaly
     """
     # Convert inputs to numpy arrays
     i_list, j_list = np.array(i_list), np.array(j_list)
@@ -199,8 +213,14 @@ def vertical_center(i_list, j_list, intersection_margin=4):
 
 def visualize(save_address , i_list,j_list,i_left,j_left,i_right,j_right,
              j_poly_left,i_poly_left,j_poly_right,i_poly_right,x_cropped,
-             i_poly_left_rotated, j_poly_left_rotated, i_poly_right_rotated, j_poly_right_rotated, cm_on_pixel=5/1280, middle_line_switch=0,
-             dpi = 100):
+             i_poly_left_rotated, j_poly_left_rotated, i_poly_right_rotated, j_poly_right_rotated,
+             cm_on_pixel=5/1280, middle_line_switch=0, dpi=100):
+    """
+    Visualize the contact angle measurement results and save the figure.
+
+    Author:
+        - Sajjad Shumaly
+    """
 
     font_size=14
     upscale_factor=3

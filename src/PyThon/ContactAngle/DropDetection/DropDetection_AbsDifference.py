@@ -1,3 +1,8 @@
+"""
+    Author: Yassin Riyazi
+    Date: 01-07-2025
+    Description: Detects drops in video frames using frame differencing and morphological operations.
+"""
 import cv2 
 
 class DropPreProcessor:
@@ -6,12 +11,12 @@ class DropPreProcessor:
     This class supports both CPU and CUDA-accelerated pipelines using OpenCV.
     """
 
-    def __init__(self, kernel_size=(5, 5), threshold_val=30, use_cuda=True):
+    def __init__(self, kernel_size: tuple[int, int] = (5, 5), threshold_val: int = 30, use_cuda: bool = True):
         """
         Initializes the preprocessor with morphological filters and CUDA setup.
 
         Args:
-            kernel_size (tuple): Size of the structuring element for morphological operations.
+            kernel_size (tuple[int, int]): Size of the structuring element for morphological operations.
             threshold_val (int): Threshold value used to binarize the frame difference.
             use_cuda (bool): Whether to use CUDA acceleration if available.
         """
@@ -30,7 +35,8 @@ class DropPreProcessor:
             self.morph_open = None
             self.morph_dilate = None
 
-    def process(self, prev_gray, curr_gray):
+    def process(self,
+                prev_gray: cv2.Mat, curr_gray: cv2.Mat) -> list[cv2.Mat]:
         """
         Processes a pair of consecutive grayscale frames to extract contours of moving objects.
 

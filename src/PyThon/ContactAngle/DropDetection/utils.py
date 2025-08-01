@@ -1,6 +1,11 @@
+"""
+    Author: Yassin Riyazi
+    Date: 01-07-2025
+    Description: Utility functions for image processing tasks.
+"""
 import cv2
 
-def crop_and_save_image(input_path, output_path, x1, y1, x2, y2):
+def crop_and_save_image(input_path: str, output_path: str, x1: int, y1: int, x2: int, y2: int) -> None:
     """
     Crops a region from the input image and saves it to the output path.
 
@@ -12,11 +17,14 @@ def crop_and_save_image(input_path, output_path, x1, y1, x2, y2):
         x2 (int): Bottom-right x-coordinate.
         y2 (int): Bottom-right y-coordinate.
 
+    Returns:
+        None: None
+
     Raises:
         ValueError: If the crop coordinates are invalid or image cannot be loaded.
 
     Example:
-        crop_and_save_image("input.jpg", "output.jpg", 10, 20, 100, 200)
+        >>> crop_and_save_image("input.jpg", "output.jpg", 10, 20, 100, 200)
     """
     image = cv2.imread(input_path)
     if image is None:

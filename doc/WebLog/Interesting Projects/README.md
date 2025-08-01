@@ -1,4 +1,5 @@
 # Interesting Projects
+I feel it is necessary to learn how to distribute processing through different computers. Maybe with TCP/IP
 
 1. WebDocy
     1. Code parsing
