@@ -1,141 +1,127 @@
 """
     Author: Yassin Riyazi
     Date: 01-07-2025
-    Description: Detects drops in video frames using YOLO.
+    Version: 2.0.0
+
+    Description:
+        Phase YOLO Frame Normalizer
+        This script processes images in a given directory structure, applying YOLO object detection to filter out images
+        that do not contain drops. It uses multiprocessing to speed up the processing of multiple experiments.
+    
+    Change log:
+        V2.0.0
+            Added Multiprocess
+
+            GPU Utils:96%
+            CPU Utils:50%
+            5H-> 19M
+        V1.0.0
+            Initiated
+            GPU Utils:40%
+            CPU Utils:20%
 """
-import os
-import cv2
-import glob
-from ultralytics import YOLO
-from send2trash import send2trash
-from multiprocessing import Pool, cpu_count
-from tqdm import tqdm
-from concurrent.futures import ThreadPoolExecutor
 
-def safe_delete(file: str) -> None:
-    """
-    Safely deletes a file if it exists.
+import  os
+import  cv2
+import  tqdm
+import  numpy               as      np
+import  matplotlib.pyplot   as      plt
+from    ultralytics         import  YOLO
 
-    Args:
-        file (str): Path to the file to delete.
-
-    Returns:
-        None: None
-
-    Raises:
-        Exception: If any unexpected error occurs while deleting the file.
-    """
-    try:
-        os.remove(file)
-    except FileNotFoundError:
-        pass
-    except Exception as e:
-        print(f"Error deleting {file}: {e}")
+import multiprocessing
 
 
-def delInRange(_start: int, _end: int, _listadress: list, max_threads: int = 8) -> None:
-    """
-    Deletes a range of files from a list using multithreading.
+def get_subdirectories(root_dir, max_depth=2):
+    directories = []
+    for root, dirs, _ in sorted(os.walk(root_dir)):
+        if root == root_dir:
+            continue  # Skip the root directory itself
+        depth = root[len(root_dir):].count(os.sep)
+        if depth < max_depth:
+            directories.append(root)
+        else:
+            del dirs[:]  # Stop descending further
+    return directories
 
-    Args:
-        _start (int): Start index of the file range to delete.
-        _end (int): End index (exclusive) of the file range to delete.
-        _listadress (list): List of file paths.
-        max_threads (int, optional): Maximum number of threads to use. Defaults to 8.
+def load_files(ad):
+    valid_extensions = {"tiff", "tif", "png", "jpg", "jpeg", "bmp", "gif", "webp"}  # Common image formats
+    FileNames = []
+    for file in sorted(os.listdir(ad)):
+        try:
+            if file.split(".")[-1].lower() in valid_extensions:
+                FileNames.append(file)
+        except IndexError:
+            pass
+    return sorted(FileNames)
 
-    Returns:
-        None: None
-
-    Raises:
-        Exception: If any unexpected error occurs during file deletion.
-    """
-    files_to_delete = _listadress[_start:_end]
-    with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        executor.map(safe_delete, files_to_delete)
-
-
-def detect_and_filter_batch(index_range):
-    """
-    Worker function for a process that detects drops in a batch of frames using YOLO.
-    Deletes all frames in the range if no drops are detected in the first and last frames.
-
-    Args:
-        index_range (tuple): Contains (start_idx, end_idx, frame_list, skip, yolo_conf)
-            - start_idx (int): Start index for this worker
-            - end_idx (int): End index (exclusive)
-            - frame_list (list): List of all frame paths
-            - skip (int): Step size (interval between frames)
-            - yolo_conf (float): YOLO confidence threshold
-    """
-    start_idx, end_idx, frame_list, skip, yolo_conf = index_range
-
-    # Load YOLO model once per process
-    model = YOLO(os.path.join("Weights", "Gray-320-s.engine"), task='detect', verbose=False)
-
-    for i in range(start_idx, end_idx, skip):
-        frame1 = cv2.imread(frame_list[i])
-        frame2 = cv2.imread(frame_list[i + skip - 1])
-
-        # Run YOLO detection on both frames
-        result1 = model(frame1, conf=yolo_conf, device="cuda", verbose=False)
-        result2 = model(frame2, conf=yolo_conf, device="cuda", verbose=False)
-
-        has_drop1 = len(result1[0].boxes) > 0
-        has_drop2 = len(result2[0].boxes) > 0
-
-        # If neither frame has drops, delete the entire range
-        if not has_drop1 and not has_drop2:
-            delInRange(i, i + skip - 1, frame_list)
-
-
-def Walker(image_folder,
-           skip: int = 90,
-           yolo_conf: float = 0.6,
-           num_workers: int = cpu_count() // 2,
-           ) -> None:
-    """
-    Walk through all images in a folder in steps of `skip` frames.
-    Uses multiprocessing to detect drops with YOLO and deletes frame ranges without drops.
-
-    Args:
-        image_folder (str): Path to the folder containing image frames.
-        skip (int, optional): Frame step size. Defaults to 90.
-        yolo_conf (float, optional): YOLO confidence threshold. Defaults to 0.6.
-        num_workers (int, optional): Number of parallel processes. Defaults to half of CPU cores.
+def _forward(experiment,model):
+    for i in (load_files(experiment)):
+        file_adress = os.path.join(experiment,i)
+        image       = cv2.imread(file_adress)
         
-    Returns:
-        None: None
+        # Perform batch YOLO prediction
+        results = model(image, verbose=False)
 
-    Example:
-        >>> Walker("extracted_frames", skip=30, yolo_conf=0.5)
-    """
-    frame_list = sorted(glob.glob(os.path.join(image_folder, "*.jpg")))
+        for file_idx, res in enumerate(results):
+            if res.boxes.xyxy.shape[0]==0:
+                os.remove(file_adress)
+                continue
+            x1, _, x2, _ = np.array(res.boxes.xyxy[:, :].cpu().numpy(), dtype=np.float32)[0]
 
-    # Create a list of indices at intervals of `skip`
-    total_indices = list(range(0, len(frame_list) - skip, skip))
-    chunk_size = len(total_indices) // num_workers + 1
+            if x2 < 1245-40 and 40 < x1:
+                return None
+            else:
+                os.remove(file_adress)
 
-    # Prepare workload for each worker
-    tasks = []
-    for w in range(num_workers):
-        start = w * chunk_size
-        end = min((w + 1) * chunk_size, len(total_indices))
-        if start >= end:
-            continue
-        # Each task includes its start and end index and other parameters
-        tasks.append((total_indices[start], total_indices[end - 1] + 1, frame_list, skip, yolo_conf))
+def _backward(experiment,model):
+    for i in (reversed(load_files(experiment))):
+        file_adress = os.path.join(experiment,i)
+        image       = cv2.imread(file_adress)
+        
+        # Perform batch YOLO prediction
+        results = model(image, verbose=False)
 
-    print(f"Distributing {len(total_indices)} frame pairs among {len(tasks)} processes...")
+        for file_idx, res in enumerate(results):
+            if res.boxes.xyxy.shape[0]==0:
+                # print(f"No drop detected, probably out of scope. {file_adress}")
+                os.remove(file_adress)
+                continue
+            x1, _, x2, _ = np.array(res.boxes.xyxy[:, :].cpu().numpy(), dtype=np.float32)[0]
 
-    # Run detection tasks in parallel using a process pool
-    with Pool(processes=num_workers) as pool:
-        list(tqdm(pool.imap_unordered(detect_and_filter_batch, tasks), total=len(tasks)))
+            if x2 < 1245-40 and 40 < x1:
+                return None
+            else:
+                os.remove(file_adress)
+
+def process_experiment(experiment):
+    yolo_m = YOLO("/home/d2u25/Desktop/Main/Projects/ContactAngle/Weights/Gray-320-s.pt")
+    _forward(experiment,yolo_m.predict)
+    _backward(experiment,yolo_m.predict)
 
 if __name__ == "__main__":
-    image_folder = r"280\S2-SNr2.1_D\frames"
+    # import matplotlib
+    # matplotlib.use('TkAgg')
 
-    Walker(image_folder,skip = 450)
-    Walker(image_folder,skip = 10)
+    # Load the model
+    # yolo_m = YOLO("models/best.pt")
+    import glob
+    import utils
+    experiments = []
+    for tilt in utils.get_subdirectories(r"frames"):
+        for fluid in utils.get_subdirectories(tilt):
+            for video in utils.get_subdirectories(fluid):
+                experiments.append(video)
+
+    # Use multiprocessing pool
+    with multiprocessing.Pool(processes=multiprocessing.cpu_count()//3) as pool:
+        list(tqdm.tqdm(pool.imap_unordered(process_experiment, experiments), total=len(experiments)))
 
 
-    
+
+
+    # for tilt in get_subdirectories(r"Bubble"):
+    #     for experiment in tqdm.tqdm(get_subdirectories(tilt)):
+    #         _forward(experiment,yolo_m.predict)
+    #         _backward(experiment,yolo_m.predict)
+
+

@@ -40,6 +40,8 @@
 									<li><a href="../../../../doc/WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
 								</ul></details></li>
 								<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Parrall.html">Parrall</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
 									<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/HSC.html">HSC</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 									</ul></details></li>
 									<li><details><summary>Drop</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
@@ -52,6 +54,9 @@
 								<li><details><summary><a href="../../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 								<li><a href="../../../../doc/WebLog/Books.html">Books.md</a></li>
+								<li><details><summary>Biorhythm</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../../doc/WebLog/Biorhythm/Renouncing.html">Renouncing.md</a></li>
+								</ul></details></li>
 								<li><details><summary><a href="../../../../doc/WebLog/Actress.html">Actress</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 							</ul>
@@ -101,14 +106,6 @@
 										</ul></details></li>
 									</ul></details></li>
 								</ul></details></li>
-								<li><details><summary>DropLowHighUnifier</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><a href="../../DropLowHighUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
-								</ul></details></li>
-								<li><details><summary>DropDetection</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><a href="../../DropDetection/utils.html">utils.py</a></li>
-									<li><a href="../../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-									<li><a href="../../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
-								</ul></details></li>
 								<li><details><summary><a href="../../Docy.html">Docy</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../../Docy/processing.html">processing.py</a></li>
 									<li><a href="../../Docy/hyperlinks.html">hyperlinks.py</a></li>
@@ -118,24 +115,32 @@
 										<li><a href="../../Docy/.BK/MakeV1.html">MakeV1.py</a></li>
 									</ul></details></li>
 								</ul></details></li>
-								<li><details><summary>ContinuousVideoExperiments</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><a href="../../ContinuousVideoExperiments/contVideo.html">contVideo.py</a></li>
-								</ul></details></li>
 								<li><details open><summary><a href="../../ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><details><summary>models</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
-										<li><a href="../models/h5toPt.html">h5toPt.py</a></li>
-										<li><a href="../models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+									<li><details><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../DropDetection/utils.html">utils.py</a></li>
+										<li><details><summary>Weights</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../DropDetection/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+										</ul></details></li>
+										<li><a href="../DropDetection/DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
+										<li><a href="../DropDetection/DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
+										<li><a href="../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
 									</ul></details></li>
 									<li><details open><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 										<li><a href="visualization.html">visualization.py</a></li>
 										<li><a href="superResolution.html">superResolution.py</a></li>
 										<li><a href="processing.html">processing.py</a></li>
 										<li><a href="preprocessing.html">preprocessing.py</a></li>
+										<li><details><summary>models</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="models/h5toPt.html">h5toPt.py</a></li>
+											<li><a href="models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+										</ul></details></li>
 										<li><a href="main.html">main.py</a></li>
 										<li><a href="imageloader.html">imageloader.py</a></li>
 										<li><a href="edgeDetection.html">edgeDetection.py</a></li>
 										<li><a href="criteria_definition.html">criteria_definition.py</a></li>
 									</ul></details></li>
+									<li><a href="../BottomRowUnifier.html">BottomRowUnifier.py</a></li>
 								</ul></details></li>
 							</ul>
 					</details></li>
@@ -204,10 +209,12 @@
 <div>along with all their contents, if they already exist.</div>
 <div class="section-title" id="make_folders-warning">Warning:</div>
 <div>Any existing data in 'SR_edge' and 'SR_result' will be permanently lost if present.</div>
+<div>Author:</div>
+<div>- Sajjad Shumaly</div>
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-01 17:48:15</span></p>
+                <p>Documentation generated on <span>2025-08-02 00:27:37</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/preprocessing.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/preprocessing.py</a></span></p>
             </footer>
         </div>

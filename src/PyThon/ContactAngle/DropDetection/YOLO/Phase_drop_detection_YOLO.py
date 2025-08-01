@@ -23,60 +23,6 @@ def crop_white_bottom(image, threshold=250):
     return image[:cut_index]
 
 
-# if __name__ == "__main__":
-#     import pandas as pd
-#     root_folder_name = "frames"
-#     yolo_m  = YOLO("Weights/Gray-320-s.engine",
-#                    task='detect',
-#                   verbose=False)
-
-#     batch_size = 16  # adjust this depending on your GPU memory
-
-#     for tilt in utils.get_subdirectories(root_folder_name):
-#         for fluid in utils.get_subdirectories(tilt):
-#             for experiment in tqdm.tqdm(utils.get_subdirectories(fluid)):
-
-#                 _loc_path = os.path.join(experiment, 'drops')
-#                 processed_flag = os.path.join(_loc_path, ".processed_YOLO")
-
-#                 if os.path.isfile(processed_flag):
-#                     continue
-
-#                 if not os.path.isdir(_loc_path):
-#                     os.mkdir(_loc_path)
-
-#                 name_files = utils.load_files(experiment)
-#                 img_paths = [os.path.join(experiment, name_files[i]) for i in range(1, len(name_files))]
-
-#                 all_detections = []  # store detection info
-
-#                 # Process in batches
-#                 for i in range(0, len(img_paths), batch_size):
-#                     batch_paths = img_paths[i:i + batch_size]
-#                     batch_imgs = [cv2.imread(p) for p in batch_paths]
-
-#                     results = yolo_m(batch_imgs, verbose=False)
-
-#                     for res, path in zip(results, batch_paths):
-#                         if len(res.boxes) > 0:
-#                             for box in res.boxes.xyxy.cpu().numpy():
-#                                 x1, y1, x2, y2 = map(int, box)
-#                                 all_detections.append({
-#                                     "image": os.path.basename(path),
-#                                     "x1": x1,
-#                                     "y1": y1,
-#                                     "x2": x2,
-#                                     "y2": y2
-#                                 })
-
-#                 # Save to CSV
-#                 if all_detections:
-#                     df = pd.DataFrame(all_detections)
-#                     csv_path = os.path.join(_loc_path, "detections.csv")
-#                     df.to_csv(csv_path, index=False)
-
-#                 utils.writter(processed_flag)
-
 
 import os
 import cv2

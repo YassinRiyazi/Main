@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            YOLO_tensorRT 
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+        
+        <!-- Include the stylesheet -->
+        <style>
+            /* Reset default margins and padding */
+        </style>
+        
+            <link rel="stylesheet" href="../../../../../styles/navigationMenu.css">
+            <link rel="stylesheet" href="../../../../../styles/code.css">
+            <link rel="stylesheet" href="../../../../../styles/other.css">
+            <link rel="stylesheet" href="../../../../../styles/refs.css">
+
+    </head>
+
+    <body>
+            <!-- DROPDOWN_MENU -->
+
+            <nav class="sidebar">
+				<h2>Navigation</h2>
+					<ul>
+						<li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><a href="../../../../../doc/WebLog/cuDNN.html">cuDNN.md</a></li>
+								<li><details><summary><a href="../../../../../doc/WebLog/Why.html">Why</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><details><summary><a href="../../../../../doc/WebLog/Whats Next.html">Whats Next</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><a href="../../../../../doc/WebLog/UBUNTU.html">UBUNTU.md</a></li>
+								<li><a href="../../../../../doc/WebLog/ToWatchList.html">ToWatchList.md</a></li>
+								<li><details><summary>People</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../../../doc/WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
+									<li><a href="../../../../../doc/WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary><a href="../../../../../doc/WebLog/Interesting Projects/Parrall.html">Parrall</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
+									<li><details><summary><a href="../../../../../doc/WebLog/Interesting Projects/HSC.html">HSC</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
+									<li><details><summary>Drop</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><details><summary><a href="../../../../../doc/WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+										</ul></details></li>
+										<li><details><summary><a href="../../../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><a href="../../../../../doc/WebLog/Books.html">Books.md</a></li>
+								<li><details><summary>Biorhythm</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../../../doc/WebLog/Biorhythm/Renouncing.html">Renouncing.md</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../../../doc/WebLog/Actress.html">Actress</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><a href="../../../../../doc/Devlog/cuDNN_UBUNTU.html">cuDNN_UBUNTU.md</a></li>
+								<li><a href="../../../../../doc/Devlog/Ubuntu.html">Ubuntu.md</a></li>
+								<li><a href="../../../../../doc/Devlog/OpenCV_Window.html">OpenCV_Window.md</a></li>
+								<li><a href="../../../../../doc/Devlog/OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
+								<li><a href="../../../../../doc/Devlog/30-07-25.html">30-07-25.md</a></li>
+								<li><a href="../../../../../doc/Devlog/28-07-25.html">28-07-25.md</a></li>
+								<li><a href="../../../../../doc/Devlog/21-07-25.html">21-07-25.md</a></li>
+							</ul>
+					</details></li>
+						<li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../../PyThon.html">PyThon</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>Viscosity</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>PositionalEncoding</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../Viscosity/PositionalEncoding/main.html">main.py</a></li>
+										<li><a href="../../../Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+										<li><details><summary>.BK</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><details><summary>Weights</summary>											<ul style="margin-left: 22px; padding-left: 8px;">
+												<li><a href="../../../Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+											</ul></details></li>
+											<li><a href="../../../Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
+											<li><a href="../../../Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../Test/test.html">test.py</a></li>
+									<li><a href="../../../Test/test 2.html">test 2.py</a></li>
+								</ul></details></li>
+								<li><a href="../../../READ.html">READ.md</a></li>
+								<li><details><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+								</ul></details></li>
+								<li><details><summary>FFMpeg</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+									<li><a href="../../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
+								</ul></details></li>
+								<li><details><summary>DynamicLoader</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>load-remote-module</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><details><summary>load_remote_module</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../../DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../Docy.html">Docy</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../Docy/processing.html">processing.py</a></li>
+									<li><a href="../../../Docy/hyperlinks.html">hyperlinks.py</a></li>
+									<li><a href="../../../Docy/PyParser.html">PyParser.py</a></li>
+									<li><a href="../../../Docy/CParser.html">CParser.py</a></li>
+									<li><details><summary>.BK</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../Docy/.BK/MakeV1.html">MakeV1.py</a></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details open><summary><a href="../../../ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details open><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../utils.html">utils.py</a></li>
+										<li><details open><summary>Weights</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+										</ul></details></li>
+										<li><a href="../DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
+										<li><a href="../DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
+										<li><a href="../DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="../DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+									</ul></details></li>
+									<li><details><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../CaMeasurer/visualization.html">visualization.py</a></li>
+										<li><a href="../../CaMeasurer/superResolution.html">superResolution.py</a></li>
+										<li><a href="../../CaMeasurer/processing.html">processing.py</a></li>
+										<li><a href="../../CaMeasurer/preprocessing.html">preprocessing.py</a></li>
+										<li><details><summary>models</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../CaMeasurer/models/h5toPt.html">h5toPt.py</a></li>
+											<li><a href="../../CaMeasurer/models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+										</ul></details></li>
+										<li><a href="../../CaMeasurer/main.html">main.py</a></li>
+										<li><a href="../../CaMeasurer/imageloader.html">imageloader.py</a></li>
+										<li><a href="../../CaMeasurer/edgeDetection.html">edgeDetection.py</a></li>
+										<li><a href="../../CaMeasurer/criteria_definition.html">criteria_definition.py</a></li>
+									</ul></details></li>
+									<li><a href="../../BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-c" style="border-left: 4px solid #555555;"><details open><summary><a href="../../../../C.html">C</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../../C/Test/temp.html">temp.c</a></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../../../CPP.html">C++</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+							</ul>
+					</details></li>
+						<li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../../../CUDA.html">CUDA</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+							</ul>
+					</details></li>
+				</ul>
+			</nav>
+        
+        <div class="content">
+            <h1>YOLO_tensorRT </h1>
+            
+            <p>No functions found.</p>
+            
+            <footer>
+                <p>Documentation generated on <span>2025-08-02 00:27:37</span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/Weights/YOLO_tensorRT.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/Weights/YOLO_tensorRT.py</a></span></p>
+            </footer>
+        </div>
+    </body>
+</html>

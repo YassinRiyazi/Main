@@ -71,12 +71,23 @@ def build_vf_filter(fps: int,
 
     returns:
         str: The constructed filter string for ffmpeg.
+
+    TODO:
+        - Add support Rotation and maybe save the rotated video 
     """
     filters = [f'fps={fps}']
 
     if height < min_height:
         diff = min_height - height
         # pad format: pad=width:height+diff:x:y:color
+        """
+        Explanation of Your Padding (pad=iw:ih+20:0:20:black)
+            iw (input width)                    → Keeps the width unchanged.
+            ih+20 (input height + 20 pixels)    → Adds 20 extra pixels to the height.
+            0 (x_offset)                        → The original video stays at the same horizontal position (not shifted left or right).
+            20 (y_offset)                       → Moves the original video down by 20 pixels, so the extra space appears at the bottom.
+            black                               → Fills the new padding area with black color.
+        """
         filters.append(f'pad=iw:ih+{diff}:0:{diff}:color=white')
 
     if grayscale:

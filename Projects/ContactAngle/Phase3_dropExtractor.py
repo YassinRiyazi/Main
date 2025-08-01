@@ -7,7 +7,7 @@ from tqdm import tqdm
 import subprocess
 import numpy                as np
 import matplotlib.pyplot    as plt
-from Phase_YOLO_frameNormalizer import process_experiment
+from PyThon.ContactAngle.DropDetection.DropDetection_YOLO import process_experiment
 
 def walk_forward(array, steep = 0.0025)->int:
     """

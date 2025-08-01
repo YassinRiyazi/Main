@@ -1,2 +1,2 @@
-from .Jpg2Video import create_video_from_images, get_mp4_files, process_experiment_frames, process_experiment, create_video_from_images
-from .Vidoe2Jpg import ffmpegFrameExtractor
+from .Jpg2Video import create_video_from_images, process_experiment_frames, process_experiment, create_video_from_images
+from .Vidoe2Jpg import ffmpeg_frame_extractor
