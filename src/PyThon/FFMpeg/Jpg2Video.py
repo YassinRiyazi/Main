@@ -7,7 +7,7 @@ import os
 import subprocess
 import glob
 
-def create_video_from_images(image_folder, output_video_path, fps=30):
+def create_video_from_images(image_folder, output_video_path, extension=".jpg", fps=30):
     """Create a video from .jpg images in a folder using ffmpeg.
 
     Args:
@@ -29,13 +29,13 @@ def create_video_from_images(image_folder, output_video_path, fps=30):
         'ffmpeg',
         '-loglevel', 'error',
         '-framerate', str(fps),
-        '-pattern_type', 'glob', '-i', '*.jpg',
+        '-pattern_type', 'glob', '-i', f'*.{extension}',
         '-c:v', 'libx264',
          # '-pix_fmt',     'yuv420p',              # Pixel format for compatibility
         # '-crf',         '18',                   # Set Constant Rate Factor for high quality (lower values = higher quality, 18-23 is typical range)
         '-preset',      'fast',                 # Use 'slow' preset for better compression and quality (other options: veryfast, fast, medium, slow, veryslow)
         # '-tune',        'film',                 # Tune the encoding for film (preserves quality)
-        '-threads', '1',                  # Limit ffmpeg to 2 threads
+        '-threads', '16',                  # Limit ffmpeg to 2 threads
         '-y',
         output_video_path
     ]

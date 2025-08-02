@@ -63,7 +63,7 @@ def bottom_row_unifierGRAY(image:cv2.Mat,target_height=130) -> cv2.Mat:
     """
     ## Step 1: Resize the image if necessary
     resized_image   = image
-    resized_image   = cv2.morphologyEx(resized_image, cv2.MORPH_CLOSE, kernel= cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (13, 13)))
+    # resized_image   = cv2.morphologyEx(resized_image, cv2.MORPH_CLOSE, kernel= cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (13, 13)))
     resized_image   = image[:,::50]
     vv              = resized_image.sum(axis=1)
     height = len(vv)
