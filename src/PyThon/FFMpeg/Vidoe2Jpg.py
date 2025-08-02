@@ -178,8 +178,8 @@ def health_check_frames(directory: os.PathLike,
                 corrupted.append(frame_path)
 
     if corrupted:
+        print(f"Health check passed: {len(dir_path) - len(corrupted):06d} frames verified and {len(corrupted):03d} files are corrupted.")
         raise Warning(f"Corrupted frame files: {corrupted}")
-    print(f"Health check passed: {len(dir_path) - len(corrupted):06d} frames verified and {len(corrupted):03d} files are corrupted.")
     return corrupted
 
 def ffmpeg_frame_extractor(
@@ -234,7 +234,7 @@ def ffmpeg_frame_extractor(
     vf = build_vf_filter(fps, height, min_height, grayscale)
 
     run_ffmpeg_extraction(input_video_path, output_pattern, vf, use_cuda, grayscale)
-    print(f"Frames extracted to {out_dir} at {fps} fps ({'grayscale' if grayscale else 'color'}).")
+    # print(f"Frames extracted to {out_dir} at {fps} fps ({'grayscale' if grayscale else 'color'}).")
 
     if health_check:
         corrupted = health_check_frames(out_dir, ext)
