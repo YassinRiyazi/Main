@@ -16,6 +16,7 @@
 > - [ ] Strong/Weak doc checking
 > - [ ] Add encryption and decryption code with java script for certain pages.
 > - [ ] Adding Test Driven Development (TDD)
+> - [ ] ALGViz
 
 ## Target:
 0. Doing a hell of a Ph.D.

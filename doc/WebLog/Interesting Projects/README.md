@@ -3,11 +3,12 @@ I feel it is necessary to learn how to distribute processing through different c
 
 1. WebDocy
     1. Code parsing
-    2. Binding compatibility checking C, C++, and CUDA
-    3. Documantation
+    2. Binding compatibility checking C, C++, and CUDA.
+    3. Documentation
+    4. AlgoViz: Helping me planing what to learn/Algorithm visualizer.
 
 2. Droplet
-    1. Viscosity measurmet
+    1. Viscosity measurements
     2. 3D surface reconstruction
         1. HSC for multi camera
 
