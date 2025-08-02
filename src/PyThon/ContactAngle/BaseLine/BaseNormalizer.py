@@ -41,6 +41,8 @@ def fit_and_rotate_image(image_path: os.PathLike,
     and rotates the image to level the surface.
     Optionally saves the results as images.
 
+    <img src="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/doc/result.png" alt="Italian Trulli">
+    
     args:
         image_path (os.PathLike): Path to the input image.
         experiment (str): Name of the experiment for saving results.
@@ -109,27 +111,43 @@ def fit_and_rotate_image(image_path: os.PathLike,
     
     return angle, image.shape, rotated_image
 
-def fit_image(image, black_base_line=10):
-    
-    # Detect edges using Canny
+def fit_image(image: cv2.Mat, black_base_line=10):
+    """
+    Fits a line to the detected edges in a grayscale image using RANSAC, and computes 
+    the vertical offset from the fitted line to a given black baseline.
+
+    Args:
+        image (cv2.Mat): Grayscale input image.
+        black_base_line (int, optional): Reference baseline offset in pixels. Defaults to 10.
+
+    Returns:
+        int: Vertical offset (in pixels) between the fitted line's center height and the black baseline.
+    """
+    # Detect edges using Canny edge detector
     edges = cv2.Canny(image, 50, 150)
     
-    # Get edge coordinates
+    # Find coordinates of non-zero (edge) pixels
     y_indices, x_indices = np.where(edges > 0)
-    points = np.column_stack((x_indices, y_indices))
+    points = np.column_stack((x_indices, y_indices))  # Shape: (N, 2)
+
+    # Fit a robust line to the edge points using RANSAC (to handle outliers)
+    model, inliers = ransac(points, LineModelND, min_samples=2,
+                            residual_threshold=2, max_trials=1000)
     
-    # Apply RANSAC to fit a line
-    model, inliers = ransac(points, LineModelND, min_samples=2, residual_threshold=2, max_trials=1000)
-    
-    # Get line parameters
+    # Define X-range of the line (min to max X in the edge points)
     line_x = np.array([min(x_indices), max(x_indices)])
+    
+    # Predict corresponding Y values from the fitted line model
     line_y = model.predict_y(line_x)
     
-    # Compute angle of rotation
+    # Compute angle of the line (not used in return, but may be useful for debugging)
     dx = line_x[1] - line_x[0]
     dy = line_y[1] - line_y[0]
-    angle = np.degrees(np.arctan2(dy, dx))
-    return  int((line_y[1]+line_y[0])//2) - black_base_line
+    angle = np.degrees(np.arctan2(dy, dx))  # Angle of the fitted line in degrees
+
+    # Compute average height of the line and subtract the baseline
+    return int((line_y[1] + line_y[0]) // 2) - black_base_line
+
 
 def line_finder(file, rotation_matrix):
     image = cv2.imread(os.path.join(experiment, file), cv2.IMREAD_GRAYSCALE)

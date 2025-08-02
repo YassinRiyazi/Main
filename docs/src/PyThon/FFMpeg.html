@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            ContactAngle 
+            FFMpeg 
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         
@@ -95,7 +95,7 @@
 								<li><details><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
 								</ul></details></li>
-								<li><details><summary><a href="FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								<li><details open><summary><a href="FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 									<li><a href="FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
 								</ul></details></li>
@@ -115,7 +115,7 @@
 										<li><a href="Docy/.BK/MakeV1.html">MakeV1.py</a></li>
 									</ul></details></li>
 								</ul></details></li>
-								<li><details open><summary><a href="ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								<li><details><summary><a href="ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><details><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 										<li><a href="ContactAngle/DropDetection/utils.html">utils.py</a></li>
 										<li><details><summary>YOLO</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
@@ -171,13 +171,23 @@
 			</nav>
         
         <div class="content">
-            <h1>ContactAngle </h1>
+            <h1>FFMpeg </h1>
             
-            <p>4</p>
+            <p>def img_mkr_rotation(experiment, N, angle):
+    subprocess.run([
+                "ffmpeg",
+                "-hide_banner",
+                "-loglevel", "error",
+                "-i", f"./{experiment}/{experiment.split('/')[-1]}.mp4",
+                "-vf", f"crop=1280:ih-{N}:0:0,rotate={angle}<em>(PI/180):ow=rotw({angle}</em>(PI/180)):oh=roth({angle}*(PI/180)):c=white,select='lt(n\,15)'",
+                "-vsync", "vfr",
+                "-q:v", "2",
+                f"{experiment}/%06d.jpg"
+    ])</p>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-02 01:32:16</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/README.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/FFMpeg/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/FFMpeg/README.md</a></span></p>
             </footer>
         </div>
     </body>

@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            DropDetection_Sum 
+            BaseNormalizer 
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         
@@ -116,20 +116,20 @@
 									</ul></details></li>
 								</ul></details></li>
 								<li><details open><summary><a href="../../ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><details open><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
-										<li><a href="utils.html">utils.py</a></li>
+									<li><details><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../DropDetection/utils.html">utils.py</a></li>
 										<li><details><summary>YOLO</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
-											<li><a href="YOLO/Phase_drop_detection_YOLO.html">Phase_drop_detection_YOLO.py</a></li>
-											<li><a href="YOLO/Phase2_YOLO_frameNormalizer_async.html">Phase2_YOLO_frameNormalizer_async.py</a></li>
-											<li><a href="YOLO/Phase2_YOLO_frameNormalizer.html">Phase2_YOLO_frameNormalizer.py</a></li>
+											<li><a href="../DropDetection/YOLO/Phase_drop_detection_YOLO.html">Phase_drop_detection_YOLO.py</a></li>
+											<li><a href="../DropDetection/YOLO/Phase2_YOLO_frameNormalizer_async.html">Phase2_YOLO_frameNormalizer_async.py</a></li>
+											<li><a href="../DropDetection/YOLO/Phase2_YOLO_frameNormalizer.html">Phase2_YOLO_frameNormalizer.py</a></li>
 										</ul></details></li>
 										<li><details><summary>Weights</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
-											<li><a href="Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+											<li><a href="../DropDetection/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
 										</ul></details></li>
-										<li><a href="DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
-										<li><a href="DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
-										<li><a href="DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-										<li><a href="DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+										<li><a href="../DropDetection/DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
+										<li><a href="../DropDetection/DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
+										<li><a href="../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
 									</ul></details></li>
 									<li><details><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 										<li><a href="../CaMeasurer/visualization.html">visualization.py</a></li>
@@ -146,8 +146,8 @@
 										<li><a href="../CaMeasurer/criteria_definition.html">criteria_definition.py</a></li>
 									</ul></details></li>
 									<li><a href="../BottomRowUnifier.html">BottomRowUnifier.py</a></li>
-									<li><details><summary>BaseLine</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
-										<li><a href="../BaseLine/BaseNormalizer.html">BaseNormalizer.py</a></li>
+									<li><details open><summary>BaseLine</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="BaseNormalizer.html">BaseNormalizer.py</a></li>
 									</ul></details></li>
 								</ul></details></li>
 							</ul>
@@ -171,79 +171,31 @@
 			</nav>
         
         <div class="content">
-            <h1>DropDetection_Sum </h1>
+            <h1>BaseNormalizer </h1>
             
              <div class="function">
-<div class="function-name">walk_forward(<span style="color:#94D6BFFF;"><b>array</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>steep</b></span>:<span style="color:#42C39DFF;"><b>float</b></span>)</div>
-<div class="description">Walk forward from the start index until we find a value greater than 0. Steep: a parameter that defines the steepness of the slope to detect the drop.</div>
+<div class="function-name">fit_and_rotate_image(<span style="color:#94D6BFFF;"><b>image_path</b></span>:<span style="color:#42C39DFF;"><b>os.PathLike</b></span>, <span style="color:#94D6BFFF;"><b>experiment</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>results</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>)</div>
+<div class="description">Fits a line to the edges of the image, computes the rotation angle, and rotates the image to level the surface. Optionally saves the results as images.</div>
 <div class="section-title">Parameters:</div>
 <ul>
-<li><code>array</code> (np.ndarray): The array to walk through.</li>
-<li><code>steep</code> (float): The steepness of the slope to detect the drop.</li>
+<li><code>image_path</code> (os.PathLike): Path to the input image.</li>
+<li><code>experiment</code> (str): Name of the experiment for saving results.</li>
+<li><code>results</code> (bool): If True, displays and saves the fitted line and rotated image.</li>
 </ul>
 <div class="section-title">Returns:</div>
-<div><code>int</code>: The index where the drop is detected.</div>
-</div>
-<div class="function">
-<div class="function-name">backward(<span style="color:#94D6BFFF;"><b>array</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>steep</b></span>:<span style="color:#42C39DFF;"><b>float</b></span>)</div>
-<div class="description">Walk forward from the start index until we find a value greater than 0. Steep: a parameter that defines the steepness of the slope to detect the drop.</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>array</code> (np.ndarray): The array to walk through.</li>
-<li><code>steep</code> (float): The steepness of the slope to detect the drop.</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>int</code>: The index where the drop is detected.</div>
-</div>
-<div class="function">
-<div class="function-name">detect_drop(<span style="color:#94D6BFFF;"><b>image</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>, <span style="color:#94D6BFFF;"><b>dims</b></span>:<span style="color:#42C39DFF;"><b>tuple[int, int]</b></span>, <span style="color:#94D6BFFF;"><b>show</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>, <span style="color:#94D6BFFF;"><b>scaleDownFactorx</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>scaleDownFactory</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
-<div class="description">Trying to detect images with less than 2ms delay. [V] 0. Convert image to grayscale, [V] 1. Resizing image, [V] 2. Applying gaussian blur (morphologyEx worked better than Gaussian blur), [-] 3. Transposing image (Optimization purposes) [Didn't improve any thing and because of if damaged was more than benefits], [V] 4. Summation over rows [-] 5. Normalize images based on height and maximum brightness, [V] 6. Finding beginning of the drop and ending of the drop, and finally drawing a rectangle around the drop.</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>image</code> (cv2.Mat): Input image to detect drops.</li>
-<li><code>dims</code> (tuple[int, int]): Dimensions of the input image.</li>
-<li><code>show</code> (bool): Whether to show the processed image and plot the sum of rows.</li>
-<li><code>scaleDownFactorx</code> (int): Factor to scale down the width of the image.</li>
-<li><code>scaleDownFactory</code> (int): Factor to scale down the height of the image.</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>np.ndarray</code>: Sum of rows of the processed image.</div>
-<div class="section-title" id="detect_drop-caution">Caution:</div>
-<div>Code will fail if there are more than one drop in the image.</div>
-<div>Images should have exactly 5 rows of black pixels at the bottom of the image.</div>
-<div>It works with tilted setup drop images, on other drop shape it is untested</div>
-<div class="section-title" id="detect_drop-TODO">Todo:</div>
-<div>Going to <span class="rel-link"><a href="../../Test/test.html">test</a></span> with <span class="rel-link"><a href="../../../C.html">C</a></span>.</div>
-</div>
-<div class="function">
-<div class="function-name">draw_bounds(<span style="color:#94D6BFFF;"><b>image</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>, <span style="color:#94D6BFFF;"><b>start</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>end</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>scaleDownFactor</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>thickness</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
-<div class="description">Draw a rectangle on the image from start to end. For testing purposes, it draws a rectangle on the image to visualize the detected drop.</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>image</code> (cv2.Mat): Input image to draw the rectangle on.</li>
-<li><code>start</code> (int): Starting index of the rectangle.</li>
-<li><code>end</code> (int): Ending index of the rectangle.</li>
-<li><code>scaleDownFactor</code> (int): Factor to scale down the image.</li>
-<li><code>thickness</code> (int): Thickness of the rectangle border.</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>None</code>: Displays the image with the rectangle drawn.</div>
-</div>
-<div class="function">
-<div class="function-name">detection(<span style="color:#94D6BFFF;"><b>image</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>, <span style="color:#94D6BFFF;"><b>scaleDownFactor</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
-<div class="description">Detects the drop in the image by analyzing pixel intensity changes. For testing purposes, it returns the indices of the beginning and end of the drop.</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>image</code> (cv2.Mat): Input image to detect drops.</li>
-<li><code>scaleDownFactor</code> (int): Factor to scale down the image for <span class="rel-link"><a href="../../Docy/processing.html">processing</a></span>.</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>tuple[int, int]</code>: Indices of the beginning and end of the drop in the image.</div>
+<div><code>rotated_image (np.ndarray)</code>: The rotated image with leveled surface.</div>
+<div class="section-title" id="fit_and_rotate_image-caution">Caution:</div>
+<div>- Ensure the input image is in grayscale format.</div>
+<div>- Check the bottom rows of the image for white pixels to avoid cropping issues.</div>
+<div class="section-title" id="fit_and_rotate_image-TODO">Todo:</div>
+<div>- Run a bottom row check to ensure the image is suitable for <span class="rel-link"><a href="../../Docy/processing.html">processing</a></span>.</div>
+<div>Author:</div>
+<div>- Yassin Riyazi</div>
 </div>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-02 01:32:16</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/DropDetection_Sum.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/DropDetection_Sum.py</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/BaseNormalizer.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/BaseNormalizer.py</a></span></p>
             </footer>
         </div>
     </body>

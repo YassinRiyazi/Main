@@ -95,7 +95,7 @@
 								<li><details><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="src/PyThon/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
 								</ul></details></li>
-								<li><details><summary>FFMpeg</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								<li><details><summary><a href="src/PyThon/FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="src/PyThon/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 									<li><a href="src/PyThon/FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
 								</ul></details></li>
@@ -118,6 +118,11 @@
 								<li><details><summary><a href="src/PyThon/ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><details><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 										<li><a href="src/PyThon/ContactAngle/DropDetection/utils.html">utils.py</a></li>
+										<li><details><summary>YOLO</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="src/PyThon/ContactAngle/DropDetection/YOLO/Phase_drop_detection_YOLO.html">Phase_drop_detection_YOLO.py</a></li>
+											<li><a href="src/PyThon/ContactAngle/DropDetection/YOLO/Phase2_YOLO_frameNormalizer_async.html">Phase2_YOLO_frameNormalizer_async.py</a></li>
+											<li><a href="src/PyThon/ContactAngle/DropDetection/YOLO/Phase2_YOLO_frameNormalizer.html">Phase2_YOLO_frameNormalizer.py</a></li>
+										</ul></details></li>
 										<li><details><summary>Weights</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
 											<li><a href="src/PyThon/ContactAngle/DropDetection/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
 										</ul></details></li>
@@ -141,6 +146,9 @@
 										<li><a href="src/PyThon/ContactAngle/CaMeasurer/criteria_definition.html">criteria_definition.py</a></li>
 									</ul></details></li>
 									<li><a href="src/PyThon/ContactAngle/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+									<li><details><summary>BaseLine</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="src/PyThon/ContactAngle/BaseLine/BaseNormalizer.html">BaseNormalizer.py</a></li>
+									</ul></details></li>
 								</ul></details></li>
 							</ul>
 					</details></li>
@@ -166,10 +174,24 @@
             <h1>Project Documentation</h1>
             
             
-<h2>TODOs</h2><ul><li>  <div class="todo-block" id="detect_drop">
+<h2>TODOs</h2><ul><li>  <div class="todo-block" id="build_vf_filter">
+      <h2><span class="rel-link"><a href="src/PyThon/FFMpeg/Vidoe2Jpg.html#build_vf_filter-TODO" class="function-link">build_vf_filter(...)</a></span></h2>
+      <ul>
+          <li>- Add support Rotation and maybe save the rotated video</li>
+      </ul>
+  </div>
+</li><li>  <div class="todo-block" id="detect_drop">
       <h2><span class="rel-link"><a href="src/PyThon/ContactAngle/DropDetection/DropDetection_Sum.html#detect_drop-TODO" class="function-link">detect_drop(...)</a></span></h2>
       <ul>
           <li>Going to test with C.</li>
+      </ul>
+  </div>
+</li><li>  <div class="todo-block" id="fit_and_rotate_image">
+      <h2><span class="rel-link"><a href="src/PyThon/ContactAngle/BaseLine/BaseNormalizer.html#fit_and_rotate_image-TODO" class="function-link">fit_and_rotate_image(...)</a></span></h2>
+      <ul>
+          <li>- Run a bottom row check to ensure the image is suitable for processing.</li>
+          <li>Author:</li>
+          <li>- Yassin Riyazi</li>
       </ul>
   </div>
 </li><li>  <div class="todo-block" id="PE_Generator">
@@ -230,7 +252,7 @@
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-02 00:27:37</span></p>
+                <p>Documentation generated on <span>2025-08-02 01:32:16</span></p>
                 <p>Raw access: <span><a href="https://github.com/YassinRiyazi/Main">https://github.com/YassinRiyazi/Main</a></span></p>
             </footer>
         </div>
