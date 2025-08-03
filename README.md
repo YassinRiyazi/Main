@@ -7,7 +7,7 @@
 > 
 > all my effort during my __journey__. 
 
-> [!TIP]
+> [!NOTE]
 > ## Documentation:
 > For documentation please visit [Here](https://yassinriyazi.github.io/Main/).
 >
@@ -25,6 +25,9 @@
 3. Efficiency; developing solutions for real-time/real-world applications.
 
 
+> [!TIP]
+> Preview .MD file with (Ctrl+Shift+V)
+> It is also possible to render with right clicking on the file in explorer panel.(Ctrl+Shift+E)
 
 ## Rules:
 Always think about what is the appropriate way to do it.
@@ -37,7 +40,7 @@ Always think about what is the appropriate way to do it.
 
 3. Common mistakes and important feature should be mentioned in ./doc/notes/#.md
 
-4. Maximum 2 layers of overthinking 
+4. Maximum 2 layers of overthinking.
 
 5. Don't adopt newest version of the framework. Stay one stable version behind.
     1. Unless it provides a feature that is needed.
@@ -45,3 +48,12 @@ Always think about what is the appropriate way to do it.
 6. In programming, line length is often dictated by style guides, such as [PEP 8](https://peps.python.org/pep-0008/) for Python, which suggests a limit of 79 characters. 
 
 7. we’re going to always take the “less code” route when not obviously wrong
+
+8. Learn sth new in each project base on the LagWiz. Basically define what new things you are going to learn in advance or at least a layout of it/them.
+
+    Appendix:
+    1. If there is nothing new to learning implement it in another language.
+
+        Appendix:
+        1. If you are in hurry can be braked.
+

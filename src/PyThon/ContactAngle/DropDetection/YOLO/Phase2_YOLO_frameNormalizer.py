@@ -1,7 +1,6 @@
 import  os
 import  cv2
 import  tqdm
-import  natsort
 
 import  numpy               as      np
 import  matplotlib.pyplot   as      plt
@@ -17,7 +16,7 @@ def load_files(ad):
                 FileNames.append(file)
         except IndexError:
             pass
-    return natsort.natsorted(FileNames)
+    return sorted(FileNames)
 
 def get_subdirectories(root_dir, max_depth=2):
     directories = []
@@ -37,6 +36,9 @@ if __name__=="__name__":
     # matplotlib.use('TkAgg')
 
     # Load the model
+    BaseAddress = os.path.abspath(os.path.dirname(__file__))
+
+
     yolo_m = YOLO("models/best.pt")
 
     for tilt in get_subdirectories(r"Bubble")[0]:

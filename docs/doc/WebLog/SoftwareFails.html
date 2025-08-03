@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            C vs. C++ 
+            WebLog 
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         
@@ -56,7 +56,7 @@
 									</ul></details></li>
 								</ul></details></li>
 								<li><a href="ImprovingSkill.html">ImprovingSkill.md</a></li>
-								<li><details open><summary><a href="C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								<li><details><summary><a href="C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 								<li><a href="Books.html">Books.md</a></li>
 								<li><details><summary>Biorhythm</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
@@ -184,21 +184,33 @@
 			</nav>
         
         <div class="content">
-            <h1>C vs. C++ </h1>
+            <h1>WebLog </h1>
             
-            <h1><span class="rel-link"><a href="../../src/C.html">C</a></span> vs. <span class="rel-link"><a href="../../src/C.html">C</a></span>++</h1>
-<p>Recently, I have bought the <em>A Tour of <span class="rel-link"><a href="../../src/C.html">C</a></span>++</em> to deepen my <span class="rel-link"><a href="../../src/C.html">C</a></span>++ knowledge and become more familiar with <span class="rel-link"><a href="../../src/C.html">C</a></span>++20. </p>
-<p>I have noticed a condescending tone toward <span class="rel-link"><a href="../../src/C.html">C</a></span>++ from <span class="rel-link"><a href="../../src/C.html">C</a></span> developers and vice versa [^1].</p>
-<p>[^1]: <a href="https://harmful.cat-v.org/software/c++/linus">Linus Torvalds</a></p>
-<p>To some degree, I agree that using <span class="rel-link"><a href="../../src/C.html">C</a></span>++ will introduce overheads, and exception handling can cause problems, but for my work, it is manageable. 
-I don't know anything about kernel development and debugging in kernels.</p>
-<p>My experience in the HighSpeedCamera project clearly shows that with bare single-thread <span class="rel-link"><a href="../../src/C.html">C</a></span>, I could get 189 fps, while bare <span class="rel-link"><a href="../../src/C.html">C</a></span>++ could achieve 122, and with multi-threading, it goes up to 168. With my experience, I agree that for real-time and demanding processes, <span class="rel-link"><a href="../../src/C.html">C</a></span> is better than <span class="rel-link"><a href="../../src/C.html">C</a></span>++, but I still personally struggle with appropriate, easy, multi-threaded <span class="rel-link"><a href="../../src/C.html">C</a></span> code.</p>
-<p><a href="https://www.youtube.com/@CppCon">CppCon</a></p>
-<p><a href="https://meetingcpp.com/">meetingcpp</a></p>
+            <h2>Bad numerical computing</h2>
+<ul>
+<li>
+<p>The Patriot Missile Failure:
+    (The number 1/10 equals 1/24+1/25+1/28+1/29+1/212 +1/213+.... In other words, the binary expansion of 1/10 is 0.0001100110011001100110011001100.... Now the 24 bit register in the Patriot stored instead 0.00011001100110011001100 introducing an error of 0.0000000000000000000000011001100... binary, or about 0.000000095 decimal. 
+    Multiplying by the number of tenths of a second in 100 hours gives 0.000000095×100×60×60×10=0.34.) 
+    A Scud travels at about 1,676 meters per second, and so travels more than half a kilometer in this time. 
+    This was far enough that the incoming Scud was outside the "range gate" that the Patriot tracked.[^1]</p>
+</li>
+<li>
+<p>The Explosion of the Ariane 5
+    Specifically a 64 bit floating point number relating to the horizontal velocity of the rocket with respect to the platform was converted to a 16 bit signed integer.
+    The number was larger than 32,768, the largest integer storable in a 16 bit signed integer, and thus the conversion failed.[^1]</p>
+</li>
+<li>
+<p>The sinking of the Sleipner A offshore platform
+    he wall failed as a result of a combination of a serious error in the finite element analysis and insufficient anchorage of the reinforcement in a critical zone. A better idea of what was involved can be obtained from this photo and sketch of the platform. Sleipner Sleipner A The top deck weighs 57,000 tons, and provides accommodation for about 200 people and support for drilling equipment weighing about 40,000 tons. When the first model sank in August 1991, the crash caused a seismic event registering 3.0 on the Richter scale, and left nothing but a pile of debris at 220m of depth. The failure involved a total economic loss of about $700 million.</p>
+<p>The post accident investigation traced the error to inaccurate finite element approximation of the linear elastic model of the tricell (using the popular finite element program NASTRAN). The shear stresses were underestimated by 47%, leading to insufficient design. In particular, certain concrete walls were not thick enough. More careful finite element analysis, made after the accident, predicted that failure would occur with this design at a depth of 62m, which matches well with the actual occurrence at 65m.[^1]</p>
+</li>
+</ul>
+<p>[^1] <a href="https://www.iro.umontreal.ca/~mignotte/IFT2425/Disasters.html">Some disasters attributable to bad numerical computing</a></p>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-03 18:05:57</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/C vs. C++/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/C vs. C++/README.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/SoftwareFails.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/WebLog/SoftwareFails.md</a></span></p>
             </footer>
         </div>
     </body>

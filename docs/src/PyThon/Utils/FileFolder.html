@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            Performance_mesurements 
+            FileFolder 
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         
@@ -35,10 +35,12 @@
 								</ul></details></li>
 								<li><a href="../../../doc/WebLog/UBUNTU.html">UBUNTU.md</a></li>
 								<li><a href="../../../doc/WebLog/ToWatchList.html">ToWatchList.md</a></li>
+								<li><a href="../../../doc/WebLog/SoftwareFails.html">SoftwareFails.md</a></li>
 								<li><details><summary>People</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../../../doc/WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
 									<li><a href="../../../doc/WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
 								</ul></details></li>
+								<li><a href="../../../doc/WebLog/Life.html">Life.md</a></li>
 								<li><details><summary><a href="../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/Parrall.html">Parrall</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 									</ul></details></li>
@@ -50,7 +52,10 @@
 										<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
 										</ul></details></li>
 									</ul></details></li>
+									<li><details><summary><a href="../../../doc/WebLog/Interesting Projects/AlgoViz.html">AlgoViz</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
 								</ul></details></li>
+								<li><a href="../../../doc/WebLog/ImprovingSkill.html">ImprovingSkill.md</a></li>
 								<li><details><summary><a href="../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 								<li><a href="../../../doc/WebLog/Books.html">Books.md</a></li>
@@ -87,14 +92,17 @@
 										</ul></details></li>
 									</ul></details></li>
 								</ul></details></li>
+								<li><details open><summary>Utils</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>Performance</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+									</ul></details></li>
+									<li><a href="FileFolder.html">FileFolder.py</a></li>
+								</ul></details></li>
 								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../Test/test.html">test.py</a></li>
 									<li><a href="../Test/test 2.html">test 2.py</a></li>
 								</ul></details></li>
 								<li><a href="../READ.html">READ.md</a></li>
-								<li><details open><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><a href="Performance_mesurements.html">Performance_mesurements.py</a></li>
-								</ul></details></li>
 								<li><details><summary><a href="../FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 									<li><a href="../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
@@ -161,6 +169,11 @@
 					</details></li>
 						<li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../CPP.html">C++</a></summary>
 							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>References</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>c</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../CPP/References/c/swap_c.html">swap_c.c</a></li>
+									</ul></details></li>
+								</ul></details></li>
 							</ul>
 					</details></li>
 						<li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../CUDA.html">CUDA</a></summary>
@@ -171,32 +184,13 @@
 			</nav>
         
         <div class="content">
-            <h1>Performance_mesurements </h1>
+            <h1>FileFolder </h1>
             
-             <div class="function">
-<div class="function-name">measure_performance(<span style="color:#94D6BFFF;"><b>func</b></span>:<span style="color:#42C39DFF;"><b>Callable</b></span>)</div>
-<div class="description"><p style="background-color:tomato;"><b> Decorator:</b></p> that measures the execution time and memory usage of a function. It uses: - `time.perf_counter()` for high-resolution timing. - `tracemalloc` to track memory allocations during execution.</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>func</code> (Callable): The function to be wrapped.</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>Callable</code>: The wrapped function with performance tracking.</div>
-</div>
-<div class="function">
-<div class="function-name">average_performance(<span style="color:#94D6BFFF;"><b>runs</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
-<div class="description"><p style="background-color:tomato;"><b> Decorator:</b></p> factory that returns a decorator to measure average performance of a function over multiple runs. It reports: - Average execution time over all runs - Average peak memory usage</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>runs</code> (int): Number of times to run the function for averaging (default: 1000)</li>
-</ul>
-<div class="section-title">Returns:</div>
-<div><code>Callable</code>: The performance-measuring decorator.</div>
-</div>
+            <p>No functions found.</p>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-02 01:32:16</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Performance/Performance_mesurements.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Performance/Performance_mesurements.py</a></span></p>
+                <p>Documentation generated on <span>2025-08-03 18:05:57</span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Utils/FileFolder.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/Utils/FileFolder.py</a></span></p>
             </footer>
         </div>
     </body>

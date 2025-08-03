@@ -35,10 +35,12 @@
 								</ul></details></li>
 								<li><a href="../../../../doc/WebLog/UBUNTU.html">UBUNTU.md</a></li>
 								<li><a href="../../../../doc/WebLog/ToWatchList.html">ToWatchList.md</a></li>
+								<li><a href="../../../../doc/WebLog/SoftwareFails.html">SoftwareFails.md</a></li>
 								<li><details><summary>People</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../../../../doc/WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
 									<li><a href="../../../../doc/WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
 								</ul></details></li>
+								<li><a href="../../../../doc/WebLog/Life.html">Life.md</a></li>
 								<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Parrall.html">Parrall</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 									</ul></details></li>
@@ -50,7 +52,10 @@
 										<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
 										</ul></details></li>
 									</ul></details></li>
+									<li><details><summary><a href="../../../../doc/WebLog/Interesting Projects/AlgoViz.html">AlgoViz</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
 								</ul></details></li>
+								<li><a href="../../../../doc/WebLog/ImprovingSkill.html">ImprovingSkill.md</a></li>
 								<li><details><summary><a href="../../../../doc/WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 								<li><a href="../../../../doc/WebLog/Books.html">Books.md</a></li>
@@ -87,14 +92,17 @@
 										</ul></details></li>
 									</ul></details></li>
 								</ul></details></li>
+								<li><details><summary>Utils</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>Performance</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../Utils/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+									</ul></details></li>
+									<li><a href="../../Utils/FileFolder.html">FileFolder.py</a></li>
+								</ul></details></li>
 								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../../Test/test.html">test.py</a></li>
 									<li><a href="../../Test/test 2.html">test 2.py</a></li>
 								</ul></details></li>
 								<li><a href="../../READ.html">READ.md</a></li>
-								<li><details><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><a href="../../Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
-								</ul></details></li>
 								<li><details><summary><a href="../../FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../../FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 									<li><a href="../../FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
@@ -161,6 +169,11 @@
 					</details></li>
 						<li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../../CPP.html">C++</a></summary>
 							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>References</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>c</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../CPP/References/c/swap_c.html">swap_c.c</a></li>
+									</ul></details></li>
+								</ul></details></li>
 							</ul>
 					</details></li>
 						<li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../../CUDA.html">CUDA</a></summary>
@@ -174,27 +187,55 @@
             <h1>BaseNormalizer </h1>
             
              <div class="function">
-<div class="function-name">fit_and_rotate_image(<span style="color:#94D6BFFF;"><b>image_path</b></span>:<span style="color:#42C39DFF;"><b>os.PathLike</b></span>, <span style="color:#94D6BFFF;"><b>experiment</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>results</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>)</div>
-<div class="description">Fits a line to the edges of the image, computes the rotation angle, and rotates the image to level the surface. Optionally saves the results as images.</div>
+<div class="function-name">fit_and_rotate_image(<span style="color:#94D6BFFF;"><b>image_path</b></span>:<span style="color:#42C39DFF;"><b>os.PathLike</b></span>, <span style="color:#94D6BFFF;"><b>experiment</b></span>:<span style="color:#42C39DFF;"><b>str, optional</b></span>, <span style="color:#94D6BFFF;"><b>results</b></span>:<span style="color:#42C39DFF;"><b>bool, optional</b></span>, <span style="color:#94D6BFFF;"><b>focus_ratio</b></span>:<span style="color:#42C39DFF;"><b>float, optional</b></span>)</div>
+<div class="description">Fits a robust line to the bottom edges of an image and rotates the image to level the surface.</div>
 <div class="section-title">Parameters:</div>
 <ul>
 <li><code>image_path</code> (os.PathLike): Path to the input image.</li>
-<li><code>experiment</code> (str): Name of the experiment for saving results.</li>
-<li><code>results</code> (bool): If True, displays and saves the fitted line and rotated image.</li>
+<li><code>experiment</code> (str, optional): Experiment name for saving results.</li>
+<li><code>results</code> (bool, optional): If True, saves a diagnostic plot.</li>
+<li><code>focus_ratio</code> (float, optional): Portion of the image height to analyze from the bottom. Default 0.3.</li>
 </ul>
 <div class="section-title">Returns:</div>
-<div><code>rotated_image (np.ndarray)</code>: The rotated image with leveled surface.</div>
-<div class="section-title" id="fit_and_rotate_image-caution">Caution:</div>
-<div>- Ensure the input image is in grayscale format.</div>
-<div>- Check the bottom rows of the image for white pixels to avoid cropping issues.</div>
-<div class="section-title" id="fit_and_rotate_image-TODO">Todo:</div>
-<div>- Run a bottom row check to ensure the image is suitable for <span class="rel-link"><a href="../../Docy/processing.html">processing</a></span>.</div>
-<div>Author:</div>
-<div>- Yassin Riyazi</div>
+<div><code><img alt="Italian Trulli" src="https&lt;/code&gt;: //raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/doc/result.png"/></code></div>
+</div>
+<div class="function">
+<div class="function-name">fit_image(<span style="color:#94D6BFFF;"><b>image</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>, <span style="color:#94D6BFFF;"><b>black_base_line</b></span>:<span style="color:#42C39DFF;"><b>int, optional</b></span>)</div>
+<div class="description">Fits a line to the detected edges in a grayscale image using RANSAC, and computes the vertical offset from the fitted line to a given black baseline.</div>
+<div class="section-title">Parameters:</div>
+<ul>
+<li><code>image</code> (cv2.Mat): Grayscale input image.</li>
+<li><code>black_base_line</code> (int, optional): Reference baseline offset in pixels. Defaults to 10.</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>int</code>: Vertical offset (in pixels) between the fitted line's center height and the black baseline.</div>
+</div>
+<div class="function">
+<div class="function-name">line_finder(<span style="color:#94D6BFFF;"><b>image</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>, <span style="color:#94D6BFFF;"><b>rotation_matrix</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>, <span style="color:#94D6BFFF;"><b>black_base_line</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
+<div class="description">Finds the height of the line in the image after applying a rotation matrix.</div>
+<div class="section-title">Parameters:</div>
+<ul>
+<li><code>image</code> (cv2.Mat): Input image in **grayscale**.</li>
+<li><code>rotation_matrix</code> (cv2.Mat): Rotation matrix to apply to the image.</li>
+<li><code>black_base_line</code> (int): The baseline height to subtract from the line height.</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code>int</code>: Height of the line in the rotated image.</div>
+</div>
+<div class="function">
+<div class="function-name">process_image(<span style="color:#94D6BFFF;"><b>file</b></span>:<span style="color:#42C39DFF;"><b>str</b></span>, <span style="color:#94D6BFFF;"><b>rotation_matrix</b></span>:<span style="color:#42C39DFF;"><b>cv2.Mat</b></span>)</div>
+<div class="description">Processes an image by applying a rotation matrix and saving the result.</div>
+<div class="section-title">Parameters:</div>
+<ul>
+<li><code>file</code> (str): Path to the input image file.</li>
+<li><code>rotation_matrix</code> (cv2.Mat): Rotation matrix to apply to the image.</li>
+</ul>
+<div class="section-title">Returns:</div>
+<div><code><img alt="Italian Trulli" src="https&lt;/code&gt;: //raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/doc/rotationweirdartifacts.png"/></code></div>
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-02 01:32:16</span></p>
+                <p>Documentation generated on <span>2025-08-03 18:05:57</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/BaseNormalizer.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/BaseLine/BaseNormalizer.py</a></span></p>
             </footer>
         </div>

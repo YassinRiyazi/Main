@@ -35,10 +35,12 @@
 								</ul></details></li>
 								<li><a href="../doc/WebLog/UBUNTU.html">UBUNTU.md</a></li>
 								<li><a href="../doc/WebLog/ToWatchList.html">ToWatchList.md</a></li>
+								<li><a href="../doc/WebLog/SoftwareFails.html">SoftwareFails.md</a></li>
 								<li><details><summary>People</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="../doc/WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
 									<li><a href="../doc/WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
 								</ul></details></li>
+								<li><a href="../doc/WebLog/Life.html">Life.md</a></li>
 								<li><details><summary><a href="../doc/WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><details><summary><a href="../doc/WebLog/Interesting Projects/Parrall.html">Parrall</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 									</ul></details></li>
@@ -50,7 +52,10 @@
 										<li><details><summary><a href="../doc/WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
 										</ul></details></li>
 									</ul></details></li>
+									<li><details><summary><a href="../doc/WebLog/Interesting Projects/AlgoViz.html">AlgoViz</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
 								</ul></details></li>
+								<li><a href="../doc/WebLog/ImprovingSkill.html">ImprovingSkill.md</a></li>
 								<li><details><summary><a href="../doc/WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 								<li><a href="../doc/WebLog/Books.html">Books.md</a></li>
@@ -87,14 +92,17 @@
 										</ul></details></li>
 									</ul></details></li>
 								</ul></details></li>
+								<li><details><summary>Utils</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>Performance</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="PyThon/Utils/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+									</ul></details></li>
+									<li><a href="PyThon/Utils/FileFolder.html">FileFolder.py</a></li>
+								</ul></details></li>
 								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="PyThon/Test/test.html">test.py</a></li>
 									<li><a href="PyThon/Test/test 2.html">test 2.py</a></li>
 								</ul></details></li>
 								<li><a href="PyThon/READ.html">READ.md</a></li>
-								<li><details><summary>Performance</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><a href="PyThon/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
-								</ul></details></li>
 								<li><details><summary><a href="PyThon/FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 									<li><a href="PyThon/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
 									<li><a href="PyThon/FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
@@ -161,6 +169,11 @@
 					</details></li>
 						<li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="CPP.html">C++</a></summary>
 							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>References</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>c</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="CPP/References/c/swap_c.html">swap_c.c</a></li>
+									</ul></details></li>
+								</ul></details></li>
 							</ul>
 					</details></li>
 						<li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="CUDA.html">CUDA</a></summary>
@@ -178,13 +191,149 @@
 <li>Use <code>stdio.h</code> for basic I/O operations.</li>
 <li>Pointers can be tricky; always double-check dereferencing.</li>
 </ul>
+<blockquote>
+<p>[!CAUTION]
+Advises about risks or negative outcomes of certain actions.</p>
 <h2>Abusing <span class="rel-link"><a href="C.html">C</a></span> 😅🫠</h2>
-<ul>
-<li>Calling Main function recursively to as a system reboot</li>
-</ul>
+<h3>Calling the Main function recursively as a system reboot</h3>
+<p>Technically allowed by the standard, but there’s no guarantee of stack cleanup or consistent behavior.</p>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s bad: You’re consuming stack space with each call. Most systems will eventually crash with a stack overflow.
+```<span class="rel-link"><a href="C.html">C</a></span>
+    #include <stdio.h></stdio.h></p>
+<pre><code>int main(void) {
+    static int count = 0;
+    printf("Restart #%d\n", count++);
+    if (count &lt; 3) main(); // risky "reboot"
+    return 0;
+    }
+</code></pre>
+<h2>```</h2>
+<h3>Modifying string literals</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it isn’t good: String literals are typically stored in read-only memory. Writing to them may crash or silently corrupt memory.
+<code>C
+    char *s = "hello";
+    s[0] = 'H'; // Undefined behavior</code></p>
+<hr/>
+<h3>Using void <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>()</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s bad: The <span class="rel-link"><a href="C.html">C</a></span> standard specifies that <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span> should return int.
+Using void <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>() is non-standard and can lead to unexpected behavior on some systems where the return value is expected by the operating system or runtime environment.
+<code>C
+void main() {
+    printf("Hello, world!\n");
+}</code></p>
+<hr/>
+<h3>Flushing input streams with <strong><em>fflush</em></strong></h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s weird: <strong><em>fflush</em></strong> is only defined for output streams in standard <span class="rel-link"><a href="C.html">C</a></span>.
+Using it on input streams like stdin results in undefined behavior.</p>
+<p>What happens: The outcome is unpredictable and varies between compilers.
+It might appear to work on some systems but fail or cause issues on others.
+```<span class="rel-link"><a href="C.html">C</a></span></p>
+<h1>include <stdio.h></stdio.h></h1>
+<p>int <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>() {
+    int x;
+    printf("Enter a number: ");
+    fflush(stdin); // Undefined behavior
+    scanf("%d", &amp;x);
+    return 0;
+}
+```</p>
+<hr/>
+<h3>Macros with side effects</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s weird: Macros are simple text substitutions, so including expressions with side effects (like increments) can lead to multiple evaluations and undefined behavior.</p>
+<p>What happens: The side effects are applied each time the argument appears in the macro expansion, potentially causing unexpected results.
+```<span class="rel-link"><a href="C.html">C</a></span></p>
+<h1>include <stdio.h></stdio.h></h1>
+<h1>define SQUARE(x) ((x) * (x))</h1>
+<p>int <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>() {
+    int i = 5;
+    int result = SQUARE(i++); // Expands to ((i++) * (i++)), undefined behavior
+    printf("Result: %d, i: %d\n", result, i);
+    return 0;
+}
+```</p>
+</blockquote>
+<h2>---</h2>
+<hr/>
+<blockquote>
+<p>[!TIP]</p>
+<h2>Weird <span class="rel-link"><a href="C.html">C</a></span> behavior</h2>
+<h3>Value modification in one line (undefined behavior)</h3>
+<p>Value modification in one line. It is heavily dependent on the optimization level and compiler.</p>
+<p>What happens: The order of evaluation of function arguments is unspecified.
+Combined with post-increment side effects, this means output varies depending on compiler and optimization.
+```<span class="rel-link"><a href="C.html">C</a></span>
+    #include <stdio.h></stdio.h></p>
+<pre><code>int main(){
+    int i=0;
+
+    printf("%d %d %d",i,i++,i++);
+    return 0;
+}
+</code></pre>
+<h2>```</h2>
+<h3>Signed integer overflow</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s weird: Unsigned overflow is well-defined (wraparound), but signed overflow is undefined, allowing compilers to make unexpected optimizations.</p>
+<p><code>C
+int x = 2147483647;  // INT_MAX on 32-bit
+x++;
+printf("%d\n", x);   // Undefined behavior</code></p>
+<hr/>
+<h3>Accessing freed memory</h3>
+<p>What happens: May print 42, crash, or behave differently on each run.
+<code>C
+int *p = malloc(sizeof(int));
+*p = 42;
+free(p);
+printf("%d\n", *p); // Undefined behavior</code></p>
+<hr/>
+<h3>Using uninitialized variables</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s bad: Uninitialized variables contain indeterminate values, which can lead to unpredictable behavior or bugs that are hard to trace.</p>
+<p>What happens: The value of an uninitialized variable is whatever was in that memory location, which could be anything, leading to inconsistent results.</p>
+<p>```<span class="rel-link"><a href="C.html">C</a></span></p>
+<h1>include <stdio.h></stdio.h></h1>
+<p>int <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>() {
+    int x; // Uninitialized
+    printf("%d\n", x); // Undefined behavior
+    return 0;
+}
+```</p>
+<hr/>
+<h3>Ignoring return values of critical functions</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s bad: Functions like <strong><em>malloc</em></strong> or <strong><em>fopen</em></strong> can fail and return NULL. Ignoring these return values can lead to dereferencing null pointers or other errors.</p>
+<p>What happens: If you don’t check for failure, your program might crash or behave unexpectedly when resources are unavailable.
+```<span class="rel-link"><a href="C.html">C</a></span></p>
+<h1>include <stdio.h></stdio.h></h1>
+<h1>include <stdlib.h></stdlib.h></h1>
+<p>int <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>() {
+    int <em>p = malloc(sizeof(int)); // No check for NULL
+    </em>p = 42; // Undefined behavior if malloc failed
+    printf("%d\n", *p);
+    free(p);
+    return 0;
+}
+```</p>
+<hr/>
+<h3>Direct comparison of floating-point numbers</h3>
+<p><span class="rel-link"><a href="../doc/WebLog/Why.html">Why</a></span> it’s weird: Due to floating-point precision limitations, two numbers that are mathematically equal might not compare as equal in <span class="rel-link"><a href="C.html">C</a></span>.</p>
+<p>What happens: Direct comparisons like == can fail unexpectedly, even when the values should logically be the same.
+```<span class="rel-link"><a href="C.html">C</a></span></p>
+<h1>include <stdio.h></stdio.h></h1>
+<p>int <span class="rel-link"><a href="PyThon/Viscosity/PositionalEncoding/main.html">main</a></span>() {
+    float a = 0.1;
+    float b = 0.2;
+    float c = a + b;
+    if (c == 0.3) {
+        printf("Equal\n");
+    } else {
+        printf("Not equal\n"); // This might be printed
+    }
+    return 0;
+}
+```</p>
+</blockquote>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-02 01:32:16</span></p>
+                <p>Documentation generated on <span>2025-08-03 18:05:57</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/C/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/C/README.md</a></span></p>
             </footer>
         </div>
