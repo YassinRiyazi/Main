@@ -57,3 +57,6 @@ Always think about what is the appropriate way to do it.
         Appendix:
         1. If you are in hurry can be braked.
 
+Adding Strom paymenty as monthly pay
+
+Investing in ETF
