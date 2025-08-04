@@ -246,7 +246,8 @@ def train(
         train_loop = tqdm(current_train_loader, desc=f"Epoch {epoch}/{epochs} [Train]")
         for batch_idx, (data, _) in enumerate(train_loop):
             data = data.to(device)
-            
+            data = data.contiguous()
+
             # Forward pass
             optimizer.zero_grad()
 
@@ -254,6 +255,7 @@ def train(
             loss = criterion(recon, data)
 
             # Backward pass
+            loss.contiguous()
             loss.backward()
             optimizer.step()
             
