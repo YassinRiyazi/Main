@@ -112,3 +112,13 @@ class Autoencoder_CNN(nn.Module):
         embedding = self.encoder(x)
         recon = self.decoder(embedding)
         return recon#, embedding
+    
+    def Embedding(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Extracts the embedding from the input tensor.
+        Args:
+            x (torch.Tensor): Input tensor of shape (batch_size, 1, 200, 200)
+        Returns:
+            torch.Tensor: Embedding tensor of shape (batch_size, embedding_dim)
+        """
+        return self.encoder(x)

@@ -1,3 +1,9 @@
+"""
+    Author: Yassin Riyazi
+    Date: 04-08-2025
+    Description: Train a CNN-based autoencoder for image data.
+
+"""
 import os
 import torch
 import torch.nn as nn
@@ -5,11 +11,7 @@ from torch.utils.data import DataLoader
 from torch.optim import Adam, lr_scheduler
 import dataset as DSS
 import networks
-import pandas as pd
-from tqdm import tqdm
 from trainer.Base import train
-from torchvision.utils import save_image
-from torch.utils.checkpoint import checkpoint_sequential
 
 # Set the random seed for reproducibility
 torch.manual_seed(42)
@@ -61,23 +63,13 @@ def train_cnn_autoencoder(
     val_loader = DataLoader(val_dataset, batch_size=batch_size, num_workers=16, shuffle=False, pin_memory=True)
     
     # Initialize model and optimizer
-    model = networks.Autoencoder_CNN(embedding_dim=500).to(device)
+    model = networks.Autoencoder_CNN(embedding_dim=1000).to(device)
     optimizer = Adam(model.parameters(), lr=learning_rate)
     criterion = nn.MSELoss()
-    
-    # # Compile model for better performance
-    # if torch.cuda.is_available():
-    #     model = torch.compile(model, mode="reduce-overhead")
-    #     print("Model compilation enabled")
-    
-    # # Enable gradient checkpointing
-    # model_sequential = nn.Sequential(*list(model.children()))
-    # model.forward = lambda x: checkpoint_sequential(model_sequential, 2, x)
-    # print("Gradient checkpointing enabled")
-    
+       
     # Learning rate scheduler
     scheduler = lr_scheduler.ExponentialLR(optimizer, gamma=0.85)  # Divide by 5 every epoch 0.2
-    
+
     # Train the model
     model, optimizer, report = train(
         model=model,

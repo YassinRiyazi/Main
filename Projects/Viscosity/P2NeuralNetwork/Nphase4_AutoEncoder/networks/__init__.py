@@ -1,3 +1,5 @@
-from ._CNN import *
+from .AutoEncoder_CNN import *
 
-from ._transformer import *
+from .AutoEncoder_Transformer import *
+
+from .AutoEncoder_LSTM import * 
