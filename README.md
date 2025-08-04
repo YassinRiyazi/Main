@@ -63,8 +63,6 @@ Adding Strom+RFD payments as monthly pay
 Investing in ETF
 
 MAke path-embedding
-    extract frames
-    finds drops position
-    apply patches
-
     Process CA plots
+
+Train AI
