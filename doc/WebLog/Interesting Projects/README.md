@@ -7,6 +7,10 @@ I feel it is necessary to learn how to distribute processing through different c
     3. Documentation
     4. AlgoViz: Helping me planing what to learn/Algorithm visualizer.
 
+- Kernel level app that notify to 
+    - sit straight
+    - rest your eyes
+
 2. Droplet
     1. Viscosity measurements
     2. 3D surface reconstruction

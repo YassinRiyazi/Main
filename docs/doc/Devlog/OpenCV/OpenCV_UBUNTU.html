@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>
+            OpenCV 
+        </title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+        
+        <!-- Include the stylesheet -->
+        <style>
+            /* Reset default margins and padding */
+        </style>
+        
+            <link rel="stylesheet" href="../../../styles/navigationMenu.css">
+            <link rel="stylesheet" href="../../../styles/code.css">
+            <link rel="stylesheet" href="../../../styles/other.css">
+            <link rel="stylesheet" href="../../../styles/refs.css">
+
+    </head>
+
+    <body>
+            <!-- DROPDOWN_MENU -->
+
+            <nav class="sidebar">
+				<h2>Navigation</h2>
+					<ul>
+						<li class="language language-weblog" style="border-left: 4px solid #076E75;"><details open><summary>WebLog</summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><a href="../../WebLog/cuDNN.html">cuDNN.md</a></li>
+								<li><details><summary><a href="../../WebLog/Why.html">Why</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../WebLog/Why/IWillSurvive.html">IWillSurvive.md</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../WebLog/Whats Next.html">Whats Next</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><a href="../../WebLog/UBUNTU.html">UBUNTU.md</a></li>
+								<li><a href="../../WebLog/ToWatchList.html">ToWatchList.md</a></li>
+								<li><a href="../../WebLog/SoftwareFails.html">SoftwareFails.md</a></li>
+								<li><details><summary>People</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../WebLog/People/RüdigerBerger.html">RüdigerBerger.md</a></li>
+									<li><a href="../../WebLog/People/ArminRonacher.html">ArminRonacher.md</a></li>
+								</ul></details></li>
+								<li><a href="../../WebLog/Life.html">Life.md</a></li>
+								<li><details><summary><a href="../../WebLog/Interesting Projects.html">Interesting Projects</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary><a href="../../WebLog/Interesting Projects/Parrall.html">Parrall</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
+									<li><details><summary><a href="../../WebLog/Interesting Projects/HSC.html">HSC</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
+									<li><details><summary>Drop</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><details><summary><a href="../../WebLog/Interesting Projects/Drop/Viscosity measurmet.html">Viscosity measurmet</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+										</ul></details></li>
+										<li><details><summary><a href="../../WebLog/Interesting Projects/Drop/3D surface reconstruction.html">3D surface reconstruction</a></summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+										</ul></details></li>
+									</ul></details></li>
+									<li><details><summary><a href="../../WebLog/Interesting Projects/AlgoViz.html">AlgoViz</a></summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+									</ul></details></li>
+								</ul></details></li>
+								<li><a href="../../WebLog/ImprovingSkill.html">ImprovingSkill.md</a></li>
+								<li><details><summary><a href="../../WebLog/C vs. C++.html">C vs. C++</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+								<li><a href="../../WebLog/Books.html">Books.md</a></li>
+								<li><details><summary>Biorhythm</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../WebLog/Biorhythm/Renouncing.html">Renouncing.md</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../WebLog/Actress.html">Actress</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-devlog" style="border-left: 4px solid #8B008B;"><details open><summary>Devlog</summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>cuDNN</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../cuDNN/cuDNN_UBUNTU.html">cuDNN_UBUNTU.md</a></li>
+									<li><details><summary>Checking</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../cuDNN/Checking/check_cudnn.html">check_cudnn.c</a></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><a href="../Ubuntu.html">Ubuntu.md</a></li>
+								<li><details open><summary><a href="../OpenCV.html">OpenCV</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="OpenCV_Window.html">OpenCV_Window.md</a></li>
+									<li><a href="OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
+								</ul></details></li>
+								<li><a href="../30-07-25.html">30-07-25.md</a></li>
+								<li><a href="../28-07-25.html">28-07-25.md</a></li>
+							</ul>
+					</details></li>
+						<li class="language language-python" style="border-left: 4px solid #3572A5;"><details open><summary><a href="../../../src/PyThon.html">PyThon</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>Viscosity</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>PositionalEncoding</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/Viscosity/PositionalEncoding/PossitionalImageGenerator.html">PossitionalImageGenerator.py</a></li>
+										<li><details><summary>.BK</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><details><summary>Weights</summary>											<ul style="margin-left: 22px; padding-left: 8px;">
+												<li><a href="../../../src/PyThon/Viscosity/PositionalEncoding/.BK/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+											</ul></details></li>
+											<li><a href="../../../src/PyThon/Viscosity/PositionalEncoding/.BK/SupperRes.html">SupperRes.py</a></li>
+											<li><a href="../../../src/PyThon/Viscosity/PositionalEncoding/.BK/Adding.html">Adding.py</a></li>
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary>Utils</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>Performance</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/Utils/Performance/Performance_mesurements.html">Performance_mesurements.py</a></li>
+									</ul></details></li>
+									<li><a href="../../../src/PyThon/Utils/FileFolder.html">FileFolder.py</a></li>
+								</ul></details></li>
+								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../src/PyThon/Test/test.html">test.py</a></li>
+									<li><a href="../../../src/PyThon/Test/test 2.html">test 2.py</a></li>
+								</ul></details></li>
+								<li><a href="../../../src/PyThon/READ.html">READ.md</a></li>
+								<li><details><summary><a href="../../../src/PyThon/OpenCV2.html">OpenCV2</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../src/PyThon/OpenCV2/videoHealth.html">videoHealth.py</a></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../src/PyThon/FFMpeg.html">FFMpeg</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../src/PyThon/FFMpeg/Vidoe2Jpg.html">Vidoe2Jpg.py</a></li>
+									<li><a href="../../../src/PyThon/FFMpeg/Jpg2Video.html">Jpg2Video.py</a></li>
+								</ul></details></li>
+								<li><details><summary>DynamicLoader</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>load-remote-module</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><details><summary>load_remote_module</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../../src/PyThon/DynamicLoader/load-remote-module/load_remote_module/DLoader.html">DLoader.py</a></li>
+										</ul></details></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../src/PyThon/Docy.html">Docy</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../src/PyThon/Docy/processing.html">processing.py</a></li>
+									<li><a href="../../../src/PyThon/Docy/hyperlinks.html">hyperlinks.py</a></li>
+									<li><a href="../../../src/PyThon/Docy/PyParser.html">PyParser.py</a></li>
+									<li><a href="../../../src/PyThon/Docy/CParser.html">CParser.py</a></li>
+									<li><details><summary>.BK</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/Docy/.BK/MakeV1.html">MakeV1.py</a></li>
+									</ul></details></li>
+								</ul></details></li>
+								<li><details><summary><a href="../../../src/PyThon/ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/ContactAngle/DropDetection/utils.html">utils.py</a></li>
+										<li><details><summary>YOLO</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../../src/PyThon/ContactAngle/DropDetection/YOLO/Phase_drop_detection_YOLO.html">Phase_drop_detection_YOLO.py</a></li>
+											<li><a href="../../../src/PyThon/ContactAngle/DropDetection/YOLO/Phase2_YOLO_frameNormalizer.html">Phase2_YOLO_frameNormalizer.py</a></li>
+										</ul></details></li>
+										<li><details><summary>Weights</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../../src/PyThon/ContactAngle/DropDetection/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+										</ul></details></li>
+										<li><a href="../../../src/PyThon/ContactAngle/DropDetection/DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/DropDetection/DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+									</ul></details></li>
+									<li><details><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/visualization.html">visualization.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/superResolution.html">superResolution.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/processing.html">processing.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/preprocessing.html">preprocessing.py</a></li>
+										<li><details><summary>models</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
+											<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/models/h5toPt.html">h5toPt.py</a></li>
+											<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+										</ul></details></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/main.html">main.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/imageloader.html">imageloader.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/edgeDetection.html">edgeDetection.py</a></li>
+										<li><a href="../../../src/PyThon/ContactAngle/CaMeasurer/criteria_definition.html">criteria_definition.py</a></li>
+									</ul></details></li>
+									<li><details><summary>BottomRowUnifier</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/ContactAngle/BottomRowUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
+									</ul></details></li>
+									<li><details><summary>BaseLine</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/PyThon/ContactAngle/BaseLine/BaseNormalizer.html">BaseNormalizer.py</a></li>
+									</ul></details></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-c" style="border-left: 4px solid #555555;"><details open><summary><a href="../../../src/C.html">C</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>Test</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><a href="../../../src/C/Test/temp.html">temp.c</a></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-c++" style="border-left: 4px solid #F34B7D;"><details open><summary><a href="../../../src/CPP.html">C++</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+								<li><details><summary>References</summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+									<li><details><summary>c</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../../../src/CPP/References/c/swap_c.html">swap_c.c</a></li>
+									</ul></details></li>
+								</ul></details></li>
+							</ul>
+					</details></li>
+						<li class="language language-cuda" style="border-left: 4px solid #318F8A;"><details open><summary><a href="../../../src/CUDA.html">CUDA</a></summary>
+							<ul style="margin-left: 14px; padding-left: 8px;">
+							</ul>
+					</details></li>
+				</ul>
+			</nav>
+        
+        <div class="content">
+            <h1>OpenCV </h1>
+            
+            <h2>Installing <span class="rel-link"><a href="../OpenCV.html">OpenCV</a></span> in ubuntu</h2>
+<ol>
+<li>
+<p>!sudo apt update</p>
+</li>
+<li>
+<p>Ensure you have Nvidia driver</p>
+</li>
+<li><span class="rel-link"><a href="../../../src/CUDA.html">CUDA</a></span> toolkit</li>
+<li>
+<p><span class="rel-link"><a href="../cuDNN/cuDNN_UBUNTU.html">cuDNN</a></span> ?</p>
+</li>
+<li>
+<p>OpenGL Dependencies
+    !sudo apt install libgl1-mesa-dev libegl1-mesa-dev libgles2-mesa-dev</p>
+</li>
+<li>
+<p>Other Dependencies</p>
+<p>!sudo apt install -y build-essential cmake git pkg-config libgtk-3-dev \
+libavcodec-dev libavformat-dev libswscale-dev libv4l-dev \
+libxvidcore-dev libx264-dev libjpeg-dev libpng-dev libtiff-dev \
+gfortran openexr libatlas-base-dev python3-dev python3-numpy \
+libtbb-dev libdc1394-dev</p>
+<p>?libtbb2</p>
+</li>
+<li>
+<p>Git Clone
+    git clone --branch 4.10.0 https://github.com/opencv/opencv.git /home/d2u25/opencv-4.10.0
+    git clone --branch 4.10.0 https://github.com/opencv/opencv_contrib.git /home/d2u25/opencv_contrib-4.10.0</p>
+</li>
+</ol>
+<p>7.1. Clear /home/d2u25/OCV_GPU for CMake attempt</p>
+<ol>
+<li>CMake
+Achtung: nvcc is not compatible with gcc 12
+    export CC=/usr/bin/gcc-11
+    export CXX=/usr/bin/g++-11</li>
+</ol>
+<p>cmake \
+  -S /home/d2u25/opencv-4.10.0 \
+  -B /home/d2u25/OCV_GPU \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=/home/d2u25/OCV_GPU/install \
+  -DOPENCV_EXTRA_MODULES_PATH=/home/d2u25/opencv_contrib-4.10.0/modules \
+  -DWITH_CUDA=ON \
+  -DWITH_OPENGL=ON \
+  -DWITH_OPENCL=ON \
+  -DENABLE_FAST_MATH=ON \
+  -DCUDA_FAST_MATH=ON \
+  -DCUDA_ARCH_BIN=7.5;8.6 \
+  -DCUDA_ARCH_PTX=8.6 \
+  -DCUDA_GENERATION=Auto \
+  -DBUILD_opencv_world=ON \
+  -DBUILD_opencv_python3=ON \
+  -DINSTALL_PYTHON_EXAMPLES=ON \
+  -DINSTALL_C_EXAMPLES=OFF \
+  -DBUILD_EXAMPLES=ON \
+  -DINSTALL_TESTS=OFF \
+  -DPYTHON3_EXECUTABLE=/home/d2u25/anaconda3/envs/torch3.11/bin/python \
+  -DPYTHON3_INCLUDE_DIR=/home/d2u25/anaconda3/envs/torch3.11/include/python3.11 \
+  -DPYTHON3_LIBRARY=/home/d2u25/anaconda3/envs/torch3.11/lib/libpython3.11.so \
+  -DPYTHON3_PACKAGES_PATH=/home/d2u25/anaconda3/envs/torch3.11/lib/python3.11/site-packages \
+  -DPYTHON3_NUMPY_INCLUDE_DIRS=/home/d2u25/anaconda3/envs/torch3.11/lib/python3.11/site-packages/numpy/_core/include \
+  -DOPENCV_ENABLE_NONFREE=ON \
+  -DWITH_QT=OFF \
+  -DWITH_CUDNN=ON \
+  -DOPENCV_DNN_CUDA=ON \
+  -DOPENCV_GENERATE_PKGCONFIG=ON \
+  -DCMAKE_C_COMPILER=/usr/bin/gcc-11 \
+  -DCMAKE_CXX_COMPILER=/usr/bin/g++-11 \
+  -DBUILD_TESTS=OFF \
+  -DBUILD_PERF_TESTS=OFF </p>
+<h3>Compile <span class="rel-link"><a href="../OpenCV.html">OpenCV</a></span> using all available CPU cores (replace $(nproc) with the number of cores if needed):</h3>
+<ol>
+<li>make -j$(nproc)</li>
+</ol>
+<h3>Instaliing</h3>
+<ol>
+<li>sudo make install</li>
+<li>sudo ldconfig</li>
+</ol>
+<h3>Uninstalling</h3>
+<ol>
+<li>sudo make uninstall</li>
+</ol>
+<p>Problems:
+    -DCUDA_ARCH_BIN=6.0,8.9\ Comma is not accepted</p>
+<pre><code>-DOPENCV_EXTRA_MODULES_PATH= /home/d2u25/opencv_contrib-4.10.0/modules \  Correct it like this (no space after =):
+</code></pre>
+            
+            <footer>
+                <p>Documentation generated on <span>2025-08-04 02:38:45</span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/OpenCV/OpenCV_UBUNTU.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/OpenCV/OpenCV_UBUNTU.md</a></span></p>
+            </footer>
+        </div>
+    </body>
+</html>
