@@ -80,6 +80,8 @@
 									<li><a href="../../../../doc/Devlog/OpenCV/OpenCV_Window.html">OpenCV_Window.md</a></li>
 									<li><a href="../../../../doc/Devlog/OpenCV/OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
 								</ul></details></li>
+								<li><details><summary><a href="../../../../doc/Devlog/NanoFocus_μSurf.html">NanoFocus_μSurf</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
 								<li><a href="../../../../doc/Devlog/30-07-25.html">30-07-25.md</a></li>
 								<li><a href="../../../../doc/Devlog/28-07-25.html">28-07-25.md</a></li>
 							</ul>
@@ -145,6 +147,7 @@
 										<li><a href="DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
 										<li><a href="DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
 										<li><a href="DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="DropDetection_Difference.html">DropDetection_Difference.py</a></li>
 										<li><a href="DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
 									</ul></details></li>
 									<li><details><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
@@ -196,39 +199,29 @@
         <div class="content">
             <h1>DropDetection_AbsDifference </h1>
             
-             <div class="class">
-<div class="class-name">class <b>DropPreProcessor</b></div>
-<div class="description">Preprocesses grayscale video frames to detect moving objects (e.g., drops) via frame differencing. This class supports both CPU and <span class="rel-link"><a href="../../../CUDA.html">CUDA</a></span>-accelerated pipelines using <span class="rel-link"><a href="../../../../doc/Devlog/OpenCV.html">OpenCV</a></span>.</div>
-<div class="section-title">Methods:</div>
-<div class="method">
-<div class="function">
-<div class="function-name">__init__(<span style="color:#94D6BFFF;"><b>kernel_size</b></span>:<span style="color:#42C39DFF;"><b>tuple[int, int]</b></span>, <span style="color:#94D6BFFF;"><b>threshold_val</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>use_cuda</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>)</div>
-<div class="description">Initializes the preprocessor with morphological filters and <span class="rel-link"><a href="../../../CUDA.html">CUDA</a></span> setup.</div>
+             <div class="function">
+<div class="function-name">drop_cropping(<span style="color:#94D6BFFF;"><b>diff_img</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>drop_middle_y</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>drop_start</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>x_left_margin</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>x_right_margin</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>y_up_margin</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>object_detection_threshold</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
+<div class="description">Crops the droplet reflection from the difference image based on detected edges.</div>
 <div class="section-title">Parameters:</div>
 <ul>
-<li><code>kernel_size</code> (tuple[int, int]): Size of the structuring element for morphological operations.</li>
-<li><code>threshold_val</code> (int): Threshold value used to binarize the frame difference.</li>
-<li><code>use_cuda</code> (bool): Whether to use <span class="rel-link"><a href="../../../CUDA.html">CUDA</a></span> acceleration if available.</li>
-</ul>
-</div>
-</div>
-<div class="method">
-<div class="function">
-<div class="function-name">process(<span style="color:#94D6BFFF;"><b>prev_gray</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>curr_gray</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>)</div>
-<div class="description">Processes a pair of consecutive grayscale frames to extract contours of moving objects.</div>
-<div class="section-title">Parameters:</div>
-<ul>
-<li><code>prev_gray</code> (np.ndarray): Previous grayscale frame.</li>
-<li><code>curr_gray</code> (np.ndarray): Current grayscale frame.</li>
+<li><code>diff_img</code> (np.ndarray): Difference image containing the droplet reflection.</li>
+<li><code>drop_middle_y</code> (int): Approximate vertical center of the droplet.</li>
+<li><code>drop_start</code> (int): Approximate starting point of the droplet.</li>
+<li><code>x_left_margin</code> (int): Margin added to the left crop boundary.</li>
+<li><code>x_right_margin</code> (int): Margin added to the right crop boundary.</li>
+<li><code>y_up_margin</code> (int): Margin subtracted from the upper crop boundary.</li>
+<li><code>object_detection_threshold</code> (int): Pixel intensity threshold for detecting droplet edges.</li>
 </ul>
 <div class="section-title">Returns:</div>
-<div><code>list</code>: List of detected contours representing motion between frames.</div>
-</div>
-</div>
+<div><code>- y_down (int)</code>: Bottom y-coordinate of the crop.</div>
+<div class="section-title">Raises:</div>
+<ul>
+<li><code style="color:red;">ValueError</code>: If the input image is not a valid numpy array.</li>
+</ul>
 </div>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-04 02:38:45</span></p>
+                <p>Documentation generated on <span>2025-08-05 17:15:27</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/DropDetection_AbsDifference.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/DropDetection_AbsDifference.py</a></span></p>
             </footer>
         </div>

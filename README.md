@@ -68,3 +68,13 @@ MAke path-embedding
     Process CA plots
 
 Train AI
+
+Sajjad Xioami Dataset plot - He said Plot it you self
+
+Read Nano vFoucus guide
+
+Read Gabi introduction
+
+Open surf files with python
+
+FACE depth map

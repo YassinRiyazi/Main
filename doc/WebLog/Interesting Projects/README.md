@@ -7,6 +7,11 @@ I feel it is necessary to learn how to distribute processing through different c
     3. Documentation
     4. AlgoViz: Helping me planing what to learn/Algorithm visualizer.
 
+- AlgoViz
+    - Visualizing the algorithms
+    - Converting different languages to each other.
+    - Make a graph out of 
+
 - Kernel level app that notify to 
     - sit straight
     - rest your eyes

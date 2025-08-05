@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            Devlog 
+            NanoFocus_μSurf 
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         
@@ -80,7 +80,7 @@
 									<li><a href="OpenCV/OpenCV_Window.html">OpenCV_Window.md</a></li>
 									<li><a href="OpenCV/OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
 								</ul></details></li>
-								<li><details><summary><a href="NanoFocus_μSurf.html">NanoFocus_μSurf</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								<li><details open><summary><a href="NanoFocus_μSurf.html">NanoFocus_μSurf</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
 								</ul></details></li>
 								<li><a href="30-07-25.html">30-07-25.md</a></li>
 								<li><a href="28-07-25.html">28-07-25.md</a></li>
@@ -197,25 +197,52 @@
 			</nav>
         
         <div class="content">
-            <h1>Devlog </h1>
+            <h1>NanoFocus_μSurf </h1>
             
-            <h2>Meeting with Rüdiger</h2>
+            <h2>Introduction</h2>
+<p>Instructor: Andreas Best</p>
+<h2>Doing Experiments</h2>
+<p>### Device Preparation</p>
+<p>### Reference Calibration
+    In standard microscope mode (see ‘Doing a measurement’, p. 17) the focus plane, i.e. a sharp picture of the sample surface, should be found by moving the measuring head up and down by means of the joystick.
+    Then switch over to confocal mode, i.e. click the appropriate button in the software. 
+    The Nipkow disk is now situated in the light path. 
+    Look for the brightest area while moving through the confocal levels and adjust the lighting.
+    Then search for the upper and lower limits of the measurement range and enter these data.
+    As desired, enter some further measurement parameters and start the measurement.</p>
+<h2>General Information</h2>
 <ul>
-<li>Do Viscosity measurement with fixed temperature and </li>
-<li>Learn confocal microscopy</li>
-<li></li>
+<li>The base of the system is a solid granite stone slab for damping oscillations.</li>
+<li>The required white light is generated in an external xenon light source, and transmitted by a fibre light guide to the measuring head.</li>
 </ul>
-<p>Idea:
-1. Can you excite drops using consecutive defects, will it burst?
-    1. Search literature
-2. Testing neural network with
-    1. Ionic fluids
-    2. Use polystyrene surfaces
-    3. <a href="https://www.gaudi.ch/OpenDrop/">GaudiLabs</a></p>
+<p>| Microscope objective<em>                             | 800-S / 800-L (20X)   | 320-S / 320-L (50X)   | 160-S / 160-L (100X)  |
+|---------------------------------------------------|-----------------------|-----------------------|-----------------------|
+| Measurement field [µm] × [µm]                     | 800 × 772             | 320 × 308.8           | 160 × 154.4           |
+| Maximum area in stitching mode [mm²]              | 46.8                  | 7.3                   | 1.8                   |
+| Working distance [mm]                             | 3.1 / 12.0            | 0.66 / 10.6           | 0.31 / 3.4            |
+| Numeric aperture                                  | 0.46 / 0.40           | 0.80 / 0.50           | 0.95 / 0.80           |
+| Maximum surface slope for specular reflection [°] | 13.7 / 11.7           | 26.6 / 15.0           | 35.9 / 26.6           |
+| Maximum vertical measurement range [mm]           | 0.33 / 0.5            | 0.11 / 0.25           | 0.08 / 0.11           |   <br/>
+| Vertical resolution</em>* [nm]                        | 5 / 6                 | 2 / 4                 | 1.5 / 2               |</p>
+<p>* xxx-S = standard type, xxx-L = long working distance<br/>
+** piezo driven measurement</p>
+<pre><code>### Device Limitation
+-   which is moved in the z-direction by a linear step drive positioner (positioning range: 100 mm).
+-   Additionally a piezo drive, which only moves the objective, can move over a stroke of 350 μm (standard version).
+-   The software now controls the further course of measurement. A number of up to 1000 pictures are recorded by the frame grabber and stored in the computer for further processing.
+-   
+-   
+### [Nipkow disk](https://en.wikipedia.org/wiki/Nipkow_disk)
+    A Nipkow disk (sometimes Anglicized as Nipkov disk; patented in 1884), also known as scanning disk, is a mechanical, rotating, geometrically operating image scanning device, patented by Paul Gottlieb Nipkow in Berlin.[1] 
+    This scanning disk was a fundamental component in mechanical television, and thus the first televisions, through the 1920s and 1930s.
+    WIKIPEDIA
+
+    Apart from the aforementioned mechanical television, which did not become popular for the practical reasons mentioned above, a Nipkow disk is used in one type of confocal microscope, a powerful optical microscope.
+</code></pre>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-05 17:15:27</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/30-07-25.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/30-07-25.md</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/NanoFocus_μSurf/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/doc/Devlog/NanoFocus_μSurf/README.md</a></span></p>
             </footer>
         </div>
     </body>

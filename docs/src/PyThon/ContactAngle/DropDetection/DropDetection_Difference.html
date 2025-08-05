@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>
-            processing 
+            DropDetection_Difference 
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
         
@@ -135,34 +135,34 @@
 									</ul></details></li>
 								</ul></details></li>
 								<li><details open><summary><a href="../../ContactAngle.html">ContactAngle</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
-									<li><details><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
-										<li><a href="../DropDetection/utils.html">utils.py</a></li>
+									<li><details open><summary>DropDetection</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="utils.html">utils.py</a></li>
 										<li><details><summary>YOLO</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
-											<li><a href="../DropDetection/YOLO/Phase_drop_detection_YOLO.html">Phase_drop_detection_YOLO.py</a></li>
-											<li><a href="../DropDetection/YOLO/Phase2_YOLO_frameNormalizer.html">Phase2_YOLO_frameNormalizer.py</a></li>
+											<li><a href="YOLO/Phase_drop_detection_YOLO.html">Phase_drop_detection_YOLO.py</a></li>
+											<li><a href="YOLO/Phase2_YOLO_frameNormalizer.html">Phase2_YOLO_frameNormalizer.py</a></li>
 										</ul></details></li>
 										<li><details><summary>Weights</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
-											<li><a href="../DropDetection/Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
+											<li><a href="Weights/YOLO_tensorRT.html">YOLO_tensorRT.py</a></li>
 										</ul></details></li>
-										<li><a href="../DropDetection/DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
-										<li><a href="../DropDetection/DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
-										<li><a href="../DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
-										<li><a href="../DropDetection/DropDetection_Difference.html">DropDetection_Difference.py</a></li>
-										<li><a href="../DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
+										<li><a href="DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
+										<li><a href="DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
+										<li><a href="DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="DropDetection_Difference.html">DropDetection_Difference.py</a></li>
+										<li><a href="DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
 									</ul></details></li>
-									<li><details open><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
-										<li><a href="visualization.html">visualization.py</a></li>
-										<li><a href="superResolution.html">superResolution.py</a></li>
-										<li><a href="processing.html">processing.py</a></li>
-										<li><a href="preprocessing.html">preprocessing.py</a></li>
+									<li><details><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
+										<li><a href="../CaMeasurer/visualization.html">visualization.py</a></li>
+										<li><a href="../CaMeasurer/superResolution.html">superResolution.py</a></li>
+										<li><a href="../CaMeasurer/processing.html">processing.py</a></li>
+										<li><a href="../CaMeasurer/preprocessing.html">preprocessing.py</a></li>
 										<li><details><summary>models</summary>										<ul style="margin-left: 20px; padding-left: 8px;">
-											<li><a href="models/h5toPt.html">h5toPt.py</a></li>
-											<li><a href="models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
+											<li><a href="../CaMeasurer/models/h5toPt.html">h5toPt.py</a></li>
+											<li><a href="../CaMeasurer/models/edge_superres_pytorch.html">edge_superres_pytorch.py</a></li>
 										</ul></details></li>
-										<li><a href="main.html">main.py</a></li>
-										<li><a href="imageloader.html">imageloader.py</a></li>
-										<li><a href="edgeDetection.html">edgeDetection.py</a></li>
-										<li><a href="criteria_definition.html">criteria_definition.py</a></li>
+										<li><a href="../CaMeasurer/main.html">main.py</a></li>
+										<li><a href="../CaMeasurer/imageloader.html">imageloader.py</a></li>
+										<li><a href="../CaMeasurer/edgeDetection.html">edgeDetection.py</a></li>
+										<li><a href="../CaMeasurer/criteria_definition.html">criteria_definition.py</a></li>
 									</ul></details></li>
 									<li><details><summary>BottomRowUnifier</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
 										<li><a href="../BottomRowUnifier/BottomRowUnifier.html">BottomRowUnifier.py</a></li>
@@ -197,25 +197,42 @@
 			</nav>
         
         <div class="content">
-            <h1>processing </h1>
+            <h1>DropDetection_Difference </h1>
             
-             <div class="function">
-<div class="function-name">poly_fitting(<span style="color:#94D6BFFF;"><b>i</b></span>:<span style="color:#42C39DFF;"><b>array-like</b></span>, <span style="color:#94D6BFFF;"><b>j</b></span>:<span style="color:#42C39DFF;"><b>array-like</b></span>, <span style="color:#94D6BFFF;"><b>polynomial_degree</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>line_space</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>)</div>
-<div class="description">Fit a polynomial to data and generate interpolated points.</div>
+             <div class="class">
+<div class="class-name">class <b>DropPreProcessor</b></div>
+<div class="description">Preprocesses grayscale video frames to detect moving objects (e.g., drops) via frame differencing. This class supports both CPU and <span class="rel-link"><a href="../../../CUDA.html">CUDA</a></span>-accelerated pipelines using <span class="rel-link"><a href="../../../../doc/Devlog/OpenCV.html">OpenCV</a></span>.</div>
+<div class="section-title">Methods:</div>
+<div class="method">
+<div class="function">
+<div class="function-name">__init__(<span style="color:#94D6BFFF;"><b>kernel_size</b></span>:<span style="color:#42C39DFF;"><b>tuple[int, int]</b></span>, <span style="color:#94D6BFFF;"><b>threshold_val</b></span>:<span style="color:#42C39DFF;"><b>int</b></span>, <span style="color:#94D6BFFF;"><b>use_cuda</b></span>:<span style="color:#42C39DFF;"><b>bool</b></span>)</div>
+<div class="description">Initializes the preprocessor with morphological filters and <span class="rel-link"><a href="../../../CUDA.html">CUDA</a></span> setup.</div>
 <div class="section-title">Parameters:</div>
 <ul>
-<li><code>i</code> (array-like): Input x-coordinates.</li>
-<li><code>j</code> (array-like): Input y-coordinates.</li>
-<li><code>polynomial_degree</code> (int): Degree of the polynomial to fit (default: 3).</li>
-<li><code>line_space</code> (int): Number of points for interpolation (default: 100).</li>
+<li><code>kernel_size</code> (tuple[int, int]): Size of the structuring element for morphological operations.</li>
+<li><code>threshold_val</code> (int): Threshold value used to binarize the frame difference.</li>
+<li><code>use_cuda</code> (bool): Whether to use <span class="rel-link"><a href="../../../CUDA.html">CUDA</a></span> acceleration if available.</li>
+</ul>
+</div>
+</div>
+<div class="method">
+<div class="function">
+<div class="function-name">process(<span style="color:#94D6BFFF;"><b>prev_gray</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>, <span style="color:#94D6BFFF;"><b>curr_gray</b></span>:<span style="color:#42C39DFF;"><b>np.ndarray</b></span>)</div>
+<div class="description">Processes a pair of consecutive grayscale frames to extract contours of moving objects.</div>
+<div class="section-title">Parameters:</div>
+<ul>
+<li><code>prev_gray</code> (np.ndarray): Previous grayscale frame.</li>
+<li><code>curr_gray</code> (np.ndarray): Current grayscale frame.</li>
 </ul>
 <div class="section-title">Returns:</div>
-<div><code>Authors</code>: </div>
+<div><code>list</code>: List of detected contours representing motion between frames.</div>
+</div>
+</div>
 </div>
             
             <footer>
                 <p>Documentation generated on <span>2025-08-05 17:15:27</span></p>
-                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/processing.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/CaMeasurer/processing.py</a></span></p>
+                <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/DropDetection_Difference.py">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/ContactAngle/DropDetection/DropDetection_Difference.py</a></span></p>
             </footer>
         </div>
     </body>

@@ -80,6 +80,8 @@
 									<li><a href="../doc/Devlog/OpenCV/OpenCV_Window.html">OpenCV_Window.md</a></li>
 									<li><a href="../doc/Devlog/OpenCV/OpenCV_UBUNTU.html">OpenCV_UBUNTU.md</a></li>
 								</ul></details></li>
+								<li><details><summary><a href="../doc/Devlog/NanoFocus_μSurf.html">NanoFocus_μSurf</a></summary>								<ul style="margin-left: 16px; padding-left: 8px;">
+								</ul></details></li>
 								<li><a href="../doc/Devlog/30-07-25.html">30-07-25.md</a></li>
 								<li><a href="../doc/Devlog/28-07-25.html">28-07-25.md</a></li>
 							</ul>
@@ -145,6 +147,7 @@
 										<li><a href="PyThon/ContactAngle/DropDetection/DropDetection_YOLO_Sparse.html">DropDetection_YOLO_Sparse.py</a></li>
 										<li><a href="PyThon/ContactAngle/DropDetection/DropDetection_YOLO.html">DropDetection_YOLO.py</a></li>
 										<li><a href="PyThon/ContactAngle/DropDetection/DropDetection_Sum.html">DropDetection_Sum.py</a></li>
+										<li><a href="PyThon/ContactAngle/DropDetection/DropDetection_Difference.html">DropDetection_Difference.py</a></li>
 										<li><a href="PyThon/ContactAngle/DropDetection/DropDetection_AbsDifference.html">DropDetection_AbsDifference.py</a></li>
 									</ul></details></li>
 									<li><details><summary>CaMeasurer</summary>									<ul style="margin-left: 18px; padding-left: 8px;">
@@ -221,11 +224,24 @@ from typing import Union, Optional, Tuple
 </code></pre>
 <h3>Interesting</h3>
 <p>interesting opencv doc: <a href="https://docs.opencv.org/4.x/d2/d96/tutorial_py_table_of_contents_imgproc.html">Here</a></p>
+<h2>Pytorch</h2>
+<p>I don't know for what reason I can not use torch compile.  I get not enough SM.
+```Python</p>
+<h1>Compile model for better performance</h1>
+<p>if torch.cuda.is_available():
+    model = torch.compile(model)
+    print("Model compilation enabled")
+<code>I failed also.</code>Python</p>
+<h1>Enable gradient check-pointing</h1>
+<p>model_sequential = nn.Sequential(*list(model.children()))
+model.forward = lambda x: checkpoint_sequential(model_sequential, 2, x)
+print("Gradient check-pointing enabled")
+```</p>
 <p>TODO:
     Read <a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing — Process-based parallelism</a></p>
             
             <footer>
-                <p>Documentation generated on <span>2025-08-04 02:38:45</span></p>
+                <p>Documentation generated on <span>2025-08-05 17:15:27</span></p>
                 <p>Raw access: <span><a href="https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/README.md">https://raw.githubusercontent.com/YassinRiyazi/Main/refs/heads/main/src/PyThon/README.md</a></span></p>
             </footer>
         </div>
