@@ -17,6 +17,8 @@
 > - [ ] Add encryption and decryption code with java script for certain pages.
 > - [ ] Adding Test Driven Development (TDD)
 > - [ ] ALGViz
+> - [ ] Adding SLM or bert to encode my texts to a vector and add tags to eachpage base of cosine similarities and also generating a graph of corelation between pages.BERT Microsoft mini Gl
+> - [ ] weblog about serial and vga ports 
 
 ## Target:
 0. Doing a hell of a Ph.D.
