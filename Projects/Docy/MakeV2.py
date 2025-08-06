@@ -33,7 +33,8 @@ import Docy  # Assuming this module provides extract_python_functions and extrac
 
 source_dirs = {
             'WebLog'    :   ['doc/WebLog'],
-            'Devlog'    :   ['doc/Devlog'], 
+            'Devlog'    :   ['doc/Devlog'],
+            'Projects'  :   ['Projects'],
             'PyThon'    :   ['src/PyThon'],
             'C'         :   ['src/C'],
             'C++'       :   ['src/CPP'],
@@ -41,12 +42,13 @@ source_dirs = {
             }
 
 lang_colors = {
-            'PyThon': '#3572A5',
-            'C': '#555555',
-            'C++': '#F34B7D',
-            'CUDA': "#318F8A",
-            'Devlog': '#8B008B',
-            'WebLog': '#076E75'
+            'Devlog'    : '#8B008B',
+            'WebLog'    : '#076E75',
+            'Projects'  : "#F1EE20",
+            'PyThon'    : '#3572A5',
+            'C'         : '#555555',
+            'C++'       : '#F34B7D',
+            'CUDA'      : "#318F8A",
     }
 
 output_base_dir = 'docs'

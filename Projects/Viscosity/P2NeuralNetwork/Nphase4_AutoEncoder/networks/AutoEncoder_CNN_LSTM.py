@@ -27,8 +27,8 @@ class LSTMModel(nn.Module):
         super(LSTMModel, self).__init__()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        self.lstm = nn.LSTM(input_dim, hidden_dim, num_layers, dropout=dropout, batch_first=True)
-        self.fc = nn.Linear(hidden_dim, 1)  # output layer
+        self.lstm = nn.LSTM(input_dim, hidden_dim, num_layers, dropout=dropout, batch_first=True, device=self.device)
+        self.fc = nn.Linear(hidden_dim, 1, device=self.device)  # output layer
 
         self.h = None
         self.c = None
@@ -92,14 +92,13 @@ class Encoder_LSTM(torch.nn.Module):
                             "dropout": dropout
                         }
 
-        self.autoencoder = self.load_autoencoder(address_autoencoder,
-                                                 embedding_dim=input_dim)
+        self.load_autoencoder(address_autoencoder, embedding_dim=input_dim)
 
 
         self.lstm = LSTMModel(input_dim=input_dim,
                               hidden_dim=hidden_dim,
                               num_layers=num_layers,
-                              dropout=dropout)
+                              dropout=dropout).to(self.device)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -110,11 +109,13 @@ class Encoder_LSTM(torch.nn.Module):
             torch.Tensor: Output tensor of shape (batch_size, hidden_dim)
         """
 
-        with torch.inference_mode():
+        # with torch.inference_mode():
+        with torch.no_grad():  # disables gradients but keeps tensors usable
             x = self.autoencoder.Embedding(x)
+        x = x.unsqueeze(1)  
 
-        out, _ = self.lstm(x)
-        return out[:, -1, :]  # Return the last hidden state
+        out = self.lstm(x)
+        return out.squeeze(1)  # remove the sequence dimension
 
     def load_autoencoder(self,
                          address_autoencoder: str,
@@ -127,7 +128,7 @@ class Encoder_LSTM(torch.nn.Module):
         Returns:
             None: Loads the autoencoder model.
         """
-        self.autoencoder = Autoencoder_CNN(embedding_dim=embedding_dim)
+        self.autoencoder = Autoencoder_CNN(embedding_dim=embedding_dim).to(self.device)
         self.autoencoder.eval()
         self.autoencoder.load_state_dict(torch.load(address_autoencoder, map_location=self.device))
-        self.autoencoder.requires_grad_(False)
+        # self.autoencoder.requires_grad_(False)

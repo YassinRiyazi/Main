@@ -25,7 +25,9 @@ def parse_python_docstring(docstring: str) -> dict:
                 'TODO': list of str,
                 'FIXME': list of str,
                 'HACK': list of str,
-                'XXX': list of str
+                'XXX': list of str,
+                'Author': str,
+                'Date': str,
             }
 
     Example:
@@ -59,7 +61,9 @@ def parse_python_docstring(docstring: str) -> dict:
         'sub-sub-task': [],
         'sub-sub-sub-task': [],
         'sub-sub-sub-sub-task': [],
-        'references': []    
+        'references': [],
+        'Author': [],
+        'Date': [],
     }
     current_section = 'description'
     
@@ -125,7 +129,16 @@ def parse_python_docstring(docstring: str) -> dict:
             current_section = 'references'
             continue
 
-            
+        elif line.lower().startswith('Author:') or line.lower().startswith('authors:'):
+            current_section = 'Author'
+            # sections['Author'] = line.split(':', 1)[1].strip()
+            continue
+
+        elif line.lower().startswith('Date:'):
+            current_section = 'Date'
+            # sections['date'] = line.split(':', 1)[1].strip()
+            continue
+
         # Parse args section
         if current_section == 'args':
             match = re.match(r'(\w+)\s*\(([^)]+)\):\s*(.*)', line)
@@ -197,7 +210,11 @@ def parse_python_docstring(docstring: str) -> dict:
         elif current_section == 'references':
             sections['references'].append(line)
 
+        elif current_section == 'author':
+            sections['author'].append(line)
 
+        elif current_section == 'date':
+            sections['date'].append(line)
 
         else:
             sections['description'].append(line)
@@ -252,10 +269,10 @@ def generate_python_function_html(obj: dict, indent: int = 1) -> str:
 
         for key in doc:
             if key not in ['args', 'description', 'returns', 'raises'] and doc[key]:
+                
                 lines.append(indent_line(f'<div class="section-title" id="{obj["name"]}-{key}">{key.capitalize()}:</div>', level + 1))
                 for item in doc[key]:
                     lines.append(indent_line(f'<div>{item}</div>', level + 2))
-
         lines.append(indent_line('</div>', level))  # end function
 
     #########################################################################################################
@@ -289,7 +306,7 @@ def generate_python_function_html(obj: dict, indent: int = 1) -> str:
 
 
 def extract_python_objects(file_path):
-    """Extract Python functions and classes (with methods) and their docstrings from a source file.
+    """Extract Python functions and classes (with methods) and their doc strings from a source file.
 
     Args:
         file_path (str): Path to the Python source file (.py).

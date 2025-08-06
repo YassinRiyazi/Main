@@ -1,16 +1,36 @@
-import os
-import glob
-import tqdm
-import yaml
-import pickle
-from torch.utils.data import Dataset
-from PIL import Image
-import torchvision.transforms as transforms
+import  os
+import  glob
+import  tqdm
+import  yaml
+import  pickle
+import  torchvision.transforms  as      transforms
+from    PIL                     import  Image
+from    torch.utils.data        import  Dataset
 
 class loc_ImageDataset(Dataset):
     """
+
+    Description:
+        Train an embedding-based LSTM for time series data.
+        Custom Dataset for Image Loading and Preprocessing 
+        Supports caching of {index: path} dictionaries using YAML or pickle.
+
     Custom Dataset for loading and preprocessing images for autoencoder training.
     Supports caching of {index: path} dictionaries using YAML or pickle.
+    
+    TODO:
+    - Add sequence image loading
+    - Add corresponding viscosity labels to a dictionary
+
+
+    Author: Yassin Riyazi
+
+    Date:
+        - 06-08-2025
+
+    TODO:
+    - Add sequence image loading
+    - Add corresponding viscosity labels to a dictionary
     """
 
     def __init__(self,
@@ -21,12 +41,18 @@ class loc_ImageDataset(Dataset):
                  load_from_file: bool = True,
                  use_yaml: bool = False):
         """
+        Author:
+            - Yassin Riyazi
+
+        Date:
+            - 06-08-2025
+
         Args:
             data_dir (str): Directory containing the images.
             extension (str): File extension of images.
             skip (int): Skip factor for selecting images.
             index_file (str): Path to save/load cached index.
-            load_from_file (bool): Whether to load cached index instead of rescanning.
+            load_from_file (bool): Whether to load cached index instead of re-scanning.
             use_yaml (bool): Save index as YAML (otherwise uses pickle).
         """
         self.data_dir   = data_dir
@@ -71,12 +97,12 @@ class loc_ImageDataset(Dataset):
         img_path = self.image_dict[idx]
         image = Image.open(img_path)
         image = self.transform(image)
-        return image, img_path  # Return image and its path
+        return image, #img_path  # Return image and its path
 
     def dims(self,) -> tuple[tuple[int, int], tuple[int, int]]:
 
-        min_width   = float('inf')
-        min_height  = float('inf')
+        min_width   = float( 'inf')
+        min_height  = float( 'inf')
         max_width   = float('-inf')
         max_height  = float('-inf')
 
