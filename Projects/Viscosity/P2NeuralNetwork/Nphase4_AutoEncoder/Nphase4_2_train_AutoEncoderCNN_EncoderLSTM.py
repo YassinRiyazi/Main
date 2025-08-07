@@ -43,12 +43,14 @@ def handler_supervised(Args:tuple[torch.Tensor, torch.Tensor],
     loss = criterion(output, Args[1])
     return output, loss
 
-batch_size  = 120
+SEQUENCE_LENGTH = 20
+batch_size  = 100
 data_dir='/media/d2u25/Dont/frames_Process_15_Patch'
 # Load dataset
 dataset = DSS.loc_ImageDataset(
                                     data_dir=data_dir,
-                                    skip=1,
+                                    skip=4,
+                                    sequence_length=SEQUENCE_LENGTH,
                                     load_from_file=True,
                                     use_yaml=False
                                 )
@@ -66,14 +68,15 @@ val_loader = DataLoader(val_dataset, batch_size=batch_size, num_workers=16, shuf
 model = networks.AutoEncoder_CNN_LSTM.Encoder_LSTM(
     address_autoencoder= 'Projects/Viscosity/P2NeuralNetwork/Nphase4_AutoEncoder/checkpoints/cnn_autoencoder_20250804_130532/cnn_autoencoder_final.pt',
     input_dim=1000,  # Adjust based on your data
-    hidden_dim=128,  # Adjust based on your model architecture
+    hidden_dim=256,  # Adjust based on your model architecture
     num_layers=2,  # Number of LSTM layers
     dropout=0.2,  # Dropout rate
+    sequence_length=SEQUENCE_LENGTH,
 )
 
 # model = LSTMModel(input_dim, hidden_dim, num_layers, dropout)
 # Define the loss function and optimizer
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+optimizer = optim.SGD(model.parameters(), lr=1e-4,)
 criterion = nn.MSELoss()
 
 trainer.train(

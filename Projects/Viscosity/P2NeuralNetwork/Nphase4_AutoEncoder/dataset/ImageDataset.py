@@ -11,55 +11,41 @@ from    torch.utils.data        import  Dataset
 
 class loc_ImageDataset(Dataset):
     """
-
     Description:
-        Train an embedding-based LSTM for time series data.
         Custom Dataset for Image Loading and Preprocessing 
         Supports caching of {index: path} dictionaries using YAML or pickle.
-
-    Custom Dataset for loading and preprocessing images for autoencoder training.
-    Supports caching of {index: path} dictionaries using YAML or pickle.
-    
-    TODO:
-    - Add sequence image loading
-    - Add corresponding viscosity labels to a dictionary
-
+        Supports loading sequences of consecutive images for sequence-based models.
 
     Author: Yassin Riyazi
 
     Date:
         - 06-08-2025
-
-    TODO:
-    - Add sequence image loading
-    - Add corresponding viscosity labels to a dictionary
     """
 
     def __init__(self,
                  data_dir: str = "/media/d2u25/Dont/frames_Process_15_Patch",
                  extension: str = ".png",
                  skip: int = 1,
+                 sequence_length: int = 1,  # New parameter for sequence length
                  index_file: str = "image_index.pkl",
                  load_from_file: bool = True,
                  use_yaml: bool = False):
         """
-        Author:
-            - Yassin Riyazi
-
-        Date:
-            - 06-08-2025
-
         Args:
             data_dir (str): Directory containing the images.
             extension (str): File extension of images.
             skip (int): Skip factor for selecting images.
-            index_file (str): Path to save/load cached index.
+            sequence_length (int): Number of consecutive images to load per sample.
+            index_file (str): Path to save/load cached index.       
             load_from_file (bool): Whether to load cached index instead of re-scanning.
             use_yaml (bool): Save index as YAML (otherwise uses pickle).
         """
-        self.data_dir   = data_dir
+        self.data_dir = data_dir
+        self.extension = extension
+        self.skip = skip
+        self.sequence_length = sequence_length
         self.index_file = os.path.join(data_dir, index_file)
-        self.use_yaml   = use_yaml
+        self.use_yaml = use_yaml
 
         if load_from_file and os.path.exists(self.index_file):
             print(f"Loading cached index from {self.index_file}...")
@@ -72,9 +58,7 @@ class loc_ImageDataset(Dataset):
         else:
             print("Scanning directories for image files (this may take a while)...")
             image_files = glob.glob(os.path.join(data_dir, "*", "*", "*", "*" + extension))
-            image_files = image_files[::skip]
-
-            # Build dictionary: {index: path}
+            image_files = sorted(image_files)[::skip]  # Ensure sorted order for consistency
             self.image_dict = {i: path for i, path in enumerate(image_files)}
 
             print(f"Saving cached index to {self.index_file}...")
@@ -95,22 +79,53 @@ class loc_ImageDataset(Dataset):
         self.viscosity_data = pd.read_csv(os.path.join(data_dir, 'DATA_Sheet.csv'))
         self.fluids = self.viscosity_data["Bottle number"]
 
+        # Adjust length to account for sequence length
+        self._len = max(0, len(self.image_dict) - (self.sequence_length - 1))
+
     def __len__(self):
-        return len(self.image_dict)
+        """
+        Returns the number of sequences available, accounting for sequence_length.
+        """
+        return self._len
 
     def __getitem__(self, idx):
-        img_path = self.image_dict[idx]
-        image = Image.open(img_path)
-        image = self.transform(image)
+        """
+        Returns a sequence of images and the label for the last image in the sequence.
 
-        _temp = img_path.split(os.sep)[-3]  # Assuming label is the third last directory name
+        Args:
+            idx (int): Index of the starting image in the sequence.
+
+        Returns:
+            tuple: (sequence, label)
+                - sequence: Tensor of shape (sequence_length, channels, height, width)
+                - label: Tensor with the viscosity label for the last image
+        """
+        if idx < 0 or idx >= self._len:
+            raise IndexError(f"Index {idx} out of range for dataset with length {self._len}")
+
+        # Load sequence of images
+        sequence = []
+        for i in range(idx, idx + self.sequence_length):
+            if i not in self.image_dict:
+                raise ValueError(f"Image index {i} not found in image_dict")
+            img_path = self.image_dict[i]
+            image = Image.open(img_path)
+            image = self.transform(image)
+            sequence.append(image)
+
+        # Stack images into a single tensor: (sequence_length, channels, height, width)
+        sequence = torch.stack(sequence, dim=0)
+
+        # Get label for the last image in the sequence
+        last_img_path = self.image_dict[idx + self.sequence_length - 1]
+        _temp = last_img_path.split(os.sep)[-3]  # Third last directory name
         label = [ii for ii in self.fluids if ii in _temp]
         if not label:
-            raise ValueError(f"No label found for image {img_path}")
-        dfIndex = self.viscosity_data.index[self.viscosity_data["Bottle number"]==label[0]]
+            raise ValueError(f"No label found for image {last_img_path}")
+        dfIndex = self.viscosity_data.index[self.viscosity_data["Bottle number"] == label[0]]
         label = self.viscosity_data.iloc[dfIndex]['Viscosity 25C']
 
-        return image, torch.tensor(label.values, dtype=torch.float32)  # Return image and its label
+        return sequence, torch.tensor(label.values, dtype=torch.float32)
 
     def dims(self,) -> tuple[tuple[int, int], tuple[int, int]]:
 

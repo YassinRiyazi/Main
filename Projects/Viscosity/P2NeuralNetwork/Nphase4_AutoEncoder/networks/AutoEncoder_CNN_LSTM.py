@@ -69,6 +69,7 @@ class Encoder_LSTM(torch.nn.Module):
                  hidden_dim:int  = 128 ,  # hidden dimension
                  num_layers:int  = 2   ,  # number of LSTM layers
                  dropout:float   = 0.2 ,  # dropout rate
+                 sequence_length:int = 5
                  ) -> None:
         """
         Initializes the LSTM encoder.
@@ -78,6 +79,7 @@ class Encoder_LSTM(torch.nn.Module):
             hidden_dim (int): Dimension of the hidden state in LSTM
             num_layers (int): Number of LSTM layers
             dropout (float): Dropout rate for LSTM layers
+            sequence_length (int): Length of the input sequences
 
         Returns:
             None: Initializes the LSTM layer.
@@ -100,6 +102,7 @@ class Encoder_LSTM(torch.nn.Module):
                               hidden_dim=hidden_dim,
                               num_layers=num_layers,
                               dropout=dropout).to(self.device)
+        self.lstm.sequence_length = sequence_length
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
@@ -110,16 +113,19 @@ class Encoder_LSTM(torch.nn.Module):
             torch.Tensor: Output tensor of shape (batch_size, hidden_dim)
         """
 
-        # with torch.inference_mode():
-        with torch.no_grad():  # disables gradients but keeps tensors usable
-            x = self.autoencoder.Embedding(x)
-        x = x.unsqueeze(1)
-        x = self.BN(x.squeeze(1))  # Apply batch normalization
-        x = x.unsqueeze(1)  # Add sequence dimension for LSTM
+        with torch.no_grad():
+            _shape = x.shape  # (batch_size, seq_length, channels, height, width)
+            x = x.view(-1,1, _shape[3], _shape[4])  # (batch_size * seq_length, channels, height, width)
+            x = self.autoencoder.Embedding(x)  # (batch_size * seq_length, input_dim)
+            x = x.view(_shape[0], _shape[1], self.Properties["input_dim"])  # (batch_size, seq_length, input_dim)
 
-        
-        out = self.lstm(x)
-        return out.squeeze(1)  # remove the sequence dimension
+        # Apply batch normalization
+        x = x.view(-1, self.Properties["input_dim"])  # (batch_size * seq_length, input_dim)
+        x = self.BN(x)
+        x = x.view(_shape[0], _shape[1], self.Properties["input_dim"])  # (batch_size, seq_length, input_dim)
+
+        out = self.lstm(x)  # (batch_size, 1)
+        return out.squeeze(1)  # (batch_size,)
 
     def load_autoencoder(self,
                          address_autoencoder: str,

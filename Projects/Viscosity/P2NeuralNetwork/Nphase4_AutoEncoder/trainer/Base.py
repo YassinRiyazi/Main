@@ -175,48 +175,56 @@ def handler_selfSupervised(Args:tuple[torch.Tensor, torch.Tensor],
 
 def train(
     model: nn.Module,
-    train_loader,
-    val_loader,
-    criterion,
-    optimizer,
+    train_loader: torch.utils.data.DataLoader,
+    val_loader: torch.utils.data.DataLoader,
+    criterion: nn.Module,
+    optimizer: nn.Module,
     epochs: int,
     device: str,
     model_name: str,
     ckpt_save_freq: int,
-    ckpt_save_path: str,
+    ckpt_save_path: Union[str, os.PathLike],
 
     handler: Callable[[tuple[torch.Tensor, torch.Tensor], nn.Module, nn.Module], None],
     handler_postfix: Optional[Callable] = save_reconstructions,
 
-    ckpt_path: str = None,
-    report_path: str = None,
+    ckpt_path: Union[str, os.PathLike] = None,
+    report_path: Union[str, os.PathLike] = None,
     lr_scheduler = None,
     Validation_save_threshold: float = 0.0,
     use_hard_negative_mining: bool = True,
     hard_mining_freq: int = 1,  # Perform hard negative mining every N epochs
     num_hard_samples: int = 1000  # Number of hard examples to select
-):
+) -> tuple[nn.Module, nn.Module, pd.DataFrame]:
     """
     Standard training loop for autoencoder models with hard negative mining
     
     Args:
-        model: PyTorch model
-        train_loader: DataLoader for training data
-        val_loader: DataLoader for validation data
-        criterion: Loss function
-        optimizer: Optimizer
-        epochs: Number of training epochs
-        device: Device to train on ('cuda' or 'cpu')
-        model_name: Name of the model for saving checkpoints
-        ckpt_save_freq: Frequency of checkpoint saving (in epochs)
-        ckpt_save_path: Path to save checkpoints
-        ckpt_path: Path to load checkpoint from (if resuming training)
-        report_path: Path to save training report
-        lr_scheduler: Learning rate scheduler
-        Validation_save_threshold: Threshold for saving best validation model
-        use_hard_negative_mining: Whether to use hard negative mining
-        hard_mining_freq: Frequency of hard negative mining (in epochs)
-        num_hard_samples: Number of hard examples to select
+        model (nn.Module): PyTorch model
+        train_loader (torch.utils.data.DataLoader): DataLoader for training data
+        val_loader (torch.utils.data.DataLoader): DataLoader for validation data
+        criterion (nn.Module): Loss function
+        optimizer (nn.Module): Optimizer
+        epochs (int): Number of training epochs
+        device (str): Device to train on ('cuda' or 'cpu')
+        model_name (str): Name of the model for saving checkpoints
+        ckpt_save_freq (int): Frequency of checkpoint saving (in epochs)
+        ckpt_save_path (Union[str, os.PathLike]): Path to save checkpoints
+        ckpt_path (Union[str, os.PathLike]): Path to load checkpoint from (if resuming training)
+        report_path (Union[str, os.PathLike]): Path to save training report
+        lr_scheduler (torch.optim.lr_scheduler): Learning rate scheduler
+        Validation_save_threshold (float): Threshold for saving best validation model
+        use_hard_negative_mining (bool): Whether to use hard negative mining
+        hard_mining_freq (int): Frequency of hard negative mining (in epochs)
+        num_hard_samples (int): Number of hard examples to select
+
+    Returns:
+        model (nn.Module): Trained model
+        optimizer (nn.Module): Optimizer with updated state
+        report (pd.DataFrame): Training report with metrics
+
+    TODO:
+        - Plot training loss over epochs real time in the terminal or a window
     """
     # Create timestamped directory for this training run
     save_dir = create_save_dir(ckpt_save_path, model_name)
