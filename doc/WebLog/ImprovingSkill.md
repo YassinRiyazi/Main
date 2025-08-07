@@ -1,7 +1,20 @@
-I'm a PhD student in mechanical engineer with specialty in control, during my master, and Ai in engineering. 
-I have good familiarity with python, pytorch. For my thesis im learning C and C++ to write enterprise program that connect lab instruments to gather data.
-My question is what do you recommend to improve my skills. 
-I want to go to the industry.
+I'm a PhD student in mechanical engineer.
+My question is what do you recommend to improve my skills. In future I want to solve real frontier world problem whither in industry or acadidemia
+
+During my masters degree I had some courses about control and Deep learning. I have familiarity with python, pytorch.
+my thesis was about predicting a chaotic dynamical system with help of the Koopman operator, deeplearning numerical implementation. 
+
+For my Ph.d, till now I have worked on estimating fluid properties from high speed video footage and trained neural networks, LSTM and transformer. 
+
+ thesis i'm planning to learning C and C++ to write enterprise program that connect lab instruments to gather data, do raytracing and with help of RL reconstruct 3d shape from light source reflection, make a 3d reconstruction of surface from a drop probing the surface.
+
+Problems I have already encountered:
+Python being slow, no real multi-threading
+lack of Distributing tasks between computers.
+some relevant github repositories are in C and C++.
+
+
+
 
 
 
