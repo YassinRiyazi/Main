@@ -41,3 +41,11 @@ print("Gradient check-pointing enabled")
 TODO:
     Read [multiprocessing — Process-based parallelism](https://docs.python.org/3/library/multiprocessing.html)
 
+
+### Path:
+Separating path OS independently
+```Python
+import os
+path.split(os.sep)
+```
+All components	Yes	Simple, but may give '' if path starts with / or drive letter present

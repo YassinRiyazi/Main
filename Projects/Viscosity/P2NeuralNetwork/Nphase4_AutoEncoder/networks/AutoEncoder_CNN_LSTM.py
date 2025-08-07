@@ -94,6 +94,7 @@ class Encoder_LSTM(torch.nn.Module):
 
         self.load_autoencoder(address_autoencoder, embedding_dim=input_dim)
 
+        self.BN = nn.BatchNorm1d(input_dim, device=self.device)  # Batch normalization layer
 
         self.lstm = LSTMModel(input_dim=input_dim,
                               hidden_dim=hidden_dim,
@@ -112,8 +113,11 @@ class Encoder_LSTM(torch.nn.Module):
         # with torch.inference_mode():
         with torch.no_grad():  # disables gradients but keeps tensors usable
             x = self.autoencoder.Embedding(x)
-        x = x.unsqueeze(1)  
+        x = x.unsqueeze(1)
+        x = self.BN(x.squeeze(1))  # Apply batch normalization
+        x = x.unsqueeze(1)  # Add sequence dimension for LSTM
 
+        
         out = self.lstm(x)
         return out.squeeze(1)  # remove the sequence dimension
 

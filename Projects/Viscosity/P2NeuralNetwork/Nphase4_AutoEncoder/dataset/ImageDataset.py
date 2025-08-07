@@ -1,8 +1,10 @@
 import  os
 import  glob
+import torch
 import  tqdm
 import  yaml
 import  pickle
+import  pandas                  as      pd
 import  torchvision.transforms  as      transforms
 from    PIL                     import  Image
 from    torch.utils.data        import  Dataset
@@ -90,6 +92,9 @@ class loc_ImageDataset(Dataset):
             transforms.ToTensor(),
         ])
 
+        self.viscosity_data = pd.read_csv(os.path.join(data_dir, 'DATA_Sheet.csv'))
+        self.fluids = self.viscosity_data["Bottle number"]
+
     def __len__(self):
         return len(self.image_dict)
 
@@ -97,7 +102,15 @@ class loc_ImageDataset(Dataset):
         img_path = self.image_dict[idx]
         image = Image.open(img_path)
         image = self.transform(image)
-        return image, #img_path  # Return image and its path
+
+        _temp = img_path.split(os.sep)[-3]  # Assuming label is the third last directory name
+        label = [ii for ii in self.fluids if ii in _temp]
+        if not label:
+            raise ValueError(f"No label found for image {img_path}")
+        dfIndex = self.viscosity_data.index[self.viscosity_data["Bottle number"]==label[0]]
+        label = self.viscosity_data.iloc[dfIndex]['Viscosity 25C']
+
+        return image, torch.tensor(label.values, dtype=torch.float32)  # Return image and its label
 
     def dims(self,) -> tuple[tuple[int, int], tuple[int, int]]:
 
@@ -121,13 +134,13 @@ class loc_ImageDataset(Dataset):
 
 
 if __name__ == "__main__":
-    # # First run: scans and saves index
-    # dataset = loc_ImageDataset(
-    #     data_dir="/media/d2u25/Dont/frames_Process_15_Patch",
-    #     skip=4,
-    #     load_from_file=False,
-    #     use_yaml=False  # Change to True for YAML
-    # )
+    # First run: scans and saves index
+    dataset = loc_ImageDataset(
+        data_dir="/media/d2u25/Dont/frames_Process_15_Patch",
+        skip=4,
+        load_from_file=False,
+        use_yaml=False  # Change to True for YAML
+    )
 
     # Subsequent run: loads from pickle or YAML instantly
     fast_dataset = loc_ImageDataset(

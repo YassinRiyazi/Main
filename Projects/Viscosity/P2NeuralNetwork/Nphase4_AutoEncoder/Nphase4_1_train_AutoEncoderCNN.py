@@ -28,7 +28,7 @@ def prepare_data_tensor(dataloader, device):
         all_data.append(data.to(device))
     return torch.cat(all_data, dim=0)
 
-def train_cnn_autoencoder(
+def train(
     data_dir='/media/d2u25/Dont/frames_Process_15_Patch',
     model_name='cnn_autoencoder',
     epochs=20,

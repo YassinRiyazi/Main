@@ -8,6 +8,7 @@ from    torch.optim import  lr_scheduler
 from    tqdm        import  tqdm
 from    datetime    import  datetime
 from torchvision.utils import save_image
+from typing import Callable, Optional, Union
 
 def save_reconstructions(model: nn.Module,
                          dataloader: torch.utils.data.DataLoader,
@@ -156,6 +157,22 @@ def hard_negative_mining(model, dataloader, criterion, device, num_hard_samples=
     
     return hard_loader
 
+
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+def handler_selfSupervised(Args:tuple[torch.Tensor, torch.Tensor],
+                           criterion: nn.Module,
+                           model: nn.Module):
+    data = Args[0].data.to(device)
+    data = data.contiguous()
+
+    output = model(data)
+    loss = criterion(output, data)
+    return output, loss
+
+
+
 def train(
     model: nn.Module,
     train_loader,
@@ -167,6 +184,10 @@ def train(
     model_name: str,
     ckpt_save_freq: int,
     ckpt_save_path: str,
+
+    handler: Callable[[tuple[torch.Tensor, torch.Tensor], nn.Module, nn.Module], None],
+    handler_postfix: Optional[Callable] = save_reconstructions,
+
     ckpt_path: str = None,
     report_path: str = None,
     lr_scheduler = None,
@@ -244,15 +265,10 @@ def train(
         loss_avg_train = AverageMeter()
         
         train_loop = tqdm(current_train_loader, desc=f"Epoch {epoch}/{epochs} [Train]")
-        for batch_idx, (data, _) in enumerate(train_loop):
-            data = data.to(device)
-            data = data.contiguous()
-
-            # Forward pass
+        for batch_idx, Args in enumerate(train_loop):
             optimizer.zero_grad()
-
-            recon = model(data)
-            loss = criterion(recon, data)
+            
+            output, loss = handler(Args, criterion, model)
 
             # Backward pass
             loss.contiguous()
@@ -260,7 +276,7 @@ def train(
             optimizer.step()
             
             # Update metrics
-            loss_avg_train.update(loss.item(), data.size(0))
+            loss_avg_train.update(loss.item(), Args[0].size(0))
             
             # Update progress bar
             train_loop.set_postfix(loss=loss_avg_train.avg, lr=optimizer.param_groups[0]["lr"])
@@ -271,7 +287,7 @@ def train(
                 "mode": "train",
                 "epoch": float(epoch),
                 "learning_rate": float(optimizer.param_groups[0]["lr"]),
-                "batch_size": float(data.size(0)),
+                "batch_size": float(Args[0].size(0)),
                 "batch_index": float(batch_idx),
                 "loss_batch": float(loss.item()),
                 "avg_train_loss_till_current_batch": float(loss_avg_train.avg),
@@ -281,12 +297,6 @@ def train(
             # Append to report
             report = pd.concat([report, pd.DataFrame([new_row])], ignore_index=True)
 
-
-
-
-
-
-        
         # Validation phase
         model.eval()
         loss_avg_val = AverageMeter()
@@ -296,12 +306,10 @@ def train(
             for batch_idx, (data, _) in enumerate(val_loop):
                 data = data.to(device)
                 
-                # Forward pass
-                recon = model(data)
-                loss = criterion(recon, data)
+                output, loss = handler(Args, criterion, model)
                 
                 # Update metrics
-                loss_avg_val.update(loss.item(), data.size(0))
+                loss_avg_val.update(loss.item(), Args[0].size(0))
                 
                 # Update progress bar
                 val_loop.set_postfix(loss=loss_avg_val.avg)
@@ -312,7 +320,7 @@ def train(
                     "mode": "val",
                     "epoch": float(epoch),
                     "learning_rate": float(optimizer.param_groups[0]["lr"]),
-                    "batch_size": float(data.size(0)),
+                    "batch_size": float(Args[0].size(0)),
                     "batch_index": float(batch_idx),
                     "loss_batch": float(loss.item()),
                     "avg_train_loss_till_current_batch": np.nan,
@@ -323,7 +331,15 @@ def train(
                 report = pd.concat([report, pd.DataFrame([new_row])], ignore_index=True)
         
         # Save sample reconstructions from validation set
-        save_reconstructions(model, val_loader, device, save_dir=save_dir, epoch=epoch, num_samples=8)
+        if handler_postfix is not None:
+            handler_postfix(
+                model=model,
+                dataloader=val_loader,
+                device=device,
+                save_dir=os.path.join(save_dir, f"reconstructions_epoch{epoch}"),
+                epoch=epoch,
+                num_samples=8
+            )
         
         # Save checkpoint
         if epoch % ckpt_save_freq == 0:

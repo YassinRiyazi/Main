@@ -1,0 +1,1 @@
+nohup /home/d2u25/Desktop/Main/doc/Devlog/UBUNTU/Scripts/Posture.sh > /dev/null 2>&1 &
