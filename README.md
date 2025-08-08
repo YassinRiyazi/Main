@@ -1,10 +1,11 @@
 # Main
-> [!IMPORTANT]
+
+>[!IMPORTANT]
 > Use this repo to 
 > 1. organize 
 > 2. document 
 > 3. store 
-> 
+
 > all my effort during my __journey__. 
 
 > [!NOTE]
@@ -66,13 +67,10 @@ Investing in ETF
 
 MAke path-embedding
     Process CA plots
-
-Train AI
-
-Sajjad Xioami Dataset plot - He said Plot it you self
+    Train AI
 
 Read Gabi introduction
 
 Open surf files with python
 
-FACE depth map
+Memrise

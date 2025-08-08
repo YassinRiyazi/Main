@@ -43,6 +43,7 @@ def handler_supervised(Args:tuple[torch.Tensor, torch.Tensor],
     loss = criterion(output, Args[1])
     return output, loss
 
+
 SEQUENCE_LENGTH = 20
 batch_size  = 100
 data_dir='/media/d2u25/Dont/frames_Process_15_Patch'

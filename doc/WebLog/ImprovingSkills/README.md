@@ -1,24 +1,13 @@
 [beej](https://beej.us/guide/bgnet/)
 
-I am a PhD student in mechanical engineering seeking recommendations and road map to enhance my skills. 
-I want to know what is the proper order of studying these topics in addition. Am I missing anything? Is there any skill that I forgot? Be comprehensive. I want a 3-year plan.
+I am a PhD student in mechanical engineering seeking recommendations and a map to enhance my skills. I want to know what is the proper order of studying these topics in addition. Am I missing anything? Is there any skill that I forgot? Be comprehensive. I want a 3-year plan. If you see any skill gap mention it. 
 
+I have the following books
 1. A Tour of C++ – builds the foundation quickly
-    Why: Best modern C++ overview, concise but complete (C++11–17).
-    Covers classes, templates, smart pointers, and STL fundamentals – everything you need for clean design in your raytracer and parser.
-    Read first, then go deeper with Effective C++ and STL books.
-2. Effective C++ – learn best practices
-    Why: Shows you how to write clean, bug-free, performant code with idiomatic C++.
-    Covers memory management, resource handling, class design, operator overloading, and more – critical for a raytracer engine.
+2. Effective C++: 55 Specific Ways to Improve Your Programs and Designs (Addison-Wesley Professional Computing)    
 3. Effective STL – master STL containers for parser/raytracer
-    Why: The parser tool will involve containers, iterators, and algorithms heavily.
-    Helps you avoid STL pitfalls and teaches performance-conscious patterns for maps, vectors, strings, etc.
 4. Design Patterns (GoF) – structure components properly
-    Why: The parser/doc tool is essentially a framework, not a small project.
-    This book is about modularization, dependencies, and layering in large C++ codebases – invaluable for your tool.
 5. Large-Scale C++ Software Design – for the parser/doc framework
-    Why: The raytracer and parser will benefit from patterns like Visitor, Factory, Composite, Observer.
-    The parser in particular will require AST visitors and extensible components – this book will help you design those cleanly.
 
 My goal is to tackle cutting-edge problems in industry or academia, focusing on real-world applications.
 During my master’s degree, I completed coursework in control systems and deep learning, gaining proficiency in Python and PyTorch. My master’s thesis focused on predicting chaotic dynamical systems using the Koopman operator with deep learning-based numerical implementations.
@@ -35,7 +24,6 @@ Difficulty distributing tasks across multiple computers.
 Inability to effectively utilize relevant GitHub repositories written in C/C++ due to limited expertise.
 
 To address these, I plan to deepen my expertise in C/C++ and CUDA while advancing my Python skills. Specifically, I am eager to learn inter-process communication (IPC), MPI, GDB, Pthreads, sockets, Cython, and assembly (to optimize for L1/L2 caching). Additionally, I want to master multithreading, C++20 features, and C/C++-Python bindings.
-
 3 Years Plan:
     Books:
     – Effective C++ & Effective STL (semesters 1–2)

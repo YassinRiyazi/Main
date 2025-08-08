@@ -7,43 +7,17 @@ import  numpy       as      np
 from    torch.optim import  lr_scheduler
 from    tqdm        import  tqdm
 from    datetime    import  datetime
-from torchvision.utils import save_image
 from typing import Callable, Optional, Union
 
-def save_reconstructions(model: nn.Module,
-                         dataloader: torch.utils.data.DataLoader,
-                         device: torch.device,
-                         save_dir: str,
-                         epoch: int,
-                         num_samples: int = 8) -> None:
-    """Save a batch of original and reconstructed images from the dataloader.
-    Args:
-        model (nn.Module): The trained autoencoder model
-        dataloader (torch.utils.data.DataLoader): DataLoader for validation or test set
-        device (torch.device): Device to run the model on
-        save_dir (str): Directory to save the images
-        epoch (int): Current epoch number for naming
-        num_samples (int): Number of samples to save from the batch
-    Returns:
-        None: Saves images to the specified directory.
-    """
-    model.eval()
-    os.makedirs(save_dir, exist_ok=True)
-    with torch.no_grad():
-        for data, _ in dataloader:
-            data = data.to(device)
-            recon = model(data)
-            # Take only the first num_samples
-            originals = data[:num_samples]
-            reconstructions = recon[:num_samples]
-            # Save originals and reconstructions
-            save_image(originals, os.path.join(save_dir, f'originals_epoch{epoch}.png'), nrow=num_samples)
-            save_image(reconstructions, os.path.join(save_dir, f'reconstructions_epoch{epoch}.png'), nrow=num_samples)
-            break  # Only process the first batch
 
 class AverageMeter(object):
     """
     computes and stores the average and current value
+
+    Author: 
+        - Farshad Sangari
+        
+    Date: 08-08-2023
     """
     def __init__(self, start_val=0, start_count=0, start_avg=0, start_sum=0):
         self.reset()
@@ -81,9 +55,26 @@ def create_save_dir(base_path: str, model_name: str) -> os.PathLike:
     return save_dir
 
 
-def save_model(file_path, file_name, model, optimizer=None):
+def save_model(file_path: str,
+               file_name: str,
+               model: nn.Module,
+               optimizer=None) -> None:
     """
     Save model and optimizer state
+
+    Args:
+        file_path (str): Directory to save the model
+        file_name (str): Name of the file to save the model
+        model (nn.Module): PyTorch model to save
+        optimizer (Optional[nn.Module]): Optimizer to save (if available)
+    Returns:
+        None: Saves the model state to the specified file
+
+    Authors: 
+        - Yassin Riyazi
+        - Farshad Sangari
+
+    Date: 08-08-2025
     """
     state_dict = dict()
     state_dict["model"] = model.state_dict()
@@ -93,9 +84,18 @@ def save_model(file_path, file_name, model, optimizer=None):
     torch.save(state_dict, os.path.join(file_path, file_name))
 
 
-def load_model(ckpt_path, model, optimizer=None):
+def load_model(ckpt_path: Union[str, os.PathLike],
+               model: nn.Module,
+               optimizer=None)-> tuple[nn.Module, Optional[nn.Module]]:
     """
     Load model and optimizer state from checkpoint
+    Args:
+        ckpt_path (Union[str, os.PathLike]): Path to the checkpoint file
+        model (nn.Module): PyTorch model to load state into
+        optimizer (Optional[nn.Module]): Optimizer to load state into (if available)
+    Returns:
+        model (nn.Module): Model with loaded state
+        optimizer (Optional[nn.Module]): Optimizer with loaded state (if provided)
     """
     checkpoint = torch.load(ckpt_path, map_location=torch.device("cpu"))
     model.load_state_dict(checkpoint["model"])
@@ -103,38 +103,81 @@ def load_model(ckpt_path, model, optimizer=None):
         optimizer.load_state_dict(checkpoint["optimizer"])
     return model, optimizer
 
-def normal_accuracy(pred,labels):    
-    return ((pred.argmax(dim=1)==labels).sum()/len(labels))*100
+def normal_accuracy(pred: torch.Tensor, labels: torch.Tensor) -> float:
+    """
+    Calculate the accuracy of predictions against true labels.
+    Args:
+        pred (torch.Tensor): Predictions from the model
+        labels (torch.Tensor): True labels
+    Returns:
+        float: Accuracy as a percentage
+    """
+    return ((pred.argmax(dim=1) == labels).sum() / len(labels)) * 100
 
-def teacher_forcing_decay(epoch, num_epochs):
+def teacher_forcing_decay(epoch: int, num_epochs: int) -> float:
+    """
+    Calculate the teacher forcing ratio for a given epoch.
+    Args:
+        epoch (int): Current epoch number
+        num_epochs (int): Total number of epochs
+    Returns:
+        float: Teacher forcing ratio for the current epoch"""
     initial_tf_ratio = 1.0
     final_tf_ratio = 0.01
     decay_rate = (final_tf_ratio / initial_tf_ratio) ** (1 / (num_epochs - 1))
 
-    tf_ratio = max(0.01,initial_tf_ratio * (decay_rate ** epoch))
+    tf_ratio = max(0.01, initial_tf_ratio * (decay_rate ** epoch))
     return tf_ratio
 
-def hard_negative_mining(model, dataloader, criterion, device, num_hard_samples=2000):
+def HardNegativeMiningPostHandler(args: tuple[torch.Tensor, ...]) -> np.ndarray:
+    """
+    Post-processing handler for hard negative mining.
+    This function can be customized to save or visualize hard negative samples.
+    Currently, it does nothing but can be extended as needed.
+    Args:
+        args (tuple[torch.Tensor, ...]): Tuple containing the data and possibly other tensors
+    Returns:
+        np.ndarray: Processed data, currently just returns the first tensor in args as a numpy array
+    """
+    return args[0].numpy()  # Assuming args is a tuple with the first element being the data
+
+def hard_negative_mining(model: nn.Module,
+                         dataloader: torch.utils.data.DataLoader,
+                         handler: Callable, #TODO: Make this more flexible for different model types
+                         HardNegativeMiningPostHandler: Callable,
+                         criterion: nn.Module,
+                         device: str,
+                         num_hard_samples: int = 2000) -> torch.utils.data.DataLoader:
     """
     Select the hardest examples (highest loss) from the dataset
     Returns a new DataLoader containing only the hard examples
+
+    Args:
+        model (nn.Module): The trained model to evaluate
+        dataloader (torch.utils.data.DataLoader): DataLoader for the dataset
+        criterion (nn.Module): Loss function to compute the loss
+        device (str): Device to run the model on ('cuda' or 'cpu')
+        num_hard_samples (int): Number of hard examples to select
+    Returns:
+        torch.utils.data.DataLoader: DataLoader containing only the hard examples
+
+    TODO:
+        - Add handler for different model types (e.g., CNN, LSTM)
     """
     model.eval()
     losses = []
     all_data = []
     
     with torch.no_grad():
-        for data, _ in dataloader:
-            data = data.to(device)
-            recon = model(data)
-            loss = criterion(recon, data)
+        for args in dataloader:
+            output, loss = handler(args, criterion, model)
             # If loss is a scalar, reshape it to match batch size
             if loss.dim() == 0:
                 loss = loss.unsqueeze(0)
             # Calculate per-sample loss
             per_sample_loss = loss.view(-1)
             losses.extend(per_sample_loss.cpu().numpy())
-            all_data.append(data.cpu().numpy())
+            all_data.append(HardNegativeMiningPostHandler(args))
     
     # Convert to numpy arrays
     losses = np.array(losses)
@@ -157,21 +200,7 @@ def hard_negative_mining(model, dataloader, criterion, device, num_hard_samples=
     
     return hard_loader
 
-
-
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-def handler_selfSupervised(Args:tuple[torch.Tensor, torch.Tensor],
-                           criterion: nn.Module,
-                           model: nn.Module):
-    data = Args[0].data.to(device)
-    data = data.contiguous()
-
-    output = model(data)
-    loss = criterion(output, data)
-    return output, loss
-
-
 
 def train(
     model: nn.Module,
@@ -186,7 +215,7 @@ def train(
     ckpt_save_path: Union[str, os.PathLike],
 
     handler: Callable[[tuple[torch.Tensor, torch.Tensor], nn.Module, nn.Module], None],
-    handler_postfix: Optional[Callable] = save_reconstructions,
+    handler_postfix: Union[Callable, None],
 
     ckpt_path: Union[str, os.PathLike] = None,
     report_path: Union[str, os.PathLike] = None,
@@ -225,6 +254,12 @@ def train(
 
     TODO:
         - Plot training loss over epochs real time in the terminal or a window
+
+    Authors: 
+        - Yassin Riyazi
+        - Farshad Sangari
+        
+    Date: 08-08-2025
     """
     # Create timestamped directory for this training run
     save_dir = create_save_dir(ckpt_save_path, model_name)
