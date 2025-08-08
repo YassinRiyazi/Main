@@ -27,7 +27,7 @@ if torch.cuda.is_available():
 torch.set_float32_matmul_precision('high')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-EmbeddingSize = 128
+EmbeddingSize = 256
 
 
 
@@ -155,5 +155,29 @@ def trainer(
         num_hard_samples=num_hard_samples
     )
 
+
+def Main(EmbeddingSize: int = 256):
+    """
+    Main function to run the training process.
+    Args:
+        EmbeddingSize (int): Size of the embedding dimension for the autoencoder.
+    """
+    trainer(
+        data_dir='/media/d2u25/Dont/frames_Process_15_Patch',
+        model_name=f'cnn_autoencoder_{EmbeddingSize}',
+        epochs=20,
+        batch_size=128,
+        learning_rate=0.0005,
+        device='cuda' if torch.cuda.is_available() else 'cpu',
+        ckpt_save_freq=3,
+        ckpt_save_path=os.path.join(os.path.dirname(__file__), 'checkpoints'),
+        ckpt_path=None,
+        report_path=os.path.join(os.path.dirname(__file__), 'training_report.csv'),
+        use_hard_negative_mining=False,
+        hard_mining_freq=2,
+        num_hard_samples=1000,
+        EmbeddingSize=EmbeddingSize)
+    
 if __name__ == '__main__':
-    trainer() 
+    for ii in [10, 50, 256, 512, 1024]:
+        Main(EmbeddingSize=ii)

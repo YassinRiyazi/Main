@@ -9,6 +9,46 @@ from    tqdm        import  tqdm
 from    datetime    import  datetime
 from typing import Callable, Optional, Union
 
+import  subprocess
+
+def monitor_gpu_temperature(threshold: int = 70,
+                            sleep_seconds: int = 5,
+                            gpu_id: int = 0,
+                            verbose: bool = False) -> None:
+    """
+    Checks the GPU temperature and sleeps if it exceeds a threshold.
+
+    Args:
+        threshold (int): Temperature in Celsius above which the function sleeps.
+        sleep_seconds (int): Number of seconds to sleep when the threshold is exceeded.
+        gpu_id (int): ID of the GPU to monitor.
+
+    returns:
+        None: The function will print a warning and sleep if the temperature exceeds the threshold.
+    """
+    try:
+        # Query GPU temperature using nvidia-smi
+        result = subprocess.run(
+            ["nvidia-smi", f"--query-gpu=temperature.gpu", "--format=csv,noheader,nounits", f"-i={gpu_id}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            check=True
+        )
+        temp = int(result.stdout.strip())
+
+        if temp > threshold:
+            if verbose:
+                print(f"[WARNING] GPU {gpu_id} temperature {temp}°C exceeds {threshold}°C. Sleeping for {sleep_seconds}s...")
+            time.sleep(sleep_seconds)
+        else:
+            if verbose:
+                print(f"[INFO] GPU {gpu_id} temperature {temp}°C is within safe limits.")
+
+    except subprocess.CalledProcessError as e:
+        print(f"[ERROR] Failed to get GPU temperature: {e.stderr}")
+    except ValueError:
+        print("[ERROR] Could not parse GPU temperature.")
 
 class AverageMeter(object):
     """
@@ -223,7 +263,9 @@ def train(
     Validation_save_threshold: float = 0.0,
     use_hard_negative_mining: bool = True,
     hard_mining_freq: int = 1,  # Perform hard negative mining every N epochs
-    num_hard_samples: int = 1000  # Number of hard examples to select
+    num_hard_samples: int = 1000,  # Number of hard examples to select
+    GPU_temperature: int = 70,
+    GPU_overheat_sleep: float = 5.0,
 ) -> tuple[nn.Module, nn.Module, pd.DataFrame]:
     """
     Standard training loop for autoencoder models with hard negative mining
@@ -246,6 +288,8 @@ def train(
         use_hard_negative_mining (bool): Whether to use hard negative mining
         hard_mining_freq (int): Frequency of hard negative mining (in epochs)
         num_hard_samples (int): Number of hard examples to select
+        GPU_temperature (int): Temperature threshold for GPU monitoring
+        GPU_overheat_sleep (float): Sleep time in seconds if GPU temperature exceeds threshold
 
     Returns:
         model (nn.Module): Trained model
@@ -339,6 +383,8 @@ def train(
             
             # Append to report
             report = pd.concat([report, pd.DataFrame([new_row])], ignore_index=True)
+            if batch_idx % 10 == 0:  # Monitor GPU temperature every 10 batches
+                monitor_gpu_temperature(threshold=GPU_temperature, sleep_seconds=GPU_overheat_sleep)
 
         # Validation phase
         model.eval()
@@ -372,7 +418,8 @@ def train(
                 
                 # Append to report
                 report = pd.concat([report, pd.DataFrame([new_row])], ignore_index=True)
-        
+                if batch_idx % 10 == 0:  # Monitor GPU temperature every 10 batches
+                    monitor_gpu_temperature(threshold=GPU_temperature, sleep_seconds=GPU_overheat_sleep)
         # Save sample reconstructions from validation set
         if handler_postfix is not None:
             handler_postfix(
