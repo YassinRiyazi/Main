@@ -31,14 +31,6 @@ EmbeddingSize = 128
 
 
 
-
-
-
-
-
-
-
-
 def handler_selfSupervised_dataHandler(Args: tuple[torch.Tensor, torch.Tensor],
                                        model: nn.Module,
                                        device: torch.device) -> torch.Tensor:
@@ -80,16 +72,22 @@ def save_reconstructions(
     model.eval()
     os.makedirs(save_dir, exist_ok=True)
     with torch.no_grad():
-        for Args in dataloader:
+        for i, Args in enumerate(dataloader):
             _, recon = dataHandler(Args, model, device)
             # Take only the first num_samples
             originals = Args[0][:num_samples]
-            reconstructions = recon[:num_samples]
+
+            total_samples = originals.size(0)
+            rand_indices = torch.randperm(total_samples)[:num_samples]
+            originals = originals[rand_indices] 
             originals = originals.squeeze(1)  # Remove channel dimension if present
+
+            reconstructions = recon[:num_samples]
             # Save originals and reconstructions
-            save_image(originals, os.path.join(save_dir, f'originals_epoch{epoch}.png'), nrow=num_samples)
-            save_image(reconstructions, os.path.join(save_dir, f'reconstructions_epoch{epoch}.png'), nrow=num_samples)
-            break  # Only process the first batch
+            save_image(originals, os.path.join(save_dir, f'originals_epoch{epoch}_batch{i}.png'), nrow=num_samples)
+            save_image(reconstructions, os.path.join(save_dir, f'reconstructions_epoch{epoch}_batch{i}.png'), nrow=num_samples)
+            if i >= 5:  # Limit to first 5 batches
+                break  # Only process the 5 batch
 
 
 def trainer(
