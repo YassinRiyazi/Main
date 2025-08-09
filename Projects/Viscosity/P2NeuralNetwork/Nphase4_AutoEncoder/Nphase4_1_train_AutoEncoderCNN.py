@@ -165,7 +165,7 @@ def Main(EmbeddingSize: int = 256):
     trainer(
         data_dir='/media/d2u25/Dont/frames_Process_15_Patch',
         model_name=f'cnn_autoencoder_{EmbeddingSize}',
-        epochs=20,
+        epochs=10,
         batch_size=128,
         learning_rate=0.0005,
         device='cuda' if torch.cuda.is_available() else 'cpu',

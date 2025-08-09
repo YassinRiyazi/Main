@@ -48,6 +48,7 @@ class LSTMModel(nn.Module):
         out, _ = self.lstm(x, (self.h, self.c))
         out = out[:, -1, :]  # take the last hidden state
         out = self.fc(out)
+        out = torch.sigmoid(out)  # Add sigmoid to constrain to 0-1
         return out
     
     def reset_states(self,x: torch.Tensor) -> None:
@@ -96,7 +97,7 @@ class Encoder_LSTM(torch.nn.Module):
 
         self.load_autoencoder(address_autoencoder, embedding_dim=input_dim)
 
-        self.BN = nn.BatchNorm1d(input_dim, device=self.device)  # Batch normalization layer
+        self.LN = nn.LayerNorm(input_dim, device=self.device)  # Layer normalization layer
 
         self.lstm = LSTMModel(input_dim=input_dim,
                               hidden_dim=hidden_dim,
@@ -119,11 +120,8 @@ class Encoder_LSTM(torch.nn.Module):
             x = self.autoencoder.Embedding(x)  # (batch_size * seq_length, input_dim)
             x = x.view(_shape[0], _shape[1], self.Properties["input_dim"])  # (batch_size, seq_length, input_dim)
 
-        # Apply batch normalization
-        x = x.view(-1, self.Properties["input_dim"])  # (batch_size * seq_length, input_dim)
-        x = self.BN(x)
-        x = x.view(_shape[0], _shape[1], self.Properties["input_dim"])  # (batch_size, seq_length, input_dim)
-
+        # Apply LayerNorm directly (no flattening needed)
+        x = self.LN(x)
         out = self.lstm(x)  # (batch_size, 1)
         return out.squeeze(1)  # (batch_size,)
 

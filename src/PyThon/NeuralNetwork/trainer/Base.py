@@ -378,7 +378,8 @@ def train(
                 "batch_index": float(batch_idx),
                 "loss_batch": float(loss.item()),
                 "avg_train_loss_till_current_batch": float(loss_avg_train.avg),
-                "avg_val_loss_till_current_batch": np.nan
+                "avg_val_loss_till_current_batch": np.nan,
+                "lr": float(optimizer.param_groups[0]["lr"]),
             }
             
             # Append to report
@@ -413,7 +414,8 @@ def train(
                     "batch_index": float(batch_idx),
                     "loss_batch": float(loss.item()),
                     "avg_train_loss_till_current_batch": np.nan,
-                    "avg_val_loss_till_current_batch": float(loss_avg_val.avg)
+                    "avg_val_loss_till_current_batch": float(loss_avg_val.avg),
+                    
                 }
                 
                 # Append to report
@@ -451,7 +453,7 @@ def train(
             )
         
         # Update learning rate
-        if (lr_scheduler is not None) and (epoch % hard_mining_freq == 3):
+        if (lr_scheduler is not None):
             lr_scheduler.step()
         
         # Save report
